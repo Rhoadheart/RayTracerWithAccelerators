@@ -24,7 +24,9 @@ namespace project
                     var filePath = openFileDialog1.FileName;
                     using (Stream str = openFileDialog1.OpenFile())
                     {
+                        //Read InputFile parameters
                         Process.Start("notepad.exe", filePath);
+                        
                     }
                 }
                 catch (SecurityException ex)
