@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Security;
+using System.Collections.Generic;
+using System.Collections;
 using System.Windows.Forms;
 
 namespace project
@@ -39,6 +41,8 @@ namespace project
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Point p1 = new Point(1, 2, 3);
+            Triangle trn = new Triangle(p1, p1, p1);
 
         }
     }
