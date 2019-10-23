@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace project
 {
+
     class Camera
     {
+        
     }
 }

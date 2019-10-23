@@ -7,6 +7,7 @@ using System.Security;
 using System.Collections.Generic;
 using System.Collections;
 using System.Windows.Forms;
+using Nexus;
 
 namespace project
 {
@@ -43,6 +44,13 @@ namespace project
         {
             Point p1 = new Point(1, 2, 3);
             Triangle trn = new Triangle(p1, p1, p1);
+
+            Nexus.Matrix3D mat1 = new Matrix3D(1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 0, 0, 0, 1);
+            mat1 = mat1 * mat1;
+            label2.Text = mat1.M11 + ", " + mat1.M12 + ", " + mat1.M13 + ", " + mat1.M14;
+
+
+
 
         }
     }
