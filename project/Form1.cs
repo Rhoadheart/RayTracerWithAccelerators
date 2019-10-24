@@ -46,7 +46,7 @@ namespace project
             Triangle trn = new Triangle(p1, p1, p1);
 
             Matrix4x4 mat1 = new Matrix4x4();
-
+            
 
             
 

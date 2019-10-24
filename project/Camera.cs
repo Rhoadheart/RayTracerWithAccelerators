@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
-using Ray.cs;
 
-namespace project
+namespace project.RayTracing
 {
 
     class Camera
@@ -51,10 +50,11 @@ namespace project
          * Method for getting a ray at a particular position given screen Coordinates
          * </summary>
          */
-        /*public Ray getRay(Point screenCoords)
+        public Ray getRay(Point screenCoords)
         {
-
+            
+            return null;
         }
-        */
+        
     }
 }
