@@ -23,7 +23,7 @@ namespace project.RayTracing
          * Default constructor for camera tkaing vectors (u,v,n), Position p, resolution width, resolution height  
          * </summary>
          */
-        public Camera(Vector3 u, Vector3 v, Vector3 n, Point p, int resX, int resY)
+        public Camera(Point p, Point LookAt, Vector3 Up, int resX, int resY)
         {
             this.u = u;
             this.v = v;
@@ -52,7 +52,19 @@ namespace project.RayTracing
          */
         public Ray getRay(Point screenCoords)
         {
+            Matrix4x4 Model = new Matrix4x4();
+            Matrix4x4 Projection = new Matrix4x4();
+            Matrix4x4 View = new Matrix4x4();
+
+            Matrix4x4 MInverse;
+            bool succeeded = Matrix4x4.Invert(Matrix4x4.Multiply(Projection, View), out MInverse);
             
+            if (succeeded)
+            {
+
+            }
+            
+
             return null;
         }
         

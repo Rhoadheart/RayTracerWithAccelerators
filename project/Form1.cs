@@ -9,7 +9,7 @@ using System.Collections;
 using System.Windows.Forms;
 using System.Numerics;
 
-namespace project
+namespace project.RayTracing
 {
     public partial class Form1 : Form
     {
@@ -42,17 +42,14 @@ namespace project
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Point p1 = new Point(1, 2, 3);  
-            Triangle trn = new Triangle(p1, p1, p1);
-
-            Matrix4x4 mat1 = new Matrix4x4();
             
 
-            
+        }
 
-
-
-
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Test test = new Test();
+            test.Run();
         }
     }
 }
