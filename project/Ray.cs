@@ -58,6 +58,26 @@ namespace project.RayTracing
             }
         }
 
+        /**
+         * <summary> 
+         * Getter for the origin
+         * </summary>
+         */
+        public Point getOrigin()
+        {
+            return this.origin;
+        }
+
+        /**
+         * <summary>
+         * Getter for the direction
+         * </summary>
+         */
+        public Vector3 getDirection()
+        {
+            return this.direction;
+        }
+
 
     }
 }
