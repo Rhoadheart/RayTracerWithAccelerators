@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace project
+namespace project.RayTracing
 {
     class Triangle
     {
