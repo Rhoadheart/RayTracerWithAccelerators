@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 
 namespace project.RayTracing
@@ -29,14 +30,16 @@ namespace project.RayTracing
 
         /**
          * <summary>
-         * Determines if the given Ray intersects with this Triangle
+         * Determines if the given ray intersects with this Triangle
          * </summary>
          */
-         /*
         public bool intersection(Ray r)
         {
+            //Computing s1
+            Vector3 e1 = this.p2 - this.p1;
 
+            return false;
         }
-        */
+        
     }
 }

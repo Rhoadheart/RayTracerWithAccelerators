@@ -11,6 +11,7 @@ namespace project.RayTracing
     {
         Point origin;
         Vector3 direction;
+        float maxT;
 
         public Ray(Point origin, Vector3 direction)
         {
@@ -29,6 +30,34 @@ namespace project.RayTracing
             Vector3 output = Vector3.Add(Vector3.Multiply(direction, (float)dist), new Vector3(origin.x, origin.y, origin.z));
             return new Point(output.X, output.Y, output.Z);
         }
+
+        /**
+         * <summary> 
+         * Updates the current rays maxT with a given int
+         * </summary>
+         */
+        public void updatemaxT(float maxT)
+        {
+            this.maxT = maxT;
+        }
+
+        /**
+         * <summary>
+         * Returns this rays maxT value
+         * </summary>
+         */
+        public float? getMaxT()
+        {
+            if(this.maxT == null)
+            {
+                return null;
+            }
+            else
+            {
+                return this.maxT;
+            }
+        }
+
 
     }
 }
