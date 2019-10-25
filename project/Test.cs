@@ -88,12 +88,13 @@ namespace project.RayTracing
                 Console.WriteLine("Triangle Test Failed: " + e.Message);
             }
 
-            Camera c1 = new Camera(origin, new Point(1, 0, 0), up, 1920, 1080);
+            Camera c1 = new Camera(origin, new Point(0, 0, 1), up, 1920, 1080);
             //Tests for Camera Class
             try
             {
                 //TODO: Not Working just yet...
                 Console.WriteLine(c1.getRay(new Point(960, 540, 0)));
+                
                
 
                 Console.WriteLine("Camera Tests Failed");
