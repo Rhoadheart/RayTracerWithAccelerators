@@ -17,6 +17,7 @@ namespace project.RayTracing
         {
             this.origin = origin;
             this.direction = Vector3.Normalize(direction);
+            this.maxT = float.MaxValue;
         }
 
         /**
@@ -76,6 +77,11 @@ namespace project.RayTracing
         public Vector3 getDirection()
         {
             return this.direction;
+        }
+
+        public override string ToString()
+        {
+            return "origin: " + this.origin + ", direction: " + direction;
         }
 
 

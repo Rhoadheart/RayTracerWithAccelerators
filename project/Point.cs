@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace project.RayTracing
 {
-    class Point
+    class Point : IEquatable<Point>
     {
         public float x;
         public float y;
@@ -37,6 +37,12 @@ namespace project.RayTracing
             return vectA - vectB;
         }
 
+
+        public static Point Sub(Point a, Point b)
+        {
+            return new Point(a.getX() - b.getX(), a.getY() - b.getY(), a.getZ() - b.getZ());
+        }
+
         /**
          * <summary>
          * Takes 2 point objects and adds A to B coordinate-wise
@@ -47,6 +53,22 @@ namespace project.RayTracing
             Vector3 vectA = a.toVector3();
             Vector3 vectB = b.toVector3();
             return vectA + vectB;
+        }
+
+        public static Point Add(Point a, Point b)
+        {
+            return new Point(a.getX() + b.getX(), a.getY() + b.getY(), a.getZ() + b.getZ());
+        }
+
+        /**
+         * <summary>
+         * Takes a point object and multiplies it partwise by a scalar point
+         * </summary>
+         * 
+         */
+        public static Point operator*(Point a, Point scalar)
+        {
+            return new Point(a.getX() * scalar.getX(), a.getY() * scalar.getY(), a.getZ() * scalar.getZ());
         }
 
         /**
@@ -61,7 +83,7 @@ namespace project.RayTracing
 
         /**
          * <summary>
-         * Returns this points x coordinate
+         * Returns this point's x coordinate
          * </summary>
          */
         public float getX()
@@ -71,7 +93,7 @@ namespace project.RayTracing
 
         /**
          * <summary>
-         * Returns this points y coordinate
+         * Returns this point's y coordinate
          * </summary>
          */
         public float getY()
@@ -81,13 +103,67 @@ namespace project.RayTracing
 
         /**
          * <summary>
-         * Returns this points z coordinate
+         * Returns this point's z coordinate
          * </summary>
          */
         public float getZ()
         {
             return this.z;
         }
-        
+
+        /// <summary>
+        /// Calls the Equals method within the Point class.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Point);
+        }
+
+        /// <summary>
+        /// Compares two points based on their values.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Point other)
+        {
+            if (this.getX() == other.getX() && this.getY() == other.getY() && this.getZ() == other.getZ())
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Operator overload for ==
+        /// Calls Point.Equals()
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator==(Point a, Point b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Operator overload for !=
+        /// Calls !Point.Equals()
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator!=(Point a, Point b)
+        {
+            return !a.Equals(b);
+        }
+
+        public override string ToString()
+        {
+            return this.getX() + ", " + this.getY() + ", " + this.getZ();
+        }
+
+
+
+
     }
 }

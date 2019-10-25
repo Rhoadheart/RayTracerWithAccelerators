@@ -61,6 +61,13 @@ namespace project.RayTracing
             {
                 return false;
             }
+
+            //Check for positive T
+            float t = Vector3.Dot(edge2, s2) * invDivisor;
+            if (t < 0 ||  t > r.getMaxT()){
+                return false;
+            }
+
             return true;
         }
         
