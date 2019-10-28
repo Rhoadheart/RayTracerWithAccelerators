@@ -19,9 +19,6 @@ namespace project
             g.Dispose();
             b.Save(outputFilePath, System.Drawing.Imaging.ImageFormat.Png);
             b.Dispose();
-            
-            
-
         }
         /*
          * 

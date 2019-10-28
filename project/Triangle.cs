@@ -11,16 +11,16 @@ namespace project.RayTracing
 {
     class Triangle
     {
-        Point p1;
-        Point p2;
-        Point p3;
+        Vector3 p1;
+        Vector3 p2;
+        Vector3 p3;
 
         /**
          * <summary>
          * Default Triangle constructor given 3 points
          * </summary>
          */
-        public Triangle(Point p1, Point p2, Point p3)
+        public Triangle(Vector3 p1, Vector3 p2, Vector3 p3)
         {
             this.p1 = p1;
             this.p2 = p2;

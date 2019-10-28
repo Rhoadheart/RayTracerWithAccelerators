@@ -9,11 +9,11 @@ namespace project.RayTracing
 {
     class Ray
     {
-        Point origin;
+        Vector3 origin;
         Vector3 direction;
         float maxT;
 
-        public Ray(Point origin, Vector3 direction)
+        public Ray(Vector3 origin, Vector3 direction)
         {
             this.origin = origin;
             this.direction = Vector3.Normalize(direction);
@@ -26,10 +26,10 @@ namespace project.RayTracing
          * </summary>
          * 
          */ 
-        public Point at(double dist)
+        public Vector3 at(double dist)
         {
-            Vector3 output = Vector3.Add(Vector3.Multiply(direction, (float)dist), new Vector3(origin.x, origin.y, origin.z));
-            return new Point(output.X, output.Y, output.Z);
+            Vector3 output = Vector3.Add(Vector3.Multiply(direction, (float)dist), new Vector3(origin.X, origin.Y, origin.Z));
+            return new Vector3(output.X, output.Y, output.Z);
         }
 
         /**
@@ -49,14 +49,7 @@ namespace project.RayTracing
          */
         public float? getMaxT()
         {
-            if(this.maxT == null)
-            {
-                return null;
-            }
-            else
-            {
                 return this.maxT;
-            }
         }
 
         /**
@@ -64,7 +57,7 @@ namespace project.RayTracing
          * Getter for the origin
          * </summary>
          */
-        public Point getOrigin()
+        public Vector3 getOrigin()
         {
             return this.origin;
         }
