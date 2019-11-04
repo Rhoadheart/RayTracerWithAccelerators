@@ -61,13 +61,30 @@ namespace project.RayTracing
 
 
             Camera c1 = new Camera(origin, new Vector3(1, 0, 0), up, 1920, 1080);
+            Camera c2 = new Camera(new Vector3(2, 2, 0), new Vector3(0,0,0), up, 1920, 1080);
+            Camera c3 = new Camera(new Vector3(-3, -3, -3), new Vector3(0, 0, 0), up, 1920, 1080);
             //Tests for Camera Class
             try
             {
-                if(c1.getRay(new Vector2(960, 540)).getOrigin() != origin)
+                
+                if (c1.getRay(new Vector2(960, 540)).getOrigin() != origin)
                     throw new Exception("getRay() Test Failed. Origin Mismatch");
                 if (c1.getRay(new Vector2(960, 540)).getDirection() != new Vector3(1,0,0))
                     throw new Exception("getRay() Test Failed. Direction Mismatch");
+                if (c2.getRay(new Vector2(960, 540)).getOrigin() != new Vector3(2, 2, 0))
+                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
+                if (c2.getRay(new Vector2(960, 540)).getDirection() != new Vector3(-.7071068f, -.7071068f, 0))
+                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
+                if (c3.getRay(new Vector2(960,540)).getOrigin() != new Vector3(-3,-3,-3))
+                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
+                if (c3.getRay(new Vector2(960, 540)).getDirection() != new Vector3(.577350259f, .577350259f, .577350259f))
+                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
+                
+                //FOV is not scaling correctly for some reason. Need to discuss this with Dr. Wolff on Monday
+                /*
+                if (c1.getRay(new Vector2(960,1080)).getDirection() != new Vector3(.8817917f, .4716390f, 0))
+                    throw new Exception("getRay() Test Failed. Camera Produced a Miscalculated Ray based on the FOV");
+                */
 
 
 

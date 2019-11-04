@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using MyExtensions;
 
 namespace project.RayTracing
 {
@@ -63,19 +64,22 @@ namespace project.RayTracing
 
             //Centering the point 
             Vector3 CartisianPoint = new Vector3(Ws / 2, Hs / 2, 0);
-
             Vector3 FOVScalar = new Vector3((Wc / Ws), (Hc / Hs), 1);
+
 
             Vector3 adjustedPosition = (new Vector3(screenCoords.X, screenCoords.Y, 1) - CartisianPoint) * FOVScalar;
 
 
 
+            
             Matrix4x4 MInverse = new Matrix4x4(u.X, v.X, n.X, p.X, 
                                                u.Y, v.Y, n.Y, p.Y, 
                                                u.Z, v.Z, n.Z, p.Z, 
                                                0,   0,   0,   1  );
             
-            Ray q = new Ray(p, Vector3.Transform(adjustedPosition, MInverse)); 
+            
+            
+            Ray q = new Ray(p, -adjustedPosition.ApplyMatrix(MInverse)); 
             return q;
         }
         
