@@ -11,6 +11,11 @@ namespace project
     {
         Bitmap b;
 
+        /// <summary>
+        /// Creates an image based off a bitmap 
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="outputFilePath"></param>
         public Image(Bitmap b, string outputFilePath)
         {
             this.b = b;

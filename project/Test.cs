@@ -9,6 +9,9 @@ namespace project.RayTracing
 {
     class Test
     {
+        /// <summary>
+        /// Method for running all tests
+        /// </summary>
         public void Run()
         {
             Vector3 origin = new Vector3(0, 0, 0);
