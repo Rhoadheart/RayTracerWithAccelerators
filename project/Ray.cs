@@ -12,7 +12,13 @@ namespace project.RayTracing
         Vector3 origin;
         Vector3 direction;
         float maxT;
+        float minT;
 
+        /// <summary>
+        /// Default constructor for creating a ray
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="direction"></param>
         public Ray(Vector3 origin, Vector3 direction)
         {
             this.origin = origin;
@@ -20,58 +26,59 @@ namespace project.RayTracing
             this.maxT = float.MaxValue;
         }
 
-        /**
-         * <summary>
-         * Returns a point along the ray at a given distance.
-         * </summary>
-         * 
-         */ 
+        /// <summary>
+        /// Returns a point along the ray at the given distance
+        /// </summary>
+        /// <param name="dist"></param>
+        /// <returns></returns>
         public Vector3 at(double dist)
         {
             Vector3 output = Vector3.Add(Vector3.Multiply(direction, (float)dist), new Vector3(origin.X, origin.Y, origin.Z));
             return new Vector3(output.X, output.Y, output.Z);
         }
 
-        /**
-         * <summary> 
-         * Updates the current rays maxT with a given int
-         * </summary>
-         */
+        /// <summary>
+        /// Updates this rays maxT to the given int
+        /// </summary>
+        /// <param name="maxT"></param>
         public void updatemaxT(float maxT)
         {
             this.maxT = maxT;
         }
 
-        /**
-         * <summary>
-         * Returns this rays maxT value
-         * </summary>
-         */
+        /// <summary>
+        /// Returns this rays maxT value
+        /// </summary>
+        /// <returns></returns>
         public float? getMaxT()
         {
                 return this.maxT;
         }
 
-        /**
-         * <summary> 
-         * Getter for the origin
-         * </summary>
-         */
+        /// <summary>
+        /// Getter for the origin
+        /// </summary>
+        /// <returns></returns>
         public Vector3 getOrigin()
         {
             return this.origin;
         }
 
-        /**
-         * <summary>
-         * Getter for the direction
-         * </summary>
-         */
+        /// <summary>
+        /// Geter for the direction
+        /// </summary>
+        /// <returns></returns>
         public Vector3 getDirection()
         {
             return this.direction;
         }
 
+        /// <summary>
+        /// ToString for the ray class
+        /// </summary>
+        /// <returns>
+        /// (origin: origin direction: direction
+        /// </returns>
         public override string ToString()
         {
             return "origin: " + this.origin + ", direction: " + direction;

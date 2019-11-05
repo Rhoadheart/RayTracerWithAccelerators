@@ -15,11 +15,12 @@ namespace project.RayTracing
         Vector3 p2;
         Vector3 p3;
 
-        /**
-         * <summary>
-         * Default Triangle constructor given 3 points
-         * </summary>
-         */
+        /// <summary>
+        /// Default triangle constructior given 3 points
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
         public Triangle(Vector3 p1, Vector3 p2, Vector3 p3)
         {
             this.p1 = p1;
@@ -28,11 +29,11 @@ namespace project.RayTracing
 
         }
 
-        /**
-         * <summary>
-         * Determines if the given ray intersects with this Triangle
-         * </summary>
-         */
+        /// <summary>
+        /// Determines if the given ray intesects with this triangle
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public bool intersection(Ray r)
         {
             //Computing s1

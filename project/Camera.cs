@@ -19,11 +19,14 @@ namespace project.RayTracing
         Vector3 n;
         Vector3 p;
         
-        /**
-         * <summary>
-         * Default constructor for camera taking vectors (u,v,n), Position p, resolution width, resolution height  
-         * </summary>
-         */
+         /// <summary>
+         /// Default constructor for camera taking vectors (u,v,n), Position p, resolution width, resolution height
+         /// </summary>
+         /// <param name="p"></param>
+         /// <param name="LookAt"></param>
+         /// <param name="Up"></param>
+         /// <param name="resX"></param>
+         /// <param name="resY"></param>
         public Camera(Vector3 p, Vector3 LookAt, Vector3 Up, int resX, int resY)
         {
             this.n = Vector3.Normalize(p - LookAt);
@@ -45,12 +48,12 @@ namespace project.RayTracing
             return resY;
         }
 
-        /**
-         * <summary>
-         * Method for setting the Feild of View 
-         * Pass in a degree
-         * </summary>
-         */
+        
+        /// <summary>
+        /// Method for setting the Feild of View 
+        /// Pass in a degree
+        /// </summary>
+        /// <param name="fov"></param>
         public void setFov(float fov)
         {
             float radians = (float)(Math.PI / 180) * fov;

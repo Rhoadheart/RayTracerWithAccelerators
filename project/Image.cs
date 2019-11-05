@@ -13,7 +13,12 @@ namespace project.RayTracing
     {
         Bitmap b;
 
-        public Image(Camera c, Triangle scene, string outputFilePath)
+        /// <summary>
+        /// Creates an image based off a bitmap 
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="outputFilePath"></param>
+        public Image(Bitmap b, string outputFilePath)
         {
             this.b = generateImage(c, scene);
             Graphics g = Graphics.FromImage(b);
