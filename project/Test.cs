@@ -66,34 +66,58 @@ namespace project.RayTracing
             //Tests for Camera Class
             try
             {
-                
-                if (c1.getRay(new Vector2(960, 540)).getOrigin() != origin)
-                    throw new Exception("getRay() Test Failed. Origin Mismatch");
-                if (c1.getRay(new Vector2(960, 540)).getDirection() != new Vector3(1,0,0))
-                    throw new Exception("getRay() Test Failed. Direction Mismatch");
-                if (c2.getRay(new Vector2(960, 540)).getOrigin() != new Vector3(2, 2, 0))
-                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
-                if (c2.getRay(new Vector2(960, 540)).getDirection() != new Vector3(-.7071068f, -.7071068f, 0))
-                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
-                if (c3.getRay(new Vector2(960,540)).getOrigin() != new Vector3(-3,-3,-3))
-                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
-                if (c3.getRay(new Vector2(960, 540)).getDirection() != new Vector3(.577350259f, .577350259f, .577350259f))
-                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
-                
-                //FOV is not scaling correctly for some reason. Need to discuss this with Dr. Wolff on Monday
-                /*
-                if (c1.getRay(new Vector2(960,1080)).getDirection() != new Vector3(.8817917f, .4716390f, 0))
+
+                c1.setFov(90);
+                Vector3 output;
+                output = c1.getRay(new Vector2(960, 1080)).getDirection();
+                if (output != new Vector3(.707106769f, .707106769f, 0))
                     throw new Exception("getRay() Test Failed. Camera Produced a Miscalculated Ray based on the FOV");
-                */
 
+                c1.setFov(43);
+                output = c1.getRay(new Vector2(960, 540)).getOrigin();
+                if (output != origin)
+                    throw new Exception("getRay() Test Failed. Origin Mismatch");
 
+                output = c1.getRay(new Vector2(960, 540)).getDirection();
+                if (output != new Vector3(1,0,0))
+                    throw new Exception("getRay() Test Failed. Direction Mismatch");
 
+                output = c2.getRay(new Vector2(960, 540)).getOrigin();
+                if (output != new Vector3(2, 2, 0))
+                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
+
+                output = c2.getRay(new Vector2(960, 540)).getDirection();
+                if (output != new Vector3(-0.707106769f, -0.707106769f, 0))
+                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
+
+                output = c3.getRay(new Vector2(960, 540)).getOrigin();
+                if (output != new Vector3(-3,-3,-3))
+                    throw new Exception("getRay() Test Failed. Angled Camera Origin Mismatch");
+
+                output = c3.getRay(new Vector2(960, 540)).getDirection();
+                if (output != new Vector3(.577350259f, .577350259f, .577350259f))
+                    throw new Exception("getRay() Test Failed. Angled Camera Produced a Miscalculated Ray");
+
+                //FOV is not scaling correctly for some reason. Need to discuss this with Dr. Wolff on Monday
                 Console.WriteLine("Camera Tests Succeeded");
 
             }
             catch (Exception e)
             {
                 Console.WriteLine("Camera Test Failed: " + e.Message);
+            }
+
+
+            c1 = new Camera(origin, new Vector3(1, 0, 0), up, 1920, 1080);
+            t1 = new Triangle(new Vector3(2, -1, 1), new Vector3(2, 1, 0), new Vector3(2, -1, -1));
+            //Tests for Image Generation
+            try
+            {
+                Image output = new Image(c1, t1, "../../Test.png"); 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Image Test Failed: " + e.Message);
             }
 
 
