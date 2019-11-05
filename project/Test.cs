@@ -116,7 +116,8 @@ namespace project.RayTracing
             //Tests for Image Generation
             try
             {
-                Image output = new Image(c1, t1, "../../Test.png"); 
+                Image output = new Image(c1, t1, "../../Test.png");
+                Console.WriteLine("Image Tests Succeeded");
             }
             catch (Exception e)
             {

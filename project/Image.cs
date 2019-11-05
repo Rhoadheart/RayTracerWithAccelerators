@@ -18,7 +18,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="b"></param>
         /// <param name="outputFilePath"></param>
-        public Image(Bitmap b, string outputFilePath)
+        public Image(Camera c, Triangle scene, string outputFilePath)
         {
             this.b = generateImage(c, scene);
             Graphics g = Graphics.FromImage(b);
