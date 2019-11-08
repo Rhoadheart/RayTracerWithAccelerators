@@ -37,6 +37,16 @@ namespace project.RayTracing
             this.resX = resX;
             this.resY = resY;
         }
+        
+        public int getResX()
+        {
+            return resX;
+        }
+
+        public int getResY()
+        {
+            return resY;
+        }
 
         
         /// <summary>
@@ -70,7 +80,7 @@ namespace project.RayTracing
             Vector3 FOVScalar = new Vector3((Wc / Ws), (Hc / Hs), 1);
 
 
-            Vector3 adjustedPosition = (new Vector3(screenCoords.X, screenCoords.Y, 1) - CartisianPoint) * FOVScalar;
+            Vector3 adjustedPosition = (new Vector3(screenCoords.X, screenCoords.Y, -1) - CartisianPoint) * FOVScalar;
 
 
 
@@ -80,9 +90,11 @@ namespace project.RayTracing
                                                u.Z, v.Z, n.Z, p.Z, 
                                                0,   0,   0,   1  );
             
-            
-            
-            Ray q = new Ray(p, -adjustedPosition.ApplyMatrix(MInverse)); 
+
+
+
+
+            Ray q = new Ray(p, adjustedPosition.ApplyMatrix(MInverse)); 
             return q;
         }
         
