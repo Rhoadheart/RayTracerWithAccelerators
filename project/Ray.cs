@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using MyExtensions;
 
 namespace project.RayTracing
 {
@@ -39,7 +40,8 @@ namespace project.RayTracing
 
         public Ray transform(Matrix4x4 Projection)
         {
-            return new Ray(Vector3.Transform(this.origin, Projection), Vector3.TransformNormal(this.direction, Projection));
+            Vector3 origin = new Vector3(Projection.M14 + this.origin.X, Projection.M24 + this.origin.Y, Projection.M34 + this.origin.Z);
+            return new Ray(origin, this.direction.ApplyMatrix(Projection));
         }
 
         /// <summary>
