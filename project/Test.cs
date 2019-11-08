@@ -17,6 +17,11 @@ namespace project.RayTracing
             Vector3 origin = new Vector3(0, 0, 0);
             Vector3 up = new Vector3(0, 1, 0);
             Ray r1 = new Ray(new Vector3 (1,1,1), new Vector3(2,0,0));
+            Ray r2 = new Ray(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
+            Matrix4x4 proj = new Matrix4x4(2, 0, 0, 1,
+                                           0, 1, 0, 1,
+                                           0, 0, 1, 1,
+                                           0, 0, 0, 1);
             //TODO: Tests for Ray Class
             //Tests for Ray Class
             try
@@ -25,6 +30,12 @@ namespace project.RayTracing
                     throw new Exception("getOrigin() Test Failed");
                 if (r1.getDirection() != Vector3.Normalize(new Vector3(2, 0, 0)))
                     throw new Exception("getDirection() Test Failed");
+                Ray answer = new Ray(new Vector3(1, 1, 1), new Vector3(0.8164966f, 0.4082483f, 0.4082483f));
+                Ray output = r2.transform(proj);
+                if (output.getOrigin() != answer.getOrigin())
+                    throw new Exception("transform() Test Failed");
+                if (output.getDirection() != answer.getDirection())
+                    throw new Exception("transform() Test Failed");
 
 
                 Console.WriteLine("Ray Tests Succeeded");
@@ -41,10 +52,7 @@ namespace project.RayTracing
             Ray r5 = new Ray(origin, new Vector3(1, 1, 1));
             Ray r6 = new Ray(origin, new Vector3(1, -1, 1));
             Ray r7 = new Ray(origin, new Vector3(-1, -1, -1));
-            Matrix4x4 proj = new Matrix4x4(1, 0, 0, 0,
-                                           0, 1, 0, 0,
-                                           0, 0, 1, 0,
-                                           0, 0, 0, 1);
+           
 
             //Tests for Triangle Class
             try
@@ -57,8 +65,7 @@ namespace project.RayTracing
                     throw new Exception("intersection() Test 3 Failed");
                 if (t2.intersection(r7))
                     throw new Exception("intersection() Test 4 Failed Backwards Ray is intersecting");
-                //if (r5.transform(proj) == new Ray(new Vector3())
-                //    throw new Exception("transform() Test 5 Failed");
+                
 
                 Console.WriteLine("Triangle Tests Succeeded");
 
