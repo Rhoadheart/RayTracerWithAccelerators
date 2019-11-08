@@ -18,7 +18,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="b"></param>
         /// <param name="outputFilePath"></param>
-        public Image(Camera c, Triangle scene, string outputFilePath)
+        public Image(Camera c, Mesh scene, string outputFilePath)
         {
             this.b = generateImage(c, scene);
             Graphics g = Graphics.FromImage(b);
@@ -27,9 +27,14 @@ namespace project.RayTracing
             b.Save(outputFilePath, ImageFormat.Png);
             b.Dispose();
         }
-        // This code will help us create a BitMap in the future.
 
-        public Bitmap generateImage(Camera c, Triangle scene)
+        /// <summary>
+        /// generates an Image by shooting one Ray per pixel into our scene
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="scene"></param>
+        /// <returns></returns>
+        public Bitmap generateImage(Camera c, Mesh scene)
         {
             int ResX = c.getResX();
             int ResY = c.getResY();
@@ -38,12 +43,16 @@ namespace project.RayTracing
             {
                 for (int j = 0; j < ResY; j++)
                 {
-                    Ray r = c.getRay(new Vector2(i,j));
-                    //This can be changed to Camera.getRay(ScreenCoordinates).intersection()...
                     Color newColor;
-                    if (scene.intersection(r))
+                    Ray r = c.getRay(new Vector2(i,j));
+                    Triangle intersect = scene.intersect(r);
+                    if (intersect != null)
                     {
-                        newColor = Color.FromArgb(0, 0, 255);
+                        Vector3 normal = intersect.normal();
+                        float red = ((normal.X + 1) / 2) * 255;
+                        float green = ((normal.Y + 1) / 2) * 255;
+                        float blue = ((normal.Z + 1) / 2) * 255;
+                        newColor = Color.FromArgb((int)red, (int)green, (int)blue);
                     }
                     else
                     {

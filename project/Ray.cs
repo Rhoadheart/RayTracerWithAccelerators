@@ -38,6 +38,11 @@ namespace project.RayTracing
             return new Vector3(output.X, output.Y, output.Z);
         }
 
+        /// <summary>
+        /// Transforms this Ray based on the projection matrix.
+        /// </summary>
+        /// <param name="Projection"></param>
+        /// <returns></returns>
         public Ray transform(Matrix4x4 Projection)
         {
             Vector3 origin = new Vector3(Projection.M14 + this.origin.X, Projection.M24 + this.origin.Y, Projection.M34 + this.origin.Z);

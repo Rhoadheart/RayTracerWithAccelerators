@@ -16,7 +16,7 @@ namespace project.RayTracing
         Vector3 p3;
 
         /// <summary>
-        /// Default triangle constructior given 3 points
+        /// Default triangle constructor given 3 points
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -33,8 +33,9 @@ namespace project.RayTracing
         /// Determines if the given ray intesects with this triangle
         /// </summary>
         /// <param name="r"></param>
+        /// <param name="tOut"></param>
         /// <returns></returns>
-        public bool intersection(Ray r)
+        public bool intersection(Ray r, out float tOut)
         {
             //Computing s1
             Vector3 edge1 = this.p2 - this.p1;
@@ -43,6 +44,7 @@ namespace project.RayTracing
             float divisor = Vector3.Dot(s1, edge1);
             if(divisor == 0)
             {
+                tOut = 0;
                 return false;
             }
             float invDivisor = 1f / divisor;
@@ -52,6 +54,7 @@ namespace project.RayTracing
             float b1 = Vector3.Dot(d, s1) * invDivisor;
             if(b1 < 0 || b1 > 1)
             {
+                tOut = 0;
                 return false;
             }
 
@@ -60,16 +63,29 @@ namespace project.RayTracing
             float b2 = Vector3.Dot(r.getDirection(), s2) * invDivisor;
             if(b2 < 0 || b1 + b2 > 1)
             {
+                tOut = 0;
                 return false;
             }
 
             //Check for positive T
             float t = Vector3.Dot(edge2, s2) * invDivisor;
             if (t < 0 ||  t > r.getMaxT()){
+                tOut = 0;
                 return false;
             }
-
+            tOut = t;
             return true;
+        }
+
+        /// <summary>
+        /// Determines the normal of a triangle after an intersection occurs.
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 normal()
+        {
+            Vector3 A = p2 - p1;
+            Vector3 B = p3 - p2;
+            return Vector3.Normalize(Vector3.Cross(A, B));
         }
         
     }

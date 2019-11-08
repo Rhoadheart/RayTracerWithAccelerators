@@ -57,13 +57,14 @@ namespace project.RayTracing
             //Tests for Triangle Class
             try
             {
-                if (!t1.intersection(r4))
+                float outFloat;
+                if (!t1.intersection(r4, out outFloat))
                     throw new Exception("intersection() Test 1 Failed");
-                if (!t2.intersection(r5))
+                if (!t2.intersection(r5, out outFloat))
                     throw new Exception("intersection() Test 2 Failed");
-                if (t2.intersection(r6))
+                if (t2.intersection(r6, out outFloat))
                     throw new Exception("intersection() Test 3 Failed");
-                if (t2.intersection(r7))
+                if (t2.intersection(r7, out outFloat))
                     throw new Exception("intersection() Test 4 Failed Backwards Ray is intersecting");
                 
 
@@ -124,12 +125,17 @@ namespace project.RayTracing
             }
 
 
-            c1 = new Camera(origin, new Vector3(1, 0, 0), up, 1920, 1080);
-            t1 = new Triangle(new Vector3(2, -1, 1), new Vector3(2, 1, 0), new Vector3(2, -1, -1));
+            c1 = new Camera(new Vector3 (-2,0,0), new Vector3(1, 0, 0), up, 1920, 1080);
+            Triangle[] triangles = new Triangle[3];
+            triangles[0] = new Triangle(new Vector3(2, -1, 1), new Vector3(2, 1, 0), new Vector3(2, -1, -1));
+            triangles[1] = new Triangle(new Vector3(2, -1, 1), new Vector3(1, 1, 1), new Vector3(2, 1, 0));
+            triangles[2] = new Triangle(new Vector3(2, -1, -1), new Vector3(2, 1, 0), new Vector3(1, 1, -1));
+            
+            Mesh m1 = new Mesh(triangles);
             //Tests for Image Generation
             try
             {
-                Image output = new Image(c1, t1, "../../Test.png");
+                Image output = new Image(c1, m1, "../../TestMesh.png");
                 Console.WriteLine("Image Tests Succeeded");
             }
             catch (Exception e)
