@@ -8,7 +8,7 @@ using MyExtensions;
 
 namespace project.RayTracing
 {
-    class Ray
+    public class Ray
     {
         Vector3 origin;
         Vector3 direction;
