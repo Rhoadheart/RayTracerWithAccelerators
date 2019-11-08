@@ -53,6 +53,7 @@ namespace project.RayTracing
                     throw new Exception("intersection() Test 3 Failed");
                 if (t2.intersection(r7))
                     throw new Exception("intersection() Test 4 Failed Backwards Ray is intersecting");
+                //if (r5.transform(new Matrix4x4()
                 
                 Console.WriteLine("Triangle Tests Succeeded");
 

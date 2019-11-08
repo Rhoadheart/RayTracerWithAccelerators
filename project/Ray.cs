@@ -37,6 +37,11 @@ namespace project.RayTracing
             return new Vector3(output.X, output.Y, output.Z);
         }
 
+        public Ray transform(Matrix4x4 Projection)
+        {
+            return new Ray(Vector3.Transform(this.origin, Projection), Vector3.TransformNormal(this.direction, Projection));
+        }
+
         /// <summary>
         /// Updates this rays maxT to the given int
         /// </summary>
