@@ -41,6 +41,10 @@ namespace project.RayTracing
             Ray r5 = new Ray(origin, new Vector3(1, 1, 1));
             Ray r6 = new Ray(origin, new Vector3(1, -1, 1));
             Ray r7 = new Ray(origin, new Vector3(-1, -1, -1));
+            Matrix4x4 proj = new Matrix4x4(1, 0, 0, 0,
+                                           0, 1, 0, 0,
+                                           0, 0, 1, 0,
+                                           0, 0, 0, 1);
 
             //Tests for Triangle Class
             try
@@ -53,8 +57,9 @@ namespace project.RayTracing
                     throw new Exception("intersection() Test 3 Failed");
                 if (t2.intersection(r7))
                     throw new Exception("intersection() Test 4 Failed Backwards Ray is intersecting");
-                //if (r5.transform(new Matrix4x4()
-                
+                //if (r5.transform(proj) == new Ray(new Vector3())
+                //    throw new Exception("transform() Test 5 Failed");
+
                 Console.WriteLine("Triangle Tests Succeeded");
 
             }
