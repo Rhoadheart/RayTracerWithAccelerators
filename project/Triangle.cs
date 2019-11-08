@@ -9,7 +9,7 @@ using System.Numerics;
 
 namespace project.RayTracing
 {
-    class Triangle
+    public class Triangle
     {
         Vector3 p1;
         Vector3 p2;
