@@ -9,7 +9,7 @@ using MyExtensions;
 namespace project.RayTracing
 {
 
-    class Camera
+    public class Camera
     {
         int resX;
         int resY;

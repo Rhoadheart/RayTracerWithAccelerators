@@ -9,7 +9,7 @@ using System.Drawing.Imaging;
 
 namespace project.RayTracing
 {
-    class Image
+    public class Image
     {
         Bitmap b;
 

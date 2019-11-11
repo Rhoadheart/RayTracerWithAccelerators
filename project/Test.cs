@@ -9,6 +9,7 @@ namespace project.RayTracing
 {
     class Test
     {
+        /*
         /// <summary>
         /// Method for running all tests
         /// </summary>
@@ -145,5 +146,7 @@ namespace project.RayTracing
 
 
         }
+        */
     }
+    
 }

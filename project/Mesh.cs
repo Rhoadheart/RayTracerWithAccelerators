@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace project.RayTracing
 {
-    class Mesh
+    public class Mesh
     {
         Triangle[] triangles;
 
