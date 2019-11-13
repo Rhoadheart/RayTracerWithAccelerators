@@ -48,9 +48,8 @@ namespace UnitTest
         [Test]
         public void TestTransform2()
         {
-            Ray answer = new Ray(new Vector3(1, 1, 1), new Vector3(0.8164966f, 0.4082483f, 0.4082483f));
             Ray output = r2.transform(proj);
-            Assert.AreEqual(output.getDirection(), answer.getDirection());
+            Assert.AreEqual(output.getDirection(), new Vector3(0.816496551f, 0.408248276f, 0.408248276f));
         }
     }
 }

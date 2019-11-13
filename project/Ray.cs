@@ -32,7 +32,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="dist"></param>
         /// <returns></returns>
-        public Vector3 at(double dist)
+        public Vector3 at(float dist)
         {
             Vector3 output = Vector3.Add(Vector3.Multiply(direction, (float)dist), new Vector3(origin.X, origin.Y, origin.Z));
             return new Vector3(output.X, output.Y, output.Z);
