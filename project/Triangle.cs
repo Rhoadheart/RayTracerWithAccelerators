@@ -78,7 +78,7 @@ namespace project.RayTracing
 
             //Barysentric coordinate 1
             Vector3 d = r.getOrigin() - p1;
-            float b1 = Vector3.Dot(d, s1) * invDivisor;
+            float b1 = (Vector3.Dot(d, s1) * invDivisor);
             if (b1 < 0 || b1 > 1)
             {
                 tOut = 0;
@@ -119,6 +119,11 @@ namespace project.RayTracing
             
         }
 
+        /// <summary>
+        /// Determines the interpolated normal based on an intersecting Ray r
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public Vector3 normal(Ray r)
         {
 

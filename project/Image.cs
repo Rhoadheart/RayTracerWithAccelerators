@@ -59,7 +59,7 @@ namespace project.RayTracing
                         newColor = Color.FromArgb(0, 255, 0);
                     }
                     
-                    b.SetPixel(ResX - i - 1, ResY - j - 1, newColor);
+                    b.SetPixel(ResX - i - 1, j , newColor);
                 }
             }
             return b;

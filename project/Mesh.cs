@@ -21,6 +21,15 @@ namespace project.RayTracing
         }
 
         /// <summary>
+        /// Default Constructor for a Mesh. Holds an array of triangles.
+        /// </summary>
+        /// <param name="triangles"></param>
+        public Mesh(List<Triangle> triangles)
+        {
+            this.triangles = triangles.ToArray<Triangle>();
+        }
+
+        /// <summary>
         /// Loops through all triangles and returns the closest triangle that intersects with r.
         /// </summary>
         /// <param name="r"></param>
