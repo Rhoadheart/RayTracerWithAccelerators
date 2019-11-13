@@ -15,8 +15,8 @@ namespace UnitTest
         [SetUp]
         public void Before()
         {
-            Vector3 origin = new Vector3(0, 0, 0);
-            Vector3 up = new Vector3(0, 1, 0);
+            origin = new Vector3(0, 0, 0);
+            up = new Vector3(0, 1, 0);
             c1 = new Camera(origin, new Vector3(1, 0, 0), up, 1920, 1080);
             c2 = new Camera(new Vector3(2, 2, 0), new Vector3(0, 0, 0), up, 1920, 1080);
             c3 = new Camera(new Vector3(-3, -3, -3), new Vector3(0, 0, 0), up, 1920, 1080);

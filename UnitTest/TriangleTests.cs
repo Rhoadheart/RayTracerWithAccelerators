@@ -20,10 +20,6 @@ namespace UnitTest
             up = new Vector3(0, 1, 0);
             r1 = new Ray(new Vector3(1, 1, 1), new Vector3(2, 0, 0));
             r2 = new Ray(new Vector3(0, 0, 0), new Vector3(1, 1, 1));
-            Matrix4x4 proj = new Matrix4x4(2, 0, 0, 1,
-                                           0, 1, 0, 1,
-                                           0, 0, 1, 1,
-                                           0, 0, 0, 1);
             t1 = new Triangle(new Vector3(2, -1, 1), new Vector3(2, 1, 0), new Vector3(2, -1, -1));
             r4 = new Ray(origin, new Vector3(2, 0, 0));
             t2 = new Triangle(new Vector3(2, 0, 0), new Vector3(0, 2, 0), new Vector3(0, 0, 2));
