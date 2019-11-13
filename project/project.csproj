@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="LoadOBJ.cs" />
     <Compile Include="Vector3Extensions.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Test.cs" />
