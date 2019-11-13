@@ -35,6 +35,7 @@ namespace UnitTest
             string filename = "../../TestMesh2.png";
             output = new Image(c1, m1, filename);
             Assert.IsTrue(File.Exists(filename));
+            
 
         }
     }
