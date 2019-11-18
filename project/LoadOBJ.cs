@@ -52,42 +52,57 @@ namespace project.RayTracing
                                 normals.Add(new Vector3(float.Parse(parameters[1]), float.Parse(parameters[2]), float.Parse(parameters[3])));
                                 break;
                             case "f":
+
+                                Triangle thisTriangle;
                                 
                                 //Assuming we have triangles (3 vertices per face)
                                 string[] values = line.Split(new Char[] { ' ', '/' });
                                 Vector3 p1, p2, p3, n1, n2, n3;
                                 if (int.Parse(values[1]) > 0)
                                 {
-                                    p1 = vertices[int.Parse(values[1]) - 1];
-                                    n1 = normals[int.Parse(values[3]) - 1];
 
-                                    p2 = vertices[int.Parse(values[4]) - 1];
-                                    n2 = normals[int.Parse(values[6]) - 1];
+                                    int numVertices = values.Count() / 3;
+                                    for(int i = 0; i< numVertices-2; i++)
+                                    {
+                                        p1 = vertices[int.Parse(values[1]) - 1];
+                                        n1 = normals[int.Parse(values[3]) - 1];
 
-                                    p3 = vertices[int.Parse(values[7]) - 1];
-                                    n3 = normals[int.Parse(values[9]) - 1];
+                                        p2 = vertices[int.Parse(values[4 + (i*3)]) - 1];
+                                        n2 = normals[int.Parse(values[6 + (i*3)]) - 1];
+
+                                        p3 = vertices[int.Parse(values[7 + (i*3)]) - 1];
+                                        n3 = normals[int.Parse(values[9 + (i*3)]) - 1];
+
+                                        thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
+                                        triangles.Add(thisTriangle);
+                                    }
+                                    
                                 }
                                 else
                                 {
-                                    if (verticesSize == default(int) || normalsSize == default(int))
+                                    verticesSize = vertices.Count;
+                                    normalsSize = normals.Count;
+                                    
+                                    int numVertices = values.Count() / 9;
+
+                                    for (int i = 0; i < numVertices - 2; i++)
                                     {
-                                        verticesSize = vertices.Count;
-                                        normalsSize = normals.Count;
+
+                                        p1 = vertices[verticesSize + int.Parse(values[1])];
+                                        n1 = normals[normalsSize + int.Parse(values[3])];
+
+                                        p2 = vertices[verticesSize + int.Parse(values[4+(i*3)])];
+                                        n2 = normals[normalsSize + int.Parse(values[6+(i*3)])];
+
+                                        p3 = vertices[verticesSize + int.Parse(values[7+(i*3)])];
+                                        n3 = normals[normalsSize + int.Parse(values[9+(i*3)])];
+
+                                        thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
+                                        triangles.Add(thisTriangle);
+
                                     }
-                                    p1 = vertices[verticesSize + int.Parse(values[1])];
-                                    n1 = normals[normalsSize + int.Parse(values[3])];
-
-                                    p2 = vertices[verticesSize + int.Parse(values[4])];
-                                    n2 = normals[normalsSize + int.Parse(values[6])];
-
-                                    p3 = vertices[verticesSize + int.Parse(values[7])];
-                                    n3 = normals[normalsSize + int.Parse(values[9])];
                                 }
-
-
-                                Triangle thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
-                                triangles.Add(thisTriangle);
-
+                                
                                 break;
                             default:
                                 break;

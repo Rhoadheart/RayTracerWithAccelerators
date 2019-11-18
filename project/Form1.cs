@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Windows.Forms;
 using System.Numerics;
+using System.Text;
 
 namespace project.RayTracing
 {
@@ -20,6 +21,7 @@ namespace project.RayTracing
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -38,6 +40,7 @@ namespace project.RayTracing
                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -68,18 +71,40 @@ namespace project.RayTracing
 
             LoadOBJ loader = new LoadOBJ();
 
+            
             c1 = new Camera(new Vector3(-2, -2, -2), new Vector3(1, 1, 1), up, 1920, 1080);
             filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
             
+            /*
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere.png";
             output = new Image(c1, m1, filename);
-            
-            //This code takes extremely long. I calculated it as lasting around 9.6 hours
+            */
+
+            /*
+            c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
+            filename = "../../../pokeball.obj";
+            m1 = loader.Load(filename);
+            filename = "../../pokeball.png";
+            output = new Image(c1, m1, filename);
+            */
+
+            //This object has over 20,000 triangles and takes a while to run. 
+            /*
+            c1 = new Camera(new Vector3(-160, -135, 250), new Vector3(0, 0, 0), up, 1920, 1080);
+            filename = "../../../sword.obj";
+            m1 = loader.Load(filename);
+            filename = "../../sword.png";
+            output = new Image(c1, m1, filename);
+            */
+
+
+            //This object has over 150,000 triangles and takes extremely long to render.
+            //I calculated it as lasting around 9.6 hours
             /*
             filename = "../../../bunny_max_res.obj";
             loader = new LoadOBJ();
@@ -87,12 +112,11 @@ namespace project.RayTracing
             filename = "../../TestMesh4.png";
             output = new Image(c1, m1, filename);
             */
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
         }
         
     }
