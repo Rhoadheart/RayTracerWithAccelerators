@@ -14,6 +14,9 @@ namespace project.RayTracing
         Vector3 p1;
         Vector3 p2;
         Vector3 p3;
+        Vector3 n1;
+        Vector3 n2;
+        Vector3 n3;
 
         /// <summary>
         /// Default triangle constructor given 3 points
@@ -26,6 +29,30 @@ namespace project.RayTracing
             this.p1 = p1;
             this.p2 = p2;
             this.p3 = p3;
+
+            Vector3 A = p2 - p1;
+            Vector3 B = p3 - p2;
+            Vector3 normals = Vector3.Normalize(Vector3.Cross(A, B));
+            this.n1 = normals;
+            this.n2 = normals;
+            this.n3 = normals;
+
+        }
+
+        /// <summary>
+        /// Default triangle constructor given 3 points and a normal
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <param name="p3"></param>
+        public Triangle(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 n1, Vector3 n2, Vector3 n3)
+        {
+            this.p1 = p1;
+            this.p2 = p2;
+            this.p3 = p3;
+            this.n1 = n1;
+            this.n2 = n2;
+            this.n3 = n3;
 
         }
 
@@ -42,7 +69,7 @@ namespace project.RayTracing
             Vector3 edge2 = this.p3 - this.p1;
             Vector3 s1 = Vector3.Cross(r.getDirection(), edge2);
             float divisor = Vector3.Dot(s1, edge1);
-            if(divisor == 0)
+            if (divisor == 0)
             {
                 tOut = 0;
                 return false;
@@ -51,17 +78,17 @@ namespace project.RayTracing
 
             //Barysentric coordinate 1
             Vector3 d = r.getOrigin() - p1;
-            float b1 = Vector3.Dot(d, s1) * invDivisor;
-            if(b1 < 0 || b1 > 1)
+            float b1 = (Vector3.Dot(d, s1) * invDivisor);
+            if (b1 < 0 || b1 > 1)
             {
                 tOut = 0;
                 return false;
             }
 
             //Barysentric coordinate 2
-            Vector3 s2 = Vector3.Cross(d,edge1);
+            Vector3 s2 = Vector3.Cross(d, edge1);
             float b2 = Vector3.Dot(r.getDirection(), s2) * invDivisor;
-            if(b2 < 0 || b1 + b2 > 1)
+            if (b2 < 0 || b1 + b2 > 1)
             {
                 tOut = 0;
                 return false;
@@ -69,7 +96,8 @@ namespace project.RayTracing
 
             //Check for positive T
             float t = Vector3.Dot(edge2, s2) * invDivisor;
-            if (t < 0 ||  t > r.getMaxT()){
+            if (t < 0 || t > r.getMaxT())
+            {
                 tOut = 0;
                 return false;
             }
@@ -77,15 +105,50 @@ namespace project.RayTracing
             return true;
         }
 
+
         /// <summary>
-        /// Determines the normal of a triangle after an intersection occurs.
+        /// Determines the face normal of a triangle after an intersection occurs.
         /// </summary>
         /// <returns></returns>
         public Vector3 normal()
         {
+
             Vector3 A = p2 - p1;
             Vector3 B = p3 - p2;
             return Vector3.Normalize(Vector3.Cross(A, B));
+            
+        }
+
+        /// <summary>
+        /// Determines the interpolated normal based on an intersecting Ray r
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public Vector3 normal(Ray r)
+        {
+
+            //Computing s1
+            Vector3 edge1 = this.p2 - this.p1;
+            Vector3 edge2 = this.p3 - this.p1;
+            Vector3 s1 = Vector3.Cross(r.getDirection(), edge2);
+            float divisor = Vector3.Dot(s1, edge1);
+            float invDivisor = 1f / divisor;
+
+            //Barycentric coordinate 1
+            Vector3 d = r.getOrigin() - p1;
+            float b1 = Vector3.Dot(d, s1) * invDivisor;
+            
+
+            //Barycentric coordinate 2
+            Vector3 s2 = Vector3.Cross(d, edge1);
+            float b2 = Vector3.Dot(r.getDirection(), s2) * invDivisor;
+
+            //Barycentric coordinate 3
+            float b0 = 1 - b1 - b2;
+            
+            Vector3 interpolatedNormal = (b0 * n1) + (b1 * n2) + (b2 * n3);
+            
+            return interpolatedNormal;
         }
         
     }

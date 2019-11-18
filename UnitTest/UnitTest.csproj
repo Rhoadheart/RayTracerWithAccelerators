@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraTests.cs" />
+    <Compile Include="LoadOBJTests.cs" />
     <Compile Include="ImageGenerationTests.cs" />
     <Compile Include="RayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

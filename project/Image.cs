@@ -48,7 +48,7 @@ namespace project.RayTracing
                     Triangle intersect = scene.intersect(r);
                     if (intersect != null)
                     {
-                        Vector3 normal = intersect.normal();
+                        Vector3 normal = intersect.normal(r);
                         float red = ((normal.X + 1) / 2) * 255;
                         float green = ((normal.Y + 1) / 2) * 255;
                         float blue = ((normal.Z + 1) / 2) * 255;
@@ -59,7 +59,7 @@ namespace project.RayTracing
                         newColor = Color.FromArgb(0, 255, 0);
                     }
                     
-                    b.SetPixel(ResX - i - 1, ResY - j - 1, newColor);
+                    b.SetPixel(ResX - i - 1, j , newColor);
                 }
             }
             return b;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace project.RayTracing
 {
     public class Mesh
@@ -17,6 +18,15 @@ namespace project.RayTracing
         public Mesh(Triangle[] triangles)
         {
             this.triangles = triangles;
+        }
+
+        /// <summary>
+        /// Default Constructor for a Mesh. Holds an array of triangles.
+        /// </summary>
+        /// <param name="triangles"></param>
+        public Mesh(List<Triangle> triangles)
+        {
+            this.triangles = triangles.ToArray<Triangle>();
         }
 
         /// <summary>
