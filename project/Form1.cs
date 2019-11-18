@@ -49,7 +49,11 @@ namespace project.RayTracing
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            InputGenerator IG = new InputGenerator();
+            IG.Show();
+            IG.Owner = this;
+            this.Hide();
+        
         }
     }
 }
