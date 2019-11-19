@@ -224,22 +224,27 @@ namespace project
             sb.AppendLine("Cp: " + CPbox);
             sb.AppendLine("Co: " + CObox);
             sb.AppendLine("Cu: " + CUbox);
-            sb.AppendLine("O: " + output);
+            //sb.AppendLine("O: " + output);
             sb.AppendLine("Fov: " + fov);
             sb.AppendLine("PNG: " + png);
-            File.WriteAllText(input, sb.ToString());
+            File.WriteAllText(output, sb.ToString());
             
         }
 
         private void Search1_Click(object sender, EventArgs e)
         {
-            SaveFileDialog save = new SaveFileDialog();
-            save.FileName = "RayTracingInputFile";
-            save.Filter = "TextFile | *.txt";
-            if (save.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                InputBox.Text = save.FileName;
-                InputBox.ForeColor = Color.Black;
+                try
+                {
+                    InputBox.Text = openFileDialog1.FileName;
+                    InputBox.ForeColor = Color.Black;
+                }
+                catch (SecurityException ex)
+                {
+                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                }
             }
         }
 
@@ -250,11 +255,19 @@ namespace project
             save.Filter = "TextFile | *.txt";
             if (save.ShowDialog() == DialogResult.OK)
             {
-                OutputBox.Text = save.FileName;
-                OutputBox.ForeColor = Color.Black;
+                try
+                {
+                    OutputBox.Text = save.FileName;
+                    OutputBox.ForeColor = Color.Black;
+                }
+                catch (SecurityException ex)
+                {
+                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                }
             }
         }
-        
+
 
         private void ResXBox_KeyDown(object sender, KeyEventArgs e)
         {

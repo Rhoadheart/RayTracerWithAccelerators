@@ -114,9 +114,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(356, 102);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(113, 17);
+            this.label7.Size = new System.Drawing.Size(127, 17);
             this.label7.TabIndex = 7;
-            this.label7.Text = "Output Location:";
+            this.label7.Text = "Input File Location:";
             // 
             // label9
             // 
@@ -138,9 +138,9 @@
             // 
             // ResXBox
             // 
-            this.ResXBox.Location = new System.Drawing.Point(120, 99);
+            this.ResXBox.Location = new System.Drawing.Point(166, 99);
             this.ResXBox.Name = "ResXBox";
-            this.ResXBox.Size = new System.Drawing.Size(67, 22);
+            this.ResXBox.Size = new System.Drawing.Size(80, 22);
             this.ResXBox.TabIndex = 11;
             this.ResXBox.Enter += new System.EventHandler(this.ResXBox_Enter);
             this.ResXBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ResXBox_KeyDown);
@@ -148,9 +148,9 @@
             // 
             // ResYBox
             // 
-            this.ResYBox.Location = new System.Drawing.Point(213, 99);
+            this.ResYBox.Location = new System.Drawing.Point(270, 99);
             this.ResYBox.Name = "ResYBox";
-            this.ResYBox.Size = new System.Drawing.Size(67, 22);
+            this.ResYBox.Size = new System.Drawing.Size(80, 22);
             this.ResYBox.TabIndex = 12;
             this.ResYBox.Enter += new System.EventHandler(this.ResYBox_Enter);
             this.ResYBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ResYBox_KeyDown);
@@ -160,7 +160,7 @@
             // 
             this.CUBox.Location = new System.Drawing.Point(166, 326);
             this.CUBox.Name = "CUBox";
-            this.CUBox.Size = new System.Drawing.Size(113, 22);
+            this.CUBox.Size = new System.Drawing.Size(184, 22);
             this.CUBox.TabIndex = 15;
             this.CUBox.Enter += new System.EventHandler(this.CUBox_Enter);
             this.CUBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CUBox_KeyDown);
@@ -170,7 +170,7 @@
             // 
             this.COBox.Location = new System.Drawing.Point(166, 251);
             this.COBox.Name = "COBox";
-            this.COBox.Size = new System.Drawing.Size(113, 22);
+            this.COBox.Size = new System.Drawing.Size(184, 22);
             this.COBox.TabIndex = 14;
             this.COBox.Enter += new System.EventHandler(this.COBox_Enter);
             this.COBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.COBox_KeyDown);
@@ -180,7 +180,7 @@
             // 
             this.CPBox.Location = new System.Drawing.Point(166, 176);
             this.CPBox.Name = "CPBox";
-            this.CPBox.Size = new System.Drawing.Size(113, 22);
+            this.CPBox.Size = new System.Drawing.Size(184, 22);
             this.CPBox.TabIndex = 13;
             this.CPBox.Enter += new System.EventHandler(this.CPBox_Enter);
             this.CPBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CPBox_KeyDown);
@@ -189,7 +189,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(193, 104);
+            this.label11.Location = new System.Drawing.Point(250, 104);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(14, 17);
             this.label11.TabIndex = 16;
@@ -221,7 +221,7 @@
             // 
             this.OutputBox.Location = new System.Drawing.Point(487, 99);
             this.OutputBox.Name = "OutputBox";
-            this.OutputBox.Size = new System.Drawing.Size(157, 22);
+            this.OutputBox.Size = new System.Drawing.Size(298, 22);
             this.OutputBox.TabIndex = 18;
             this.OutputBox.Enter += new System.EventHandler(this.OutputBox_Enter);
             this.OutputBox.Leave += new System.EventHandler(this.OutputBox_Leave);
@@ -230,7 +230,7 @@
             // 
             this.InputBox.Location = new System.Drawing.Point(487, 26);
             this.InputBox.Name = "InputBox";
-            this.InputBox.Size = new System.Drawing.Size(157, 22);
+            this.InputBox.Size = new System.Drawing.Size(298, 22);
             this.InputBox.TabIndex = 16;
             this.InputBox.Enter += new System.EventHandler(this.InputBox_Enter);
             this.InputBox.Leave += new System.EventHandler(this.InputBox_Leave);
@@ -253,7 +253,7 @@
             // 
             // Search2
             // 
-            this.Search2.Location = new System.Drawing.Point(534, 127);
+            this.Search2.Location = new System.Drawing.Point(711, 127);
             this.Search2.Name = "Search2";
             this.Search2.Size = new System.Drawing.Size(74, 23);
             this.Search2.TabIndex = 19;
@@ -263,7 +263,7 @@
             // 
             // Search1
             // 
-            this.Search1.Location = new System.Drawing.Point(534, 54);
+            this.Search1.Location = new System.Drawing.Point(711, 54);
             this.Search1.Name = "Search1";
             this.Search1.Size = new System.Drawing.Size(74, 23);
             this.Search1.TabIndex = 17;
@@ -279,7 +279,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 450);
+            this.ClientSize = new System.Drawing.Size(797, 450);
             this.Controls.Add(this.Search1);
             this.Controls.Add(this.Search2);
             this.Controls.Add(this.comboBox1);
