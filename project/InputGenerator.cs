@@ -46,6 +46,9 @@ namespace project
             //CUBox
             CUBox.Text = "Default: 0,1,0";
             CUBox.ForeColor = Color.Gray;
+            //COBox
+            COBox.Text = "EX: x,y,z";
+            COBox.ForeColor = Color.Gray;
 
         }
 
@@ -126,6 +129,24 @@ namespace project
             }
         }
 
+        private void COBox_Enter(object sender, EventArgs e)
+        {
+            if (COBox.Text == "EX: x,y,z")
+            {
+                COBox.Text = "";
+                COBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void COBox_Leave(object sender, EventArgs e)
+        {
+            if (COBox.Text == "")
+            {
+                COBox.Text = "EX: x,y,z";
+                COBox.ForeColor = Color.Gray;
+            }
+        }
+
         private void ResXBox_Enter(object sender, EventArgs e)
         {
             if (ResXBox.Text == "Width")
@@ -180,6 +201,7 @@ namespace project
             }
         }
 
+
         private void Generate_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -196,16 +218,15 @@ namespace project
             bool PNG = GenPNG.Checked;
             String png = PNG.ToString();
 
-            sb.AppendLine(combo);
-            sb.AppendLine(resX);
-            sb.AppendLine(resY);
-            sb.AppendLine(CPbox);
-            sb.AppendLine(CObox);
-            sb.AppendLine(CUbox);
-            sb.AppendLine(input);
-            sb.AppendLine(output);
-            sb.AppendLine(fov);
-            sb.AppendLine(png);
+            sb.AppendLine("A: " + combo);
+            sb.AppendLine("Rx: " + resX);
+            sb.AppendLine("Ry: " + resY);
+            sb.AppendLine("Cp: " + CPbox);
+            sb.AppendLine("Co: " + CObox);
+            sb.AppendLine("Cu: " + CUbox);
+            sb.AppendLine("O: " + output);
+            sb.AppendLine("Fov: " + fov);
+            sb.AppendLine("PNG: " + png);
             File.WriteAllText(input, sb.ToString());
             
         }
@@ -289,6 +310,7 @@ namespace project
                 e.Handled = true;
             }
         }
+
     }
 }
 

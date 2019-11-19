@@ -172,7 +172,9 @@
             this.COBox.Name = "COBox";
             this.COBox.Size = new System.Drawing.Size(113, 22);
             this.COBox.TabIndex = 14;
+            this.COBox.Enter += new System.EventHandler(this.COBox_Enter);
             this.COBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.COBox_KeyDown);
+            this.COBox.Leave += new System.EventHandler(this.COBox_Leave);
             // 
             // CPBox
             // 
