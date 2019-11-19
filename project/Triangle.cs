@@ -17,6 +17,10 @@ namespace project.RayTracing
         Vector3 n1;
         Vector3 n2;
         Vector3 n3;
+        //Mesh MyMesh
+        //int FaceIndex
+
+        //We can use these to generate p1,p2,p3,n1,n2,n3
 
         /// <summary>
         /// Default triangle constructor given 3 points

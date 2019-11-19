@@ -39,6 +39,7 @@ namespace project.RayTracing
             int ResX = c.getResX();
             int ResY = c.getResY();
             Bitmap b = new Bitmap(ResX, ResY);
+            //Start Timer here.
             for (int i = 0; i < ResX; i++)
             {
                 for (int j = 0; j < ResY; j++)
@@ -46,6 +47,7 @@ namespace project.RayTracing
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
                     Triangle intersect = scene.intersect(r);
+                    //Triangle intersect = scene.GridIntersect(r);
                     if (intersect != null)
                     {
                         Vector3 normal = intersect.normal(r);
@@ -62,6 +64,7 @@ namespace project.RayTracing
                     b.SetPixel(ResX - i - 1, j , newColor);
                 }
             }
+            //End Timer here
             return b;
         }
     }

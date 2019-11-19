@@ -68,20 +68,20 @@ namespace project.RayTracing
 
             LoadOBJ loader = new LoadOBJ();
 
-            /*
-            c1 = new Camera(new Vector3(-2, -2, -2), new Vector3(1, 1, 1), up, 1920, 1080);
+            
+            c1 = new Camera(new Vector3(1, 1, 1), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
             
-            */
+            /*
             c1 = new Camera(new Vector3(0, 0, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere.png";
             output = new Image(c1, m1, filename);
-            
+            */
 
             /*
             c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
