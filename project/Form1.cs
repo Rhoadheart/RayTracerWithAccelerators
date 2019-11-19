@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Windows.Forms;
 using System.Numerics;
-using System.Text;
 
 namespace project.RayTracing
 {
@@ -21,7 +20,6 @@ namespace project.RayTracing
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -40,7 +38,6 @@ namespace project.RayTracing
                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -113,7 +110,7 @@ namespace project.RayTracing
             filename = "../../TestMesh4.png";
             output = new Image(c1, m1, filename);
             */
-
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
