@@ -55,6 +55,10 @@ artifacts/
 *.pdb
 *.pgc
 *.pgd
+*.png
+*.mtl
+*.jpeg
+*.jpg
 *.rsp
 *.sbr
 *.tlb
