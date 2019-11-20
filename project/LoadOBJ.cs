@@ -83,7 +83,7 @@ namespace project.RayTracing
                                     verticesSize = vertices.Count;
                                     normalsSize = normals.Count;
                                     
-                                    int numVertices = values.Count() / 9;
+                                    int numVertices = values.Count() / 3;
 
                                     for (int i = 0; i < numVertices - 2; i++)
                                     {
