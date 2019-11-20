@@ -29,6 +29,7 @@ namespace project.RayTracing
                     {
                         //Read InputFile parameters
                         Process.Start("notepad.exe", filePath);
+
                         
                     }
                 }
@@ -56,21 +57,11 @@ namespace project.RayTracing
 
             origin = new Vector3(0, 0, 0);
             up = new Vector3(0, 1, 0);
-            triangles = new Triangle[3];
-            c1 = new Camera(new Vector3(-2, 0, 0), new Vector3(1, 0, 0), up, 1920, 1080);
-            triangles[0] = new Triangle(new Vector3(2, -1, 1), new Vector3(2, 1, 0), new Vector3(2, -1, -1));
-            triangles[1] = new Triangle(new Vector3(2, -1, 1), new Vector3(1, 1, 1), new Vector3(2, 1, 0));
-            triangles[2] = new Triangle(new Vector3(2, -1, -1), new Vector3(2, 1, 0), new Vector3(1, 1, -1));
-            m1 = new Mesh(triangles);
-
-            string filename = "../../TestMesh2.png";
-            output = new Image(c1, m1, filename);
-
             LoadOBJ loader = new LoadOBJ();
 
             
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
-            filename = "../../../crate.obj";
+            string filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
@@ -82,19 +73,21 @@ namespace project.RayTracing
             filename = "../../sphere005.png";
             output = new Image(c1, m1, filename);
 
+            
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere222.png";
             output = new Image(c1, m1, filename);
+            
 
-
-
+            
             c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../pokeball.obj";
             m1 = loader.Load(filename);
             filename = "../../pokeball.png";
             output = new Image(c1, m1, filename);
+            
             
 
             //This object has over 20,000 triangles and takes a while to run. 

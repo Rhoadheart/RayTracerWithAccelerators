@@ -11,17 +11,12 @@ namespace project.RayTracing
 {
     public class Triangle
     {
-        Vector3 p1;
-        Vector3 p2;
-        Vector3 p3;
-        Vector3 n1;
-        Vector3 n2;
-        Vector3 n3;
-        //Mesh MyMesh
-        //int FaceIndex
+        Mesh mesh;
+        int index;
 
         //We can use these to generate p1,p2,p3,n1,n2,n3
 
+        /*
         /// <summary>
         /// Default triangle constructor given 3 points
         /// </summary>
@@ -41,8 +36,15 @@ namespace project.RayTracing
             this.n2 = normals;
             this.n3 = normals;
 
+        }*/
+
+        public Triangle(Mesh mesh, int index)
+        {
+            this.mesh = mesh;
+            this.index = index;
         }
 
+        /*
         /// <summary>
         /// Default triangle constructor given 3 points and a normal
         /// </summary>
@@ -59,6 +61,7 @@ namespace project.RayTracing
             this.n3 = n3;
 
         }
+        */
 
         /// <summary>
         /// Determines if the given ray intesects with this triangle
@@ -69,8 +72,14 @@ namespace project.RayTracing
         public bool intersection(Ray r, out float tOut)
         {
             //Computing s1
-            Vector3 edge1 = this.p2 - this.p1;
-            Vector3 edge2 = this.p3 - this.p1;
+            Vector3 p1 = mesh.vertices[mesh.faces[index * 3]];
+            Vector3 p2 = mesh.vertices[mesh.faces[index * 3 + 1]];
+            Vector3 p3 = mesh.vertices[mesh.faces[index * 3 + 2]];
+            //Vector3 n1 = mesh.normals[mesh.vertexNormals[index * 3]];
+            //Vector3 n2 = mesh.normals[mesh.vertexNormals[index * 3 + 1]];
+            //Vector3 n3 = mesh.normals[mesh.vertexNormals[index * 3 + 2]];
+            Vector3 edge1 = p2 - p1;
+            Vector3 edge2 = p3 - p1;
             Vector3 s1 = Vector3.Cross(r.getDirection(), edge2);
             float divisor = Vector3.Dot(s1, edge1);
             if (divisor == 0)
@@ -116,6 +125,12 @@ namespace project.RayTracing
         /// <returns></returns>
         public Vector3 normal()
         {
+            Vector3 p1 = mesh.vertices[mesh.faces[index * 3]];
+            Vector3 p2 = mesh.vertices[mesh.faces[index * 3 + 1]];
+            Vector3 p3 = mesh.vertices[mesh.faces[index * 3 + 2]];
+            //Vector3 n1 = mesh.normals[mesh.vertexNormals[index * 3]];
+            //Vector3 n2 = mesh.normals[mesh.vertexNormals[index * 3 + 1]];
+            //Vector3 n3 = mesh.normals[mesh.vertexNormals[index * 3 + 2]];
 
             Vector3 A = p2 - p1;
             Vector3 B = p3 - p2;
@@ -130,10 +145,16 @@ namespace project.RayTracing
         /// <returns></returns>
         public Vector3 normal(Ray r)
         {
+            Vector3 p1 = mesh.vertices[mesh.faces[index * 3]];
+            Vector3 p2 = mesh.vertices[mesh.faces[index * 3 + 1]];
+            Vector3 p3 = mesh.vertices[mesh.faces[index * 3 + 2]];
+            Vector3 n1 = mesh.normals[mesh.vertexNormals[index * 3]];
+            Vector3 n2 = mesh.normals[mesh.vertexNormals[index * 3 + 1]];
+            Vector3 n3 = mesh.normals[mesh.vertexNormals[index * 3 + 2]];
 
             //Computing s1
-            Vector3 edge1 = this.p2 - this.p1;
-            Vector3 edge2 = this.p3 - this.p1;
+            Vector3 edge1 = p2 - p1;
+            Vector3 edge2 = p3 - p1;
             Vector3 s1 = Vector3.Cross(r.getDirection(), edge2);
             float divisor = Vector3.Dot(s1, edge1);
             float invDivisor = 1f / divisor;

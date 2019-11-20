@@ -10,6 +10,8 @@ namespace project.RayTracing
     {
         List<Vector3> vertices;
         List<Vector3> normals;
+        List<int> faces;
+        List<int> vertexNormals;
         List<Triangle> triangles;
         int verticesSize;
         int normalsSize;
@@ -25,6 +27,8 @@ namespace project.RayTracing
             {
                 vertices = new List<Vector3>();
                 normals = new List<Vector3>();
+                faces = new List<int>();
+                vertexNormals = new List<int>();
                 triangles = new List<Triangle>();
 
 
@@ -53,28 +57,38 @@ namespace project.RayTracing
                                 break;
                             case "f":
 
-                                Triangle thisTriangle;
+                                //Triangle thisTriangle;
                                 
                                 //Assuming we have triangles (3 vertices per face)
                                 string[] values = line.Split(new Char[] { ' ', '/' });
-                                Vector3 p1, p2, p3, n1, n2, n3;
+                                //Vector3 p1, p2, p3, n1, n2, n3;
+                                
                                 if (int.Parse(values[1]) > 0)
                                 {
 
                                     int numVertices = values.Count() / 3;
                                     for(int i = 0; i< numVertices-2; i++)
                                     {
-                                        p1 = vertices[int.Parse(values[1]) - 1];
-                                        n1 = normals[int.Parse(values[3]) - 1];
+                                        //p1 = vertices[int.Parse(values[1]) - 1];
+                                        faces.Add(int.Parse(values[1]) - 1);
+                                        //p2 = vertices[int.Parse(values[4 + (i*3)]) - 1];
+                                        faces.Add(int.Parse(values[4 + (i * 3)]) - 1);
+                                        //p3 = vertices[int.Parse(values[7 + (i*3)]) - 1];
+                                        faces.Add(int.Parse(values[7 + (i * 3)]) - 1);
 
-                                        p2 = vertices[int.Parse(values[4 + (i*3)]) - 1];
-                                        n2 = normals[int.Parse(values[6 + (i*3)]) - 1];
 
-                                        p3 = vertices[int.Parse(values[7 + (i*3)]) - 1];
-                                        n3 = normals[int.Parse(values[9 + (i*3)]) - 1];
 
-                                        thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
-                                        triangles.Add(thisTriangle);
+                                        //n1 = normals[int.Parse(values[3]) - 1];
+                                        vertexNormals.Add(int.Parse(values[3]) - 1);
+
+                                        //n2 = normals[int.Parse(values[6 + (i*3)]) - 1];
+                                        vertexNormals.Add(int.Parse(values[6 + (i * 3)]) - 1);
+
+                                        // n3 = normals[int.Parse(values[9 + (i*3)]) - 1];
+                                        vertexNormals.Add(int.Parse(values[9 + (i * 3)]) - 1);
+
+                                        //thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
+                                        //triangles.Add(thisTriangle);
                                     }
                                     
                                 }
@@ -88,17 +102,25 @@ namespace project.RayTracing
                                     for (int i = 0; i < numVertices - 2; i++)
                                     {
 
-                                        p1 = vertices[verticesSize + int.Parse(values[1])];
-                                        n1 = normals[normalsSize + int.Parse(values[3])];
+                                        //p1 = vertices[verticesSize + int.Parse(values[1])];
+                                        faces.Add(verticesSize + int.Parse(values[1]));
+                                        //p2 = vertices[verticesSize + int.Parse(values[4+(i*3)])];
+                                        faces.Add(verticesSize + int.Parse(values[4 + (i * 3)]));
+                                        //p3 = vertices[verticesSize + int.Parse(values[7+(i*3)])];
+                                        faces.Add(verticesSize + int.Parse(values[7 + (i * 3)]));
 
-                                        p2 = vertices[verticesSize + int.Parse(values[4+(i*3)])];
-                                        n2 = normals[normalsSize + int.Parse(values[6+(i*3)])];
 
-                                        p3 = vertices[verticesSize + int.Parse(values[7+(i*3)])];
-                                        n3 = normals[normalsSize + int.Parse(values[9+(i*3)])];
+                                        //n1 = normals[normalsSize + int.Parse(values[3])];
+                                        vertexNormals.Add(normalsSize + int.Parse(values[3]));
 
-                                        thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
-                                        triangles.Add(thisTriangle);
+                                        //n2 = normals[normalsSize + int.Parse(values[6+(i*3)])];
+                                        vertexNormals.Add(normalsSize + int.Parse(values[6 + (i * 3)]));
+
+                                        //n3 = normals[normalsSize + int.Parse(values[9+(i*3)])];
+                                        vertexNormals.Add(normalsSize + int.Parse(values[9 + (i * 3)]));
+
+                                        //thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
+                                        //triangles.Add(thisTriangle);
 
                                     }
                                 }
@@ -107,9 +129,12 @@ namespace project.RayTracing
                             default:
                                 break;
                         }
+
                     }
                 }
-                return new Mesh(triangles);
+                //return new Mesh(triangles);
+                return new Mesh(vertices, normals, faces, vertexNormals);
+                
             }
             catch (IOException e)
             {

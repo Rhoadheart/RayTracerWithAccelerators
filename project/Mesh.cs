@@ -3,31 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 
 namespace project.RayTracing
 {
     public class Mesh
     {
-        Triangle[] triangles;
+        //Triangle[] triangles;
+        public List<Vector3> vertices;
+        public List<Vector3> normals;
+        public List<int> faces;
+        public List<int> vertexNormals;
+
+
+
 
         /// <summary>
-        /// Default Constructor for a Mesh. Holds an array of triangles.
+        /// Default Constructor for a Mesh. Holds an references to vertices and normals for an array of triangle faces.
         /// </summary>
-        /// <param name="triangles"></param>
-        public Mesh(Triangle[] triangles)
+        /// <param name="vertices"></param>
+        /// <param name="normals"></param>
+        /// <param name="faces"></param>
+        /// <param name="vertexNormals"></param>
+        public Mesh(List<Vector3> vertices, List<Vector3> normals, List<int> faces, List<int> vertexNormals)
         {
-            this.triangles = triangles;
+            this.vertices = vertices;
+            this.normals = normals;
+            this.faces = faces;
+            this.vertexNormals = vertexNormals;
         }
 
-        /// <summary>
-        /// Default Constructor for a Mesh. Holds an array of triangles.
-        /// </summary>
-        /// <param name="triangles"></param>
-        public Mesh(List<Triangle> triangles)
-        {
-            this.triangles = triangles.ToArray<Triangle>();
-        }
+        
 
         /// <summary>
         /// Loops through all triangles and returns the closest triangle that intersects with r.
@@ -39,22 +46,26 @@ namespace project.RayTracing
             float tOut;
             float minT = float.MaxValue;
             Triangle closestTriangle = null;
-            foreach(Triangle t in triangles)
+            //Foreach triangle
+            for(int i = 0; i < faces.Count/3; i++)
             {
-                if (t.intersection(r, out tOut))
+                Triangle thisTriangle = new Triangle(this, i);
+                if (thisTriangle.intersection(r, out tOut))
+                {
                     if (tOut < minT)
                     {
-                        closestTriangle = t;
+                        closestTriangle = thisTriangle;
                         minT = tOut;
                     }
-                        
-                
+                }
+                   
             }
 
             return closestTriangle;
             
             
         }
+        
 
     }
 }
