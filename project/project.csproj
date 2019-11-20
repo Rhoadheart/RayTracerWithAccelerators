@@ -83,7 +83,6 @@
     <Compile Include="Vector3Extensions.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Test.cs" />
-    <Compile Include="Point2.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

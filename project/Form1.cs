@@ -51,7 +51,6 @@ namespace project.RayTracing
         {
             Camera c1;
             Image output;
-            Triangle[] triangles;
             Vector3 origin, up;
             Mesh m1;
 
@@ -66,7 +65,7 @@ namespace project.RayTracing
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
             
-            
+            /*
             c1 = new Camera(new Vector3(0, 0, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
@@ -87,28 +86,29 @@ namespace project.RayTracing
             m1 = loader.Load(filename);
             filename = "../../pokeball.png";
             output = new Image(c1, m1, filename);
+            */
             
             
 
             //This object has over 20,000 triangles and takes a while to run. 
-            /*
-            c1 = new Camera(new Vector3(-160, -135, 250), new Vector3(0, 0, 0), up, 1920, 1080);
+            
+            c1 = new Camera(new Vector3(-160, 135, 250), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sword.obj";
             m1 = loader.Load(filename);
             filename = "../../sword.png";
             output = new Image(c1, m1, filename);
-            */
+            
 
 
             //This object has over 150,000 triangles and takes extremely long to render.
             //I calculated it as lasting around 9.6 hours
-            /*
+            
             filename = "../../../bunny_max_res.obj";
             loader = new LoadOBJ();
             m1 = loader.Load(filename);
-            filename = "../../TestMesh4.png";
+            filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
-            */
+            
             
         }
 
