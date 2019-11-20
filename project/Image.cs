@@ -58,10 +58,10 @@ namespace project.RayTracing
                     }
                     else
                     {
-                        newColor = Color.FromArgb(0, 255, 0);
+                        newColor = Color.FromArgb(0, 0, 0);
                     }
                     
-                    b.SetPixel(ResX - i - 1, j , newColor);
+                    b.SetPixel(i, ResY - j - 1 , newColor);
                 }
             }
             //End Timer here
