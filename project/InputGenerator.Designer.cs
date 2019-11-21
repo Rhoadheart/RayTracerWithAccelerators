@@ -52,6 +52,10 @@
             this.Search1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.GenerateLabel = new System.Windows.Forms.Label();
+            this.PNGCSVLocation = new System.Windows.Forms.TextBox();
+            this.CSVLocation = new System.Windows.Forms.Label();
+            this.Search3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Generate
@@ -205,6 +209,7 @@
             this.GenPNG.TabIndex = 21;
             this.GenPNG.Text = "Generate PNG";
             this.GenPNG.UseVisualStyleBackColor = true;
+            this.GenPNG.Click += new System.EventHandler(this.GenPNG_Click);
             // 
             // FoVBox
             // 
@@ -245,6 +250,7 @@
             "K-D Trees",
             "Grid",
             "Bounding Volume Hierarchy",
+            "Brute Force",
             "All"});
             this.comboBox1.Location = new System.Drawing.Point(166, 26);
             this.comboBox1.Name = "comboBox1";
@@ -275,11 +281,52 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // GenerateLabel
+            // 
+            this.GenerateLabel.AutoSize = true;
+            this.GenerateLabel.Location = new System.Drawing.Point(418, 398);
+            this.GenerateLabel.Name = "GenerateLabel";
+            this.GenerateLabel.Size = new System.Drawing.Size(103, 17);
+            this.GenerateLabel.TabIndex = 23;
+            this.GenerateLabel.Text = "GenerateLabel";
+            // 
+            // PNGCSVLocation
+            // 
+            this.PNGCSVLocation.Enabled = false;
+            this.PNGCSVLocation.Location = new System.Drawing.Point(487, 326);
+            this.PNGCSVLocation.Name = "PNGCSVLocation";
+            this.PNGCSVLocation.Size = new System.Drawing.Size(298, 22);
+            this.PNGCSVLocation.TabIndex = 24;
+            // 
+            // CSVLocation
+            // 
+            this.CSVLocation.AutoSize = true;
+            this.CSVLocation.Enabled = false;
+            this.CSVLocation.Location = new System.Drawing.Point(356, 326);
+            this.CSVLocation.Name = "CSVLocation";
+            this.CSVLocation.Size = new System.Drawing.Size(127, 17);
+            this.CSVLocation.TabIndex = 25;
+            this.CSVLocation.Text = "PNG/CSV Location";
+            // 
+            // Search3
+            // 
+            this.Search3.Enabled = false;
+            this.Search3.Location = new System.Drawing.Point(711, 354);
+            this.Search3.Name = "Search3";
+            this.Search3.Size = new System.Drawing.Size(74, 23);
+            this.Search3.TabIndex = 26;
+            this.Search3.Text = "Search";
+            this.Search3.UseVisualStyleBackColor = true;
+            // 
             // InputGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(797, 450);
+            this.Controls.Add(this.Search3);
+            this.Controls.Add(this.CSVLocation);
+            this.Controls.Add(this.PNGCSVLocation);
+            this.Controls.Add(this.GenerateLabel);
             this.Controls.Add(this.Search1);
             this.Controls.Add(this.Search2);
             this.Controls.Add(this.comboBox1);
@@ -336,5 +383,9 @@
         private System.Windows.Forms.Button Search1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label GenerateLabel;
+        private System.Windows.Forms.TextBox PNGCSVLocation;
+        private System.Windows.Forms.Label CSVLocation;
+        private System.Windows.Forms.Button Search3;
     }
 }

@@ -26,7 +26,7 @@ namespace project
         private void InputGenerator_Load_1(object sender, EventArgs e)
         {
             //FOV
-            FoVBox.Text = "Degrees";
+            FoVBox.Text = "Default: 43";
             FoVBox.ForeColor = Color.Gray;
             //Output
             OutputBox.Text = "File path";
@@ -50,6 +50,8 @@ namespace project
             COBox.Text = "EX: x,y,z";
             COBox.ForeColor = Color.Gray;
 
+            GenerateLabel.Hide();
+
         }
 
         private void OnClose(object sender, EventArgs e)
@@ -59,7 +61,7 @@ namespace project
 
         private void FoVBox_Enter(object sender, EventArgs e)
         {
-            if (FoVBox.Text == "Degrees")
+            if (FoVBox.Text == "Default: 43" && FoVBox.ForeColor == Color.Gray)
             {
                 FoVBox.Text = "";
                 FoVBox.ForeColor = Color.Black;
@@ -70,14 +72,14 @@ namespace project
         {
             if (FoVBox.Text == "")
             {
-                FoVBox.Text = "Degrees";
+                FoVBox.Text = "Default: 43";
                 FoVBox.ForeColor = Color.Gray;
             }
         }
 
         private void OutputBox_Enter(object sender, EventArgs e)
         {
-            if (OutputBox.Text == "File path")
+            if (OutputBox.Text == "File path" && OutputBox.ForeColor == Color.Gray)
             {
                 OutputBox.Text = "";
                 OutputBox.ForeColor = Color.Black;
@@ -91,11 +93,15 @@ namespace project
                 OutputBox.Text = "File path";
                 OutputBox.ForeColor = Color.Gray;
             }
+            else
+            {
+                OutputBox.ForeColor = Color.Black;
+            }
         }
 
         private void InputBox_Enter(object sender, EventArgs e)
         {
-            if (InputBox.Text == "File path")
+            if (InputBox.Text == "File path" && InputBox.ForeColor == Color.Gray)
             {
                 InputBox.Text = "";
                 InputBox.ForeColor = Color.Black;
@@ -113,7 +119,7 @@ namespace project
 
         private void CPBox_Enter(object sender, EventArgs e)
         {
-            if (CPBox.Text == "EX: x,y,z")
+            if (CPBox.Text == "EX: x,y,z" && CPBox.ForeColor == Color.Gray)
             {
                 CPBox.Text = "";
                 CPBox.ForeColor = Color.Black;
@@ -131,7 +137,7 @@ namespace project
 
         private void COBox_Enter(object sender, EventArgs e)
         {
-            if (COBox.Text == "EX: x,y,z")
+            if (COBox.Text == "EX: x,y,z" && COBox.ForeColor == Color.Gray)
             {
                 COBox.Text = "";
                 COBox.ForeColor = Color.Black;
@@ -149,7 +155,7 @@ namespace project
 
         private void ResXBox_Enter(object sender, EventArgs e)
         {
-            if (ResXBox.Text == "Width")
+            if (ResXBox.Text == "Width" && ResXBox.ForeColor == Color.Gray)
             {
                 ResXBox.Text = "";
                 ResXBox.ForeColor = Color.Black;
@@ -167,7 +173,7 @@ namespace project
 
         private void ResYBox_Enter(object sender, EventArgs e)
         {
-            if (ResYBox.Text == "Height")
+            if (ResYBox.Text == "Height" && ResYBox.ForeColor == Color.Gray)
             {
                 ResYBox.Text = "";
                 ResYBox.ForeColor = Color.Black;
@@ -185,7 +191,7 @@ namespace project
 
         private void CUBox_Enter(object sender, EventArgs e)
         {
-            if (CUBox.Text == "Default: 0,1,0")
+            if (CUBox.Text == "Default: 0,1,0" && CUBox.ForeColor == Color.Gray)
             {
                 CUBox.Text = "";
                 CUBox.ForeColor = Color.Black;
@@ -217,17 +223,68 @@ namespace project
             String fov = FoVBox.Text;
             bool PNG = GenPNG.Checked;
             String png = PNG.ToString();
-
+            if (combo == "")
+            {
+                GenerateLabel.Text = "Choose Acceleration Structure";
+                GenerateLabel.Show();
+                return;
+            }
+            if (resX == "" || resX == "Width")
+            {
+                GenerateLabel.Text = "Enter a valid X Width";
+                GenerateLabel.Show();
+                return;
+            }
+            if(resY == "" || resY == "Height")
+            {
+                GenerateLabel.Text = "Enter a valid Y Height";
+                GenerateLabel.Show();
+                return;
+            }
+            if(CPbox == "" || CPbox == "EX: x,y,z")
+            {
+                GenerateLabel.Text = "Enter a valid Camera Position";
+                GenerateLabel.Show();
+                return;
+            }
+            if(CObox == "" || CObox == "EX: x,y,z")
+            {
+                GenerateLabel.Text = "Enter a valid Camera Orientation";
+                GenerateLabel.Show();
+                return;
+            }
+            if(CUbox == "" || CUbox == "Default: 0,1,0")
+            {
+                CUbox = "0,1,0";
+                GenerateLabel.Show();
+            }
+            if(input == "" || input == "File path")
+            {
+                GenerateLabel.Text = "Not valid input path";
+                GenerateLabel.Show();
+                return;
+            }
+            if(output == "" || output == "File path")
+            {
+                GenerateLabel.Text = "Not valid output path";
+                GenerateLabel.Show();
+                return;
+            }
+            if(fov == "" || fov == "Default: 43")
+            {
+                fov = "43";
+            }
+            
             sb.AppendLine("A: " + combo);
             sb.AppendLine("Rx: " + resX);
             sb.AppendLine("Ry: " + resY);
             sb.AppendLine("Cp: " + CPbox);
             sb.AppendLine("Co: " + CObox);
             sb.AppendLine("Cu: " + CUbox);
-            //sb.AppendLine("O: " + output);
             sb.AppendLine("Fov: " + fov);
             sb.AppendLine("PNG: " + png);
             File.WriteAllText(output, sb.ToString());
+            Close();
             
         }
 
@@ -324,6 +381,21 @@ namespace project
             }
         }
 
+        private void GenPNG_Click(object sender, EventArgs e)
+        {
+            if (GenPNG.Checked)
+            {
+                PNGCSVLocation.Enabled = true;
+                Search3.Enabled = true;
+                CSVLocation.Enabled = true;
+            }
+            else
+            {
+                PNGCSVLocation.Enabled = false;
+                Search3.Enabled = false;
+                CSVLocation.Enabled = false;
+            }
+        }
     }
 }
 
