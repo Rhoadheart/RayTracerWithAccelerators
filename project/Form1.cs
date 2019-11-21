@@ -64,15 +64,15 @@ namespace project.RayTracing
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
-            
             /*
+            
             c1 = new Camera(new Vector3(0, 0, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere005.png";
             output = new Image(c1, m1, filename);
 
-            
+            /*
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);

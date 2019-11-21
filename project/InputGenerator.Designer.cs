@@ -71,7 +71,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 28);
+            this.label1.Location = new System.Drawing.Point(12, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(148, 17);
             this.label1.TabIndex = 1;
@@ -80,7 +80,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 175);
+            this.label3.Location = new System.Drawing.Point(12, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(115, 17);
             this.label3.TabIndex = 3;
@@ -89,7 +89,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 253);
+            this.label4.Location = new System.Drawing.Point(12, 251);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(135, 17);
             this.label4.TabIndex = 4;
@@ -98,7 +98,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 331);
+            this.label5.Location = new System.Drawing.Point(12, 329);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 17);
             this.label5.TabIndex = 5;
@@ -134,7 +134,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 101);
+            this.label2.Location = new System.Drawing.Point(12, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 17);
             this.label2.TabIndex = 2;
@@ -203,7 +203,7 @@
             // 
             this.GenPNG.AutoSize = true;
             this.GenPNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.GenPNG.Location = new System.Drawing.Point(359, 253);
+            this.GenPNG.Location = new System.Drawing.Point(356, 253);
             this.GenPNG.Name = "GenPNG";
             this.GenPNG.Size = new System.Drawing.Size(124, 21);
             this.GenPNG.TabIndex = 21;
@@ -286,9 +286,9 @@
             this.GenerateLabel.AutoSize = true;
             this.GenerateLabel.Location = new System.Drawing.Point(418, 398);
             this.GenerateLabel.Name = "GenerateLabel";
-            this.GenerateLabel.Size = new System.Drawing.Size(103, 17);
+            this.GenerateLabel.Size = new System.Drawing.Size(102, 17);
             this.GenerateLabel.TabIndex = 23;
-            this.GenerateLabel.Text = "GenerateLabel";
+            this.GenerateLabel.Text = "GenErrorLabel";
             // 
             // PNGCSVLocation
             // 
@@ -297,16 +297,19 @@
             this.PNGCSVLocation.Name = "PNGCSVLocation";
             this.PNGCSVLocation.Size = new System.Drawing.Size(298, 22);
             this.PNGCSVLocation.TabIndex = 24;
+            this.PNGCSVLocation.Enter += new System.EventHandler(this.PNGCSVLocation_Enter);
+            this.PNGCSVLocation.Leave += new System.EventHandler(this.PNGCSVLocation_Leave);
             // 
             // CSVLocation
             // 
             this.CSVLocation.AutoSize = true;
             this.CSVLocation.Enabled = false;
             this.CSVLocation.Location = new System.Drawing.Point(356, 326);
+            this.CSVLocation.Margin = new System.Windows.Forms.Padding(0);
             this.CSVLocation.Name = "CSVLocation";
-            this.CSVLocation.Size = new System.Drawing.Size(127, 17);
+            this.CSVLocation.Size = new System.Drawing.Size(97, 17);
             this.CSVLocation.TabIndex = 25;
-            this.CSVLocation.Text = "PNG/CSV Location";
+            this.CSVLocation.Text = "CSV Location:\r\n";
             // 
             // Search3
             // 

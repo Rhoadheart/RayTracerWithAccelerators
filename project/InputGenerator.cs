@@ -28,12 +28,15 @@ namespace project
             //FOV
             FoVBox.Text = "Default: 43";
             FoVBox.ForeColor = Color.Gray;
-            //Output
+            //InputFile Location
             OutputBox.Text = "File path";
             OutputBox.ForeColor = Color.Gray;
-            //Input
+            //OBJ Location
             InputBox.Text = "File path";
             InputBox.ForeColor = Color.Gray;
+            //PNG/CSV Location
+            PNGCSVLocation.Text = "";
+            PNGCSVLocation.ForeColor = Color.Gray;
             //CPBox
             CPBox.Text = "EX: x,y,z";
             CPBox.ForeColor = Color.Gray;
@@ -114,6 +117,24 @@ namespace project
             {
                 InputBox.Text = "File path";
                 InputBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void PNGCSVLocation_Enter(object sender, EventArgs e)
+        {
+            if(PNGCSVLocation.Text == "File path")
+            {
+                PNGCSVLocation.Text = "";
+                PNGCSVLocation.ForeColor = Color.Black;
+            }
+        }
+
+        private void PNGCSVLocation_Leave(object sender, EventArgs e)
+        {
+            if(PNGCSVLocation.Text == "")
+            {
+                PNGCSVLocation.Text = "File path";
+                PNGCSVLocation.ForeColor = Color.Gray;
             }
         }
 
@@ -220,6 +241,7 @@ namespace project
             String CUbox = CUBox.Text;
             String input = InputBox.Text;
             String output = OutputBox.Text;
+            String CSVLocation = PNGCSVLocation.Text;
             String fov = FoVBox.Text;
             bool PNG = GenPNG.Checked;
             String png = PNG.ToString();
@@ -273,6 +295,15 @@ namespace project
             if(fov == "" || fov == "Default: 43")
             {
                 fov = "43";
+            }
+            if (GenPNG.Checked)
+            {
+                if(CSVLocation == "" || CSVLocation == "File path")
+                {
+                    GenerateLabel.Text = "Not calid output path";
+                    GenerateLabel.Show();
+                    return;
+                }
             }
             
             sb.AppendLine("A: " + combo);
@@ -388,12 +419,16 @@ namespace project
                 PNGCSVLocation.Enabled = true;
                 Search3.Enabled = true;
                 CSVLocation.Enabled = true;
+                PNGCSVLocation.Text = "File path";
+                PNGCSVLocation.ForeColor = Color.Gray;
             }
             else
             {
                 PNGCSVLocation.Enabled = false;
                 Search3.Enabled = false;
                 CSVLocation.Enabled = false;
+                PNGCSVLocation.Text = "";
+                PNGCSVLocation.ForeColor = Color.Black;
             }
         }
     }
