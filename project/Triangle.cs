@@ -13,6 +13,7 @@ namespace project.RayTracing
     {
         Mesh mesh;
         int index;
+
         public Vector3 p1
         {
             get { return mesh.vertices[mesh.faces[index * 3]]; }
@@ -27,12 +28,14 @@ namespace project.RayTracing
         {
             get { return mesh.vertices[mesh.faces[index * 3 + 2]]; }
         }
+        
 
         //We can use these to generate p1,p2,p3,n1,n2,n3
 
         /*
         /// <summary>
-        /// Default triangle constructor given 3 points
+        /// Triangle constructor given 3 points. 
+        /// This constructor does not use a Mesh, and thus does not calculate normals.
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -46,11 +49,9 @@ namespace project.RayTracing
             Vector3 A = p2 - p1;
             Vector3 B = p3 - p2;
             Vector3 normals = Vector3.Normalize(Vector3.Cross(A, B));
-            this.n1 = normals;
-            this.n2 = normals;
-            this.n3 = normals;
 
-        }*/
+        }
+        */
 
         public Triangle(Mesh mesh, int index)
         {
@@ -85,7 +86,6 @@ namespace project.RayTracing
         /// <returns></returns>
         public bool intersection(Ray r, out float tOut)
         {
-            //Computing s1
             Vector3 p1 = mesh.vertices[mesh.faces[index * 3]];
             Vector3 p2 = mesh.vertices[mesh.faces[index * 3 + 1]];
             Vector3 p3 = mesh.vertices[mesh.faces[index * 3 + 2]];

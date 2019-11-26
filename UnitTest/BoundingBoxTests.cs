@@ -17,7 +17,7 @@ namespace UnitTest
         [SetUp]
         public void Before()
         {
-
+            
             List<Vector3> vertices = new List<Vector3>();
             List<Vector3> normals = new List<Vector3>();
             List<int> faces = new List<int>();
@@ -30,9 +30,9 @@ namespace UnitTest
             faces.Add(0);
             faces.Add(1);
             faces.Add(2);
-            vertexNormals.Add(1);
-            vertexNormals.Add(1);
-            vertexNormals.Add(1);
+            vertexNormals.Add(0);
+            vertexNormals.Add(0);
+            vertexNormals.Add(0);
 
             vertices.Add(new Vector3(3, 0, 0));
             vertices.Add(new Vector3(2, 0, 1));
@@ -41,9 +41,9 @@ namespace UnitTest
             faces.Add(3);
             faces.Add(4);
             faces.Add(5);
-            vertexNormals.Add(2);
-            vertexNormals.Add(2);
-            vertexNormals.Add(2);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
 
             Mesh m1 = new Mesh(vertices, normals, faces, vertexNormals);
             origin = new Vector3(0, 0, 0);
@@ -95,6 +95,36 @@ namespace UnitTest
             BoundingBox b1 = new BoundingBox(new Vector3(2, 2, 2), new Vector3(3, -3, 3), new Vector3(-2, -2, -2));
             Assert.AreEqual(b1.p, new Vector3(3, 2, 3));
             Assert.AreEqual(b1.q, new Vector3(-2, -3, -2));
+        }
+
+        [Test]
+        public void BoundingBoxTest6()
+        {
+            
+            BoundingBox b1 = new BoundingBox(t1);
+            // p = <1, 1, 1>
+            // q = <0, 0, 0>
+
+            Ray r1 = new Ray(new Vector3(-5, -5, -5), new Vector3(1, 1, 1));
+            Assert.IsTrue(b1.Intersect(r1));
+
+
+            Ray r2 = new Ray(new Vector3(-5, -5, -5), new Vector3(-1, -1, -1));
+            Assert.IsFalse(b1.Intersect(r2));
+
+            Ray r3 = new Ray(new Vector3(-1, -1, -1), new Vector3(1, 0, 0));
+            Assert.IsFalse(b1.Intersect(r3));
+
+            bool failed = false;
+            for (int j = 0; j < 10; j++)
+            {
+                for (int i = 0; i < 2000000; i++)
+                {
+                    if (b1.Intersect(r3))
+                        failed = true;
+                }
+            }
+            Assert.IsFalse(failed);
         }
 
 
