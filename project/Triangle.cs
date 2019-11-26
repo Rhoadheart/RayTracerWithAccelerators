@@ -13,6 +13,20 @@ namespace project.RayTracing
     {
         Mesh mesh;
         int index;
+        public Vector3 p1
+        {
+            get { return mesh.vertices[mesh.faces[index * 3]]; }
+        }
+
+        public Vector3 p2
+        {
+            get { return mesh.vertices[mesh.faces[index * 3 + 1]]; }
+        }
+
+        public Vector3 p3
+        {
+            get { return mesh.vertices[mesh.faces[index * 3 + 2]]; }
+        }
 
         //We can use these to generate p1,p2,p3,n1,n2,n3
 
