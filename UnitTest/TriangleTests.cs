@@ -29,9 +29,9 @@ namespace UnitTest
             faces.Add(0);
             faces.Add(1);
             faces.Add(2);
-            vertexNormals.Add(1);
-            vertexNormals.Add(1);
-            vertexNormals.Add(1);
+            vertexNormals.Add(0);
+            vertexNormals.Add(0);
+            vertexNormals.Add(0);
 
             vertices.Add(new Vector3(2, 0, 0));
             vertices.Add(new Vector3(0, 2, 0));
@@ -40,9 +40,9 @@ namespace UnitTest
             faces.Add(3);
             faces.Add(4);
             faces.Add(5);
-            vertexNormals.Add(2);
-            vertexNormals.Add(2);
-            vertexNormals.Add(2);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
 
             Mesh m1 = new Mesh(vertices, normals, faces, vertexNormals);
             origin = new Vector3(0, 0, 0);
