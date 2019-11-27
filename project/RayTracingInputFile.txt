@@ -1,8 +1,9 @@
 A: Grid
-Rx: 1920
-Ry: 1080
-Cp: 0,0,5
-Co: 0,0,0
+Rx: 123
+Ry: 123
+Cp: 1,2,3
+Co: 1,2,3
 Cu: 0,1,0
 Fov: 43
-PNG: True
+PNG: true
+CSV: C:\PLU\CS\499\project\Raytracing OutputFile

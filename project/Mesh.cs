@@ -60,12 +60,11 @@ namespace project.RayTracing
                 }
                    
             }
-
             return closestTriangle;
-            
-            
         }
         
+
+
 
     }
 }

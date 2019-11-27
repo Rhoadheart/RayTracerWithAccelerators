@@ -61,64 +61,71 @@ namespace project.RayTracing
             Image output;
             Vector3 origin, up;
             Mesh m1;
+            string filename;
 
             origin = new Vector3(0, 0, 0);
             up = new Vector3(0, 1, 0);
             LoadOBJ loader = new LoadOBJ();
-
+            
             
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
-            string filename = "../../../crate.obj";
+            filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
-            /*
+            
+            
+            
             
             c1 = new Camera(new Vector3(0, 0, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere005.png";
             output = new Image(c1, m1, filename);
-
-            /*
+            
+            
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere222.png";
             output = new Image(c1, m1, filename);
+
+            
             
 
             
+             
             c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../pokeball.obj";
             m1 = loader.Load(filename);
             filename = "../../pokeball.png";
             output = new Image(c1, m1, filename);
-            */
+            
             
             
 
             //This object has over 20,000 triangles and takes a while to run. 
             
-            /*
+            
             c1 = new Camera(new Vector3(-160, 135, 250), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sword.obj";
             m1 = loader.Load(filename);
             filename = "../../sword.png";
             output = new Image(c1, m1, filename);
-            
 
+            
 
             //This object has over 150,000 triangles and takes extremely long to render.
             //I calculated it as lasting around 9.6 hours
-            
+
+            c1 = new Camera(new Vector3(5, 5, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../bunny_max_res.obj";
             loader = new LoadOBJ();
             m1 = loader.Load(filename);
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
             
-    */
+            
             
         }
 
