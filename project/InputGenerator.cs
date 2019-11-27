@@ -35,7 +35,7 @@ namespace project
             InputBox.Text = "File path";
             InputBox.ForeColor = Color.Gray;
             //PNG/CSV Location
-            PNGCSVLocation.Text = "";
+            PNGCSVLocation.Text = "File path";
             PNGCSVLocation.ForeColor = Color.Gray;
             //CPBox
             CPBox.Text = "EX: x,y,z";
@@ -247,7 +247,7 @@ namespace project
             String png = PNG.ToString();
             if (combo == "")
             {
-                GenerateLabel.Text = "Choose Acceleration Structure";
+                GenerateLabel.Text = "Choose an Acceleration Structure";
                 GenerateLabel.Show();
                 return;
             }
@@ -282,13 +282,13 @@ namespace project
             }
             if(input == "" || input == "File path")
             {
-                GenerateLabel.Text = "Not valid input path";
+                GenerateLabel.Text = "Not valid OBJ path";
                 GenerateLabel.Show();
                 return;
             }
             if(output == "" || output == "File path")
             {
-                GenerateLabel.Text = "Not valid output path";
+                GenerateLabel.Text = "Not valid input file path";
                 GenerateLabel.Show();
                 return;
             }
@@ -298,12 +298,13 @@ namespace project
             }
             if (GenPNG.Checked)
             {
-                if(CSVLocation == "" || CSVLocation == "File path")
-                {
-                    GenerateLabel.Text = "Not calid output path";
-                    GenerateLabel.Show();
-                    return;
-                }
+                png = "true";
+            }
+            if(PNGCSVLocation.Text == "" || PNGCSVLocation.Text == "File path")
+            {
+                GenerateLabel.Text = "Not a valid CSV Location path";
+                GenerateLabel.Show();
+                return;
             }
             
             sb.AppendLine("A: " + combo);
@@ -314,7 +315,13 @@ namespace project
             sb.AppendLine("Cu: " + CUbox);
             sb.AppendLine("Fov: " + fov);
             sb.AppendLine("PNG: " + png);
+            sb.AppendLine("CSV: " + CSVLocation);
             File.WriteAllText(output, sb.ToString());
+            //Adjust the Label in the parent form
+            Label a = (Label)this.Owner.Controls["GoodGenLabel"];
+            a.Text = "Generation Succesful";
+            a.Show();
+
             Close();
             
         }
@@ -347,6 +354,23 @@ namespace project
                 {
                     OutputBox.Text = save.FileName;
                     OutputBox.ForeColor = Color.Black;
+                }
+                catch (SecurityException ex)
+                {
+                    MessageBox.Show($"Security error.\n\nError message: {ex.Message}\n\n" +
+                    $"Details:\n\n{ex.StackTrace}");
+                }
+            }
+        }
+
+        private void Search3_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    PNGCSVLocation.Text = folderBrowserDialog1.SelectedPath;
+                    PNGCSVLocation.ForeColor = Color.Black;
                 }
                 catch (SecurityException ex)
                 {
@@ -414,22 +438,7 @@ namespace project
 
         private void GenPNG_Click(object sender, EventArgs e)
         {
-            if (GenPNG.Checked)
-            {
-                PNGCSVLocation.Enabled = true;
-                Search3.Enabled = true;
-                CSVLocation.Enabled = true;
-                PNGCSVLocation.Text = "File path";
-                PNGCSVLocation.ForeColor = Color.Gray;
-            }
-            else
-            {
-                PNGCSVLocation.Enabled = false;
-                Search3.Enabled = false;
-                CSVLocation.Enabled = false;
-                PNGCSVLocation.Text = "";
-                PNGCSVLocation.ForeColor = Color.Black;
-            }
+            
         }
     }
 }

@@ -42,6 +42,7 @@ namespace project.RayTracing
             //Start Timer here.
             for (int i = 0; i < ResX; i++)
             {
+                //Check how far the rendering is
                 for (int j = 0; j < ResY; j++)
                 {
                     Color newColor;

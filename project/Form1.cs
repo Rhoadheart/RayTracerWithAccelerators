@@ -17,6 +17,7 @@ namespace project.RayTracing
         {
             InitializeComponent();
         }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -29,6 +30,13 @@ namespace project.RayTracing
                     {
                         //Read InputFile parameters
                         Process.Start("notepad.exe", filePath);
+
+                        //InputFile input = Json.Convert.Deserialize(filepath);
+                        //Now that we have the input, we can extract the variables
+                        //string AccelerationStructure = input.AcceleraltionStructure;
+                        //For each variable
+
+
 
                         
                     }
@@ -43,7 +51,7 @@ namespace project.RayTracing
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            GoodGenLabel.Hide();
 
         }
         
@@ -92,6 +100,7 @@ namespace project.RayTracing
 
             //This object has over 20,000 triangles and takes a while to run. 
             
+            /*
             c1 = new Camera(new Vector3(-160, 135, 250), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sword.obj";
             m1 = loader.Load(filename);
@@ -109,6 +118,7 @@ namespace project.RayTracing
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
             
+    */
             
         }
 
@@ -117,9 +127,21 @@ namespace project.RayTracing
             InputGenerator IG = new InputGenerator();
             IG.Show();
             IG.Owner = this;
+            //IG.Parent = this;
             this.Hide();
+
         
         }
-        
+        public string GoodGenLabelMethod
+        {
+            get
+            {
+                return GoodGenLabel.Text;
+            }
+            set
+            {
+                GoodGenLabel.Text = value;
+            }
+        }
     }
 }

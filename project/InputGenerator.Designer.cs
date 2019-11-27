@@ -56,11 +56,12 @@
             this.PNGCSVLocation = new System.Windows.Forms.TextBox();
             this.CSVLocation = new System.Windows.Forms.Label();
             this.Search3 = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // Generate
             // 
-            this.Generate.Location = new System.Drawing.Point(302, 395);
+            this.Generate.Location = new System.Drawing.Point(383, 396);
             this.Generate.Name = "Generate";
             this.Generate.Size = new System.Drawing.Size(85, 23);
             this.Generate.TabIndex = 0;
@@ -107,7 +108,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(356, 29);
+            this.label6.Location = new System.Drawing.Point(382, 29);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 17);
             this.label6.TabIndex = 6;
@@ -116,16 +117,16 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(356, 102);
+            this.label7.Location = new System.Drawing.Point(382, 102);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(127, 17);
+            this.label7.Size = new System.Drawing.Size(108, 17);
             this.label7.TabIndex = 7;
-            this.label7.Text = "Input File Location:";
+            this.label7.Text = "Input File Place:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(356, 180);
+            this.label9.Location = new System.Drawing.Point(382, 180);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 17);
             this.label9.TabIndex = 9;
@@ -203,7 +204,7 @@
             // 
             this.GenPNG.AutoSize = true;
             this.GenPNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.GenPNG.Location = new System.Drawing.Point(356, 253);
+            this.GenPNG.Location = new System.Drawing.Point(382, 253);
             this.GenPNG.Name = "GenPNG";
             this.GenPNG.Size = new System.Drawing.Size(124, 21);
             this.GenPNG.TabIndex = 21;
@@ -214,9 +215,9 @@
             // FoVBox
             // 
             this.FoVBox.ForeColor = System.Drawing.Color.Black;
-            this.FoVBox.Location = new System.Drawing.Point(487, 180);
+            this.FoVBox.Location = new System.Drawing.Point(512, 180);
             this.FoVBox.Name = "FoVBox";
-            this.FoVBox.Size = new System.Drawing.Size(102, 22);
+            this.FoVBox.Size = new System.Drawing.Size(117, 22);
             this.FoVBox.TabIndex = 20;
             this.FoVBox.Enter += new System.EventHandler(this.FoVBox_Enter);
             this.FoVBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FoVBox_KeyDown);
@@ -224,18 +225,18 @@
             // 
             // OutputBox
             // 
-            this.OutputBox.Location = new System.Drawing.Point(487, 99);
+            this.OutputBox.Location = new System.Drawing.Point(512, 99);
             this.OutputBox.Name = "OutputBox";
-            this.OutputBox.Size = new System.Drawing.Size(298, 22);
+            this.OutputBox.Size = new System.Drawing.Size(313, 22);
             this.OutputBox.TabIndex = 18;
             this.OutputBox.Enter += new System.EventHandler(this.OutputBox_Enter);
             this.OutputBox.Leave += new System.EventHandler(this.OutputBox_Leave);
             // 
             // InputBox
             // 
-            this.InputBox.Location = new System.Drawing.Point(487, 26);
+            this.InputBox.Location = new System.Drawing.Point(512, 26);
             this.InputBox.Name = "InputBox";
-            this.InputBox.Size = new System.Drawing.Size(298, 22);
+            this.InputBox.Size = new System.Drawing.Size(313, 22);
             this.InputBox.TabIndex = 16;
             this.InputBox.Enter += new System.EventHandler(this.InputBox_Enter);
             this.InputBox.Leave += new System.EventHandler(this.InputBox_Leave);
@@ -259,7 +260,7 @@
             // 
             // Search2
             // 
-            this.Search2.Location = new System.Drawing.Point(711, 127);
+            this.Search2.Location = new System.Drawing.Point(751, 127);
             this.Search2.Name = "Search2";
             this.Search2.Size = new System.Drawing.Size(74, 23);
             this.Search2.TabIndex = 19;
@@ -269,7 +270,7 @@
             // 
             // Search1
             // 
-            this.Search1.Location = new System.Drawing.Point(711, 54);
+            this.Search1.Location = new System.Drawing.Point(751, 54);
             this.Search1.Name = "Search1";
             this.Search1.Size = new System.Drawing.Size(74, 23);
             this.Search1.TabIndex = 17;
@@ -284,7 +285,7 @@
             // GenerateLabel
             // 
             this.GenerateLabel.AutoSize = true;
-            this.GenerateLabel.Location = new System.Drawing.Point(418, 398);
+            this.GenerateLabel.Location = new System.Drawing.Point(499, 399);
             this.GenerateLabel.Name = "GenerateLabel";
             this.GenerateLabel.Size = new System.Drawing.Size(102, 17);
             this.GenerateLabel.TabIndex = 23;
@@ -292,10 +293,9 @@
             // 
             // PNGCSVLocation
             // 
-            this.PNGCSVLocation.Enabled = false;
-            this.PNGCSVLocation.Location = new System.Drawing.Point(487, 326);
+            this.PNGCSVLocation.Location = new System.Drawing.Point(512, 326);
             this.PNGCSVLocation.Name = "PNGCSVLocation";
-            this.PNGCSVLocation.Size = new System.Drawing.Size(298, 22);
+            this.PNGCSVLocation.Size = new System.Drawing.Size(313, 22);
             this.PNGCSVLocation.TabIndex = 24;
             this.PNGCSVLocation.Enter += new System.EventHandler(this.PNGCSVLocation_Enter);
             this.PNGCSVLocation.Leave += new System.EventHandler(this.PNGCSVLocation_Leave);
@@ -303,29 +303,28 @@
             // CSVLocation
             // 
             this.CSVLocation.AutoSize = true;
-            this.CSVLocation.Enabled = false;
-            this.CSVLocation.Location = new System.Drawing.Point(356, 326);
+            this.CSVLocation.Location = new System.Drawing.Point(382, 326);
             this.CSVLocation.Margin = new System.Windows.Forms.Padding(0);
             this.CSVLocation.Name = "CSVLocation";
-            this.CSVLocation.Size = new System.Drawing.Size(97, 17);
+            this.CSVLocation.Size = new System.Drawing.Size(113, 17);
             this.CSVLocation.TabIndex = 25;
-            this.CSVLocation.Text = "CSV Location:\r\n";
+            this.CSVLocation.Text = "Output Location:\r\n";
             // 
             // Search3
             // 
-            this.Search3.Enabled = false;
-            this.Search3.Location = new System.Drawing.Point(711, 354);
+            this.Search3.Location = new System.Drawing.Point(751, 354);
             this.Search3.Name = "Search3";
             this.Search3.Size = new System.Drawing.Size(74, 23);
             this.Search3.TabIndex = 26;
-            this.Search3.Text = "Search";
+            this.Search3.Text = "Open";
             this.Search3.UseVisualStyleBackColor = true;
+            this.Search3.Click += new System.EventHandler(this.Search3_Click);
             // 
             // InputGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 450);
+            this.ClientSize = new System.Drawing.Size(837, 450);
             this.Controls.Add(this.Search3);
             this.Controls.Add(this.CSVLocation);
             this.Controls.Add(this.PNGCSVLocation);
@@ -390,5 +389,6 @@
         private System.Windows.Forms.TextBox PNGCSVLocation;
         private System.Windows.Forms.Label CSVLocation;
         private System.Windows.Forms.Button Search3;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
