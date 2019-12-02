@@ -71,7 +71,7 @@ namespace project.RayTracing
             for(int i = 0; i < nv; i++)
             {
                 //Create empty voxels in the list.
-                voxels.Add(new Voxel(0));
+                voxels.Add(new Voxel());
             }
 
             //Add primitives to grid voxels
@@ -121,6 +121,16 @@ namespace project.RayTracing
             
         }
 
+
+        /// <summary>
+        /// After a GridAccelerator is generated, 
+        /// we can step through this method for each Ray that will intersect with our scene.
+        /// This method first checks that the given ray intersects the BoundingBox for our scene
+        /// Then, sets up a 3D stepping algorithm so we can step through each voxel.
+        /// Lastly, walk the ray through the intersection routine for each voxel until we hit a triangle. 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public Triangle intersect(Ray r)
         {
             //Check ray against overall grid bounds
@@ -166,89 +176,98 @@ namespace project.RayTracing
 
             //Walk ray through voxel grid
             bool hitSomething = false;
-            float tOut;
-            float minT = float.MaxValue;
-            Triangle closestTriangle = null;
+            
             while (!hitSomething)
             {
                 Voxel voxel = voxels[offset((int)Pos.X, (int)Pos.Y, (int)Pos.Z)];
+
                 if (voxel.numTriangles > 0)
                 {
-                    Triangle intersect = voxel.intersect(r, out tOut);
+                    Triangle intersect = voxel.intersect(r);
                     if(intersect != null)
                     {
-                        if (tOut < minT)
-                        {
-                            closestTriangle = intersect;
-                            minT = tOut;
-                            return closestTriangle;
-                        }
+                        return intersect;
+                        
                     }
-                    else
-                    {
-                        //Advance to next voxel
-                        //Find stepAxis for stepping to next voxel
-                        int xy = NextCrossingT.X < NextCrossingT.Y ? 1 : 0;
-                        int xz = NextCrossingT.X < NextCrossingT.Z ? 1 : 0;
-                        int yz = NextCrossingT.Y < NextCrossingT.Z ? 1 : 0;
-                        int bits = (xy << 2) + (xz << 1) + yz;
-                        List<int> cmpToAxis = new List<int>{ 2, 1, 2, 1, 2, 2, 0, 0 };
-                        int stepAxis = cmpToAxis[bits];
-
-                        //Use stepAxis to step to next voxel
-
-                        if(stepAxis == 0)
-                        {
-                            //Our rays currently always have a MaxT of float.MaxValue;
-                            if (r.getMaxT() < NextCrossingT.X)
-                                return closestTriangle;
-                            Pos.X += Step.X;
-
-                            //If we hit an edge, return no intersection.
-                            if (Pos.X == Out.X)
-                                return closestTriangle;
-
-                            NextCrossingT.X += DeltaT.X;
-
-
-                        }else if(stepAxis == 1)
-                        {
-                            //Our rays currently always have a MaxT of float.MaxValue;
-                            if (r.getMaxT() < NextCrossingT.Y)
-                                return closestTriangle;
-                            Pos.Y += Step.Y;
-
-                            //If we hit an edge, return no intersection.
-                            if (Pos.Y == Out.Y)
-                                return closestTriangle;
-
-                            NextCrossingT.Y += DeltaT.Y;
-                        }
-                        else
-                        {
-                            //Our rays currently always have a MaxT of float.MaxValue;
-                            if (r.getMaxT() < NextCrossingT.Z)
-                                return closestTriangle;
-                            Pos.Z += Step.Z;
-
-                            //If we hit an edge, return no intersection.
-                            if (Pos.Z == Out.Z)
-                                return closestTriangle;
-
-                            NextCrossingT.Z += DeltaT.Z;
-                        }
-
-
-                    }
+                    
                 }
-                return closestTriangle;
+
+
+                //Advance to next voxel
+
+                //Find stepAxis for stepping to next voxel
+
+
+                /*
+                int xy = NextCrossingT.X < NextCrossingT.Y ? 1 : 0;
+                int xz = NextCrossingT.X < NextCrossingT.Z ? 1 : 0;
+                int yz = NextCrossingT.Y < NextCrossingT.Z ? 1 : 0;
+                int bits = (xy << 2) + (xz << 1) + yz;
+                List<int> cmpToAxis = new List<int> { 2, 1, 2, 1, 2, 2, 0, 0 };
+                int stepAxis = cmpToAxis[bits];
+                */
+
+                //More straightforward code than ^^
+                int stepAxis;
+                if (NextCrossingT.X <= NextCrossingT.Y && NextCrossingT.X <= NextCrossingT.Z)
+                    stepAxis = 0;
+                else if (NextCrossingT.Y <= NextCrossingT.X && NextCrossingT.Y <= NextCrossingT.Z)
+                    stepAxis = 1;
+                else
+                    stepAxis = 2;
+                
+
+                //Use stepAxis to step to next voxel
+                if (stepAxis == 0)
+                {
+                    //Our rays currently always have a MaxT of float.MaxValue;
+                    if (r.getMaxT() < NextCrossingT.X)
+                        return null;
+                    Pos.X += Step.X;
+
+
+                    //If we hit an edge, return no intersection.
+                    if (Pos.X == Out.X)
+                        return null;
+
+                    NextCrossingT.X += DeltaT.X;
+
+
+                }
+                else if (stepAxis == 1)
+                {
+                    //Our rays currently always have a MaxT of float.MaxValue;
+                    if (r.getMaxT() < NextCrossingT.Y)
+                        return null;
+                    Pos.Y += Step.Y;
+
+                    //If we hit an edge, return no intersection.
+                    if (Pos.Y == Out.Y)
+                        return null;
+
+                    NextCrossingT.Y += DeltaT.Y;
+                }
+                else
+                {
+                    //Our rays currently always have a MaxT of float.MaxValue;
+                    if (r.getMaxT() < NextCrossingT.Z)
+                        return null;
+                    Pos.Z += Step.Z;
+
+                    //If we hit an edge, return no intersection.
+                    if (Pos.Z == Out.Z)
+                        return null;
+
+                    NextCrossingT.Z += DeltaT.Z;
+                }  
+
             }
-            return closestTriangle;
-            
+            return null;
         }
 
         /// <summary>
-        /// Prepares a ray with positive direction for voxel stepping
+        /// Prepares the NextCrossingT, DeltaT, Step, and Out Arrays for voxel stepping.
+        /// This method can only handle rays that are positive in relation to the given axis.
         /// </summary>
         /// <param name="r"></param>
         /// <param name="axis"></param>
@@ -257,21 +276,21 @@ namespace project.RayTracing
            
             if(axis == 0)
             {
-                NextCrossingT.X = rayT + (voxelToPos((int)Pos.X + 1, 0) - gridIntersect.X) / r.getDirection().X;
+                NextCrossingT.X = rayT + (voxelToPos((int)Pos.X + 1, axis) - gridIntersect.X) / r.getDirection().X;
                 DeltaT.X = width.X / r.getDirection().X;
                 Step.X = 1;
                 Out.X = nVoxels.X;
             }
             else if (axis == 1)
             {
-                NextCrossingT.Y = rayT + (voxelToPos((int)Pos.Y + 1, 1) - gridIntersect.Y) / r.getDirection().Y;
+                NextCrossingT.Y = rayT + (voxelToPos((int)Pos.Y + 1, axis) - gridIntersect.Y) / r.getDirection().Y;
                 DeltaT.Y = width.Y / r.getDirection().Y;
                 Step.Y = 1;
                 Out.Y = nVoxels.Y;
             }
             else
             {
-                NextCrossingT.Z = rayT + (voxelToPos((int)Pos.Z + 1, 2) - gridIntersect.Z) / r.getDirection().Z;
+                NextCrossingT.Z = rayT + (voxelToPos((int)Pos.Z + 1, axis) - gridIntersect.Z) / r.getDirection().Z;
                 DeltaT.Z = width.Z / r.getDirection().Z;
                 Step.Z = 1;
                 Out.Z = nVoxels.Z;
@@ -280,7 +299,8 @@ namespace project.RayTracing
         }
 
         /// <summary>
-        /// Prepares a ray with a negative direction for voxel stepping
+        /// Prepares the NextCrossingT, DeltaT, Step, and Out Arrays for voxel stepping.
+        /// This method can only handle rays that are negative in relation to the given axis.
         /// </summary>
         /// <param name="r"></param>
         /// <param name="axis"></param>
@@ -289,20 +309,20 @@ namespace project.RayTracing
 
             if (axis == 0)
             {
-                NextCrossingT.X = rayT + (voxelToPos((int)Pos.X, 0) - gridIntersect.X) / r.getDirection().X;
+                NextCrossingT.X = rayT + (voxelToPos((int)Pos.X, axis) - gridIntersect.X) / r.getDirection().X;
                 DeltaT.X = -width.X / r.getDirection().X;
                 Step.X = -1;
                 Out.X = -1;
             }
             else if (axis == 1)
             {
-                NextCrossingT.Y = rayT + (voxelToPos((int)Pos.Y, 0) - gridIntersect.Y) / r.getDirection().Y;
+                NextCrossingT.Y = rayT + (voxelToPos((int)Pos.Y, axis) - gridIntersect.Y) / r.getDirection().Y;
                 DeltaT.Y = -width.Y / r.getDirection().Y;
                 Step.Y = -1;
                 Out.Y = -1;
             }else
             {
-                NextCrossingT.Z = rayT + (voxelToPos((int)Pos.Z, 0) - gridIntersect.Z) / r.getDirection().Z;
+                NextCrossingT.Z = rayT + (voxelToPos((int)Pos.Z, axis) - gridIntersect.Z) / r.getDirection().Z;
                 DeltaT.Z = -width.Z / r.getDirection().Z;
                 Step.Z = -1;
                 Out.Z = -1;
@@ -310,18 +330,24 @@ namespace project.RayTracing
 
         }
 
+        /// <summary>
+        /// This method calculates the position in the voxel array where the given voxel can be found.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
         public int offset(int x, int y, int z)
         {
             return (int) (z * nVoxels.X * nVoxels.Y + y * nVoxels.X + x);
         }
-
-
-
-        public void setMaxVoxels(int maxVoxels)
-        {
-            this.maxVoxels = maxVoxels;
-        }
-
+        
+        /// <summary>
+        /// Given a Position p, and an axis 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="axis"></param>
+        /// <returns></returns>
         private int posToVoxel(Vector3 p, int axis)
         {
             int v;
@@ -341,16 +367,26 @@ namespace project.RayTracing
             }
         }
 
+        /// <summary>
+        /// This method returns the position of the given voxel’s lower corner.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="axis"></param>
+        /// <returns></returns>
         private float voxelToPos(int p, int axis)
         {
             if (axis == 0)
-                return bounds.min.X + p * width.X;
+                return bounds.min.X + (p * width.X);
             else if(axis == 1)
-                return bounds.min.Y + p * width.Y;
+                return bounds.min.Y + (p * width.Y);
             else
-                return bounds.min.Z + p * width.Z;
+                return bounds.min.Z + (p * width.Z);
         }
 
+        /// <summary>
+        /// Calculates the number of voxels to create per unit distance.
+        /// </summary>
+        /// <returns></returns>
         private float getVoxelsPerUnitDist()
         {
             int maxAxis = bounds.MaximumExtent();
@@ -364,12 +400,17 @@ namespace project.RayTracing
             else
                 invMaxWidth = 1f / delta.Z;
 
-            
-
             return  cubeRoot * invMaxWidth;
-            
         }
 
+        /// <summary>
+        /// Basic clamp function.
+        /// Verifies the given value is between the min and max.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         private int Clamp(int value, int min, int max)
         {
             return value < min ? min : value > max ? max : value;

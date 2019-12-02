@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace project.RayTracing
 {
-    struct Voxel
+    class Voxel
     {
         public List<Triangle> triangles;
         public int numTriangles;
@@ -17,10 +17,10 @@ namespace project.RayTracing
         /// This is only used to create a list of empty Voxels in GridAccelerator so indexed voxels can be accessed.
         /// </summary>
         /// <param name="numTriangles"></param>
-        public Voxel(int numTriangles)
+        public Voxel()
         {
            this.triangles = null;
-           this.numTriangles = numTriangles;
+           this.numTriangles = 0;
         }
 
         /// <summary>
@@ -50,10 +50,10 @@ namespace project.RayTracing
         /// <param name="r"></param>
         /// <param name="minT"></param>
         /// <returns></returns>
-        public Triangle intersect (Ray r, out float minT)
+        public Triangle intersect (Ray r)
         {
             float tOut;
-            minT = float.MaxValue;
+            float minT = float.MaxValue;
             Triangle closestTriangle = null;
 
             foreach (Triangle t in triangles)
