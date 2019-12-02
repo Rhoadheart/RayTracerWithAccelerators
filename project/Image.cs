@@ -40,6 +40,7 @@ namespace project.RayTracing
             int ResY = c.getResY();
             Bitmap b = new Bitmap(ResX, ResY);
             //Start Timer here.
+            GridAccelerator gridAccelerator = new GridAccelerator(scene);
             for (int i = 0; i < ResX; i++)
             {
                 //Check how far the rendering is
@@ -47,8 +48,8 @@ namespace project.RayTracing
                 {
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
-                    Triangle intersect = scene.intersect(r);
-                    //Triangle intersect = scene.GridIntersect(r);
+                    //Triangle intersect = scene.intersect(r);
+                    Triangle intersect = gridAccelerator.intersect(r);
                     if (intersect != null)
                     {
                         Vector3 normal = intersect.normal(r);

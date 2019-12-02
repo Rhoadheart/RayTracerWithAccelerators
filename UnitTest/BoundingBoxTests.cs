@@ -58,16 +58,16 @@ namespace UnitTest
         {
             BoundingBox b1 = new BoundingBox(new Vector3(1, 1, 1));
 
-            Assert.AreEqual(b1.p, new Vector3(1, 1, 1));
-            Assert.AreEqual(b1.q, new Vector3(1, 1, 1));
+            Assert.AreEqual(b1.max, new Vector3(1, 1, 1));
+            Assert.AreEqual(b1.min, new Vector3(1, 1, 1));
         }
 
         [Test]
         public void BoundingBoxTest2()
         {
             BoundingBox b1 = new BoundingBox(t1);
-            Assert.AreEqual(b1.p, new Vector3(1, 1, 1));
-            Assert.AreEqual(b1.q, new Vector3(0, 0, 0));
+            Assert.AreEqual(b1.max, new Vector3(1, 1, 1));
+            Assert.AreEqual(b1.min, new Vector3(0, 0, 0));
         }
 
         [Test]
@@ -75,8 +75,8 @@ namespace UnitTest
         {
             BoundingBox b1 = new BoundingBox(t1);
             b1.addTriangle(t2);
-            Assert.AreEqual(b1.p, new Vector3(3, 1, 1));
-            Assert.AreEqual(b1.q, new Vector3(0, 0, -1));
+            Assert.AreEqual(b1.max, new Vector3(3, 1, 1));
+            Assert.AreEqual(b1.min, new Vector3(0, 0, -1));
         }
 
         [Test]
@@ -85,16 +85,16 @@ namespace UnitTest
             BoundingBox b1 = new BoundingBox(t1);
             b1.addTriangle(t2);
             b1.addPoint(new Vector3(-2, -2, -2));
-            Assert.AreEqual(b1.p, new Vector3(3, 1, 1));
-            Assert.AreEqual(b1.q, new Vector3(-2, -2, -2));
+            Assert.AreEqual(b1.max, new Vector3(3, 1, 1));
+            Assert.AreEqual(b1.min, new Vector3(-2, -2, -2));
         }
 
         [Test]
         public void BoundingBoxTest5()
         {
             BoundingBox b1 = new BoundingBox(new Vector3(2, 2, 2), new Vector3(3, -3, 3), new Vector3(-2, -2, -2));
-            Assert.AreEqual(b1.p, new Vector3(3, 2, 3));
-            Assert.AreEqual(b1.q, new Vector3(-2, -3, -2));
+            Assert.AreEqual(b1.max, new Vector3(3, 2, 3));
+            Assert.AreEqual(b1.min, new Vector3(-2, -3, -2));
         }
 
         [Test]
@@ -104,27 +104,30 @@ namespace UnitTest
             BoundingBox b1 = new BoundingBox(t1);
             // p = <1, 1, 1>
             // q = <0, 0, 0>
+            float outT;
 
             Ray r1 = new Ray(new Vector3(-5, -5, -5), new Vector3(1, 1, 1));
-            Assert.IsTrue(b1.Intersect(r1));
+            Assert.IsTrue(b1.Intersect(r1, out outT));
 
 
             Ray r2 = new Ray(new Vector3(-5, -5, -5), new Vector3(-1, -1, -1));
-            Assert.IsFalse(b1.Intersect(r2));
+            Assert.IsFalse(b1.Intersect(r2, out outT));
 
             Ray r3 = new Ray(new Vector3(-1, -1, -1), new Vector3(1, 0, 0));
-            Assert.IsFalse(b1.Intersect(r3));
-
+            Assert.IsFalse(b1.Intersect(r3, out outT));
+            /*
             bool failed = false;
+            
             for (int j = 0; j < 10; j++)
             {
                 for (int i = 0; i < 2000000; i++)
                 {
-                    if (b1.Intersect(r3))
+                    if (b1.Intersect(r3, out outT))
                         failed = true;
                 }
             }
             Assert.IsFalse(failed);
+            */
         }
 
 

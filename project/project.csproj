@@ -83,6 +83,8 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="Voxel.cs" />
+    <Compile Include="GridAccelerator.cs" />
     <Compile Include="InputFile.cs" />
     <Compile Include="InputGenerator.cs">
       <SubType>Form</SubType>

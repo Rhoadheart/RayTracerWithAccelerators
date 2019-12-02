@@ -9,8 +9,8 @@ namespace project.RayTracing
 {
     public class BoundingBox
     {
-        public Vector3 p;
-        public Vector3 q;
+        public Vector3 max;
+        public Vector3 min;
 
         /// <summary>
         /// Default Constructor.
@@ -21,8 +21,8 @@ namespace project.RayTracing
         /// <param name="point"></param>
         public BoundingBox(Vector3 point)
         {
-            this.p = point;
-            this.q = point;
+            this.max = point;
+            this.min = point;
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace project.RayTracing
         /// <param name="point"></param>
         public void addPoint(Vector3 point)
         {
-            this.p = new Vector3(Math.Max(p.X, point.X), Math.Max(p.Y, point.Y), Math.Max(p.Z, point.Z));
-            this.q = new Vector3(Math.Min(q.X, point.X), Math.Min(q.Y, point.Y), Math.Min(q.Z, point.Z));
+            this.max = new Vector3(Math.Max(max.X, point.X), Math.Max(max.Y, point.Y), Math.Max(max.Z, point.Z));
+            this.min = new Vector3(Math.Min(min.X, point.X), Math.Min(min.Y, point.Y), Math.Min(min.Z, point.Z));
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace project.RayTracing
 
         public void Union(BoundingBox b)
         {
-            this.addPoint(b.p);
-            this.addPoint(b.q);
+            this.addPoint(b.max);
+            this.addPoint(b.min);
         }
 
         //This code handles intersection by creating a mesh to represent our BoundingBox, 
@@ -155,18 +155,18 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        public bool Intersect(Ray r)
+        public bool Intersect(Ray r, out float outT)
         {
             // r.dir is unit direction vector of ray
             Vector3 weightedRatio = new Vector3(1f / r.getDirection().X, 1f / r.getDirection().Y, 1f / r.getDirection().Z);
 
             //Look for intersection for each plane
-            float t1 = (this.q.X - r.getOrigin().X) * weightedRatio.X;
-            float t2 = (this.p.X - r.getOrigin().X) * weightedRatio.X;
-            float t3 = (this.q.Y - r.getOrigin().Y) * weightedRatio.Y;
-            float t4 = (this.p.Y - r.getOrigin().Y) * weightedRatio.Y;
-            float t5 = (this.q.Z - r.getOrigin().Z) * weightedRatio.Z;
-            float t6 = (this.p.Z - r.getOrigin().Z) * weightedRatio.Z;
+            float t1 = (this.min.X - r.getOrigin().X) * weightedRatio.X;
+            float t2 = (this.max.X - r.getOrigin().X) * weightedRatio.X;
+            float t3 = (this.min.Y - r.getOrigin().Y) * weightedRatio.Y;
+            float t4 = (this.max.Y - r.getOrigin().Y) * weightedRatio.Y;
+            float t5 = (this.min.Z - r.getOrigin().Z) * weightedRatio.Z;
+            float t6 = (this.max.Z - r.getOrigin().Z) * weightedRatio.Z;
             
             
             //The t distance of the last slab in the BoundingBox hit.
@@ -176,26 +176,47 @@ namespace project.RayTracing
             // if maxT < 0: the BoundingBox is behind the Ray
             if (maxT < 0)
             {
+                outT = maxT;
                 return false;
             }
             
 
             //The t distance of the first slab in the BoundingBox hit.
-            //Note: If minT is less than 0, this means the origin of the ray is within the Bounding Box. 
-            //      This ray will definitly intersect with the BoundingBox
             float minT = Math.Max(Math.Max(Math.Min(t1, t2), Math.Min(t3, t4)), Math.Min(t5, t6));
             
             
             // if minT > maxT: the ray doesn't intersect with the BoundingBox
             if (minT > maxT)
             {
+                outT = maxT;
                 return false;
             }
-            
-            
+
+            //Note: If minT is less than 0, this means the origin of the ray is within the Bounding Box. 
+            //      This ray will definitely intersect with the BoundingBox
+
+            if (minT < 0)
+            {
+                outT = maxT;
+            }
+            else
+            {
+                outT = minT;
+            }
             return true;
         }
 
+        public int MaximumExtent()
+        {
+            Vector3 diag = max - min;
+            if (diag.X > diag.Y && diag.X > diag.Z)
+                return 0;
+            else if (diag.Y > diag.Z)
+                return 1;
+            else
+                return 2;
+
+        }
 
 
     }
