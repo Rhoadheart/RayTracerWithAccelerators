@@ -278,7 +278,6 @@ namespace project
             }
             if(CUbox == "" || CUbox == "Default: 0,1,0")
             {
-                CUbox = "0,1,0";
                 CUBox.Text = "0,1,0";
                 GenerateLabel.Show();
             }
@@ -296,7 +295,7 @@ namespace project
             }
             if(fov == "" || fov == "Default: 43")
             {
-                fov = "43";
+                FoVBox.Text = "43";
             }
             if (GenPNG.Checked)
             {
