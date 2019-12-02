@@ -210,7 +210,6 @@
             this.GenPNG.TabIndex = 21;
             this.GenPNG.Text = "Generate PNG";
             this.GenPNG.UseVisualStyleBackColor = true;
-            this.GenPNG.Click += new System.EventHandler(this.GenPNG_Click);
             // 
             // FoVBox
             // 

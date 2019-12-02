@@ -28,6 +28,7 @@ namespace project.RayTracing
             LoadOBJ loader = new LoadOBJ();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                
                 try
                 {
                     var filePath = openFileDialog1.FileName;
@@ -37,6 +38,7 @@ namespace project.RayTracing
                         //Now that we have the input, we can extract the variables
                         //string AccelerationStructure = input.AcceleraltionStructure;
                         //For each variable
+                        
 
                         Vector3 CP, CO, CU; 
                         InputFile input = JSONDeserialize(filePath);
@@ -53,6 +55,8 @@ namespace project.RayTracing
                         //filename = (input.OBJLocation + ".png");
                         //filename = "Testfile1.png";
                         output = new Image(c1, m1, filename);
+                        GoodGenLabel.Show();
+                        GoodGenLabel.Text = "Output Image created";
                     }
                 }
                 catch (SecurityException ex)
@@ -75,12 +79,10 @@ namespace project.RayTracing
                     // Read the stream to a string, and write the string to the console.
                     JsonString = sr.ReadToEnd();
                 }
-
+                
                 InputFile input = JsonConvert.DeserializeObject<InputFile>(JsonString);
-
-                //input = JSONDeserialize<InputFile>(JsonString);
-                //input = JsonNet.DeserializeObject<InputFile>(JsonString);
                 return input;
+                
             }
             catch (IOException e)
             {

@@ -429,11 +429,6 @@ namespace project
             }
         }
 
-        private void GenPNG_Click(object sender, EventArgs e)
-        {
-            
-        }
-
 
         private string JSONSerilaize()
         {
@@ -454,8 +449,8 @@ namespace project
 
             int[] CUvalues = TexttoArray(CUBox.Text);
             input.CUx = CUvalues[0];
-            input.CUx = CUvalues[1];
-            input.CUx = CUvalues[2];
+            input.CUy = CUvalues[1];
+            input.CUz = CUvalues[2];
 
             //Vector3 CameraPos = TexttoVector3(CPBox.Text);
             //input.CameraPosition = CameraPos;
@@ -491,6 +486,11 @@ namespace project
 
         }
 
+        /// <summary>
+        /// Turns the text from the camera boxes and returns a int array of the 3 numbers
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private int[] TexttoArray(String s)
         {
             String[] nums = s.Split(',');
