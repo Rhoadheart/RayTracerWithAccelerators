@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Windows.Forms;
 using System.Numerics;
+using Json.Net;
+using Newtonsoft.Json;
 
 namespace project.RayTracing
 {
@@ -21,6 +23,9 @@ namespace project.RayTracing
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Mesh m1;
+            Image output;
+            LoadOBJ loader = new LoadOBJ();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -28,17 +33,26 @@ namespace project.RayTracing
                     var filePath = openFileDialog1.FileName;
                     using (Stream str = openFileDialog1.OpenFile())
                     {
-                        //Read InputFile parameters
-                        Process.Start("notepad.exe", filePath);
-
                         //InputFile input = Json.Convert.Deserialize(filepath);
                         //Now that we have the input, we can extract the variables
                         //string AccelerationStructure = input.AcceleraltionStructure;
                         //For each variable
 
-
-
+                        Vector3 CP, CO, CU; 
+                        InputFile input = JSONDeserialize(filePath);
+                        CP = new Vector3(input.CPx, input.CPy, input.CPz);
+                        CO = new Vector3(input.COx, input.COy, input.COz);
+                        CU = new Vector3(input.CUx, input.CUy, input.CUz);
                         
+                        Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
+                        //c1.setFov(input.FiledOfView);
+    
+                        string filename = input.OBJLocation;
+                        m1 = loader.Load(filename);
+                        filename = input.CSVLocation + "/Testfile1.png";
+                        //filename = (input.OBJLocation + ".png");
+                        //filename = "Testfile1.png";
+                        output = new Image(c1, m1, filename);
                     }
                 }
                 catch (SecurityException ex)
@@ -48,6 +62,35 @@ namespace project.RayTracing
                 }
             }
         }
+
+        private InputFile JSONDeserialize(String filepath)
+        {
+            String JsonString;
+            FileStream inputfile = File.OpenRead(filepath);
+
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader(inputfile))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    JsonString = sr.ReadToEnd();
+                }
+
+                InputFile input = JsonConvert.DeserializeObject<InputFile>(JsonString);
+
+                //input = JSONDeserialize<InputFile>(JsonString);
+                //input = JsonNet.DeserializeObject<InputFile>(JsonString);
+                return input;
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+            return null;
+            
+        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {

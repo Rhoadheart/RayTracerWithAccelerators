@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security;
+using System.Numerics;
+using Json.Net;
 
 namespace project
 {
@@ -231,8 +233,6 @@ namespace project
 
         private void Generate_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-
             String combo = comboBox1.Text;
             String resX = ResXBox.Text;
             String resY = ResYBox.Text;
@@ -245,6 +245,7 @@ namespace project
             String fov = FoVBox.Text;
             bool PNG = GenPNG.Checked;
             String png = PNG.ToString();
+
             if (combo == "")
             {
                 GenerateLabel.Text = "Choose an Acceleration Structure";
@@ -278,6 +279,7 @@ namespace project
             if(CUbox == "" || CUbox == "Default: 0,1,0")
             {
                 CUbox = "0,1,0";
+                CUBox.Text = "0,1,0";
                 GenerateLabel.Show();
             }
             if(input == "" || input == "File path")
@@ -306,22 +308,13 @@ namespace project
                 GenerateLabel.Show();
                 return;
             }
+            String Jsonstring = JSONSerilaize();
+            File.WriteAllText(output, Jsonstring);
             
-            sb.AppendLine("A: " + combo);
-            sb.AppendLine("Rx: " + resX);
-            sb.AppendLine("Ry: " + resY);
-            sb.AppendLine("Cp: " + CPbox);
-            sb.AppendLine("Co: " + CObox);
-            sb.AppendLine("Cu: " + CUbox);
-            sb.AppendLine("Fov: " + fov);
-            sb.AppendLine("PNG: " + png);
-            sb.AppendLine("CSV: " + CSVLocation);
-            File.WriteAllText(output, sb.ToString());
             //Adjust the Label in the parent form
             Label a = (Label)this.Owner.Controls["GoodGenLabel"];
             a.Text = "Generation Succesful";
             a.Show();
-
             Close();
             
         }
@@ -439,6 +432,73 @@ namespace project
         private void GenPNG_Click(object sender, EventArgs e)
         {
             
+        }
+
+
+        private string JSONSerilaize()
+        {
+            InputFile input = new InputFile();
+            input.AccelerationStruct = comboBox1.Text;
+            input.ResolutionX = Convert.ToInt32(ResXBox.Text);
+            input.ResolutionY = Convert.ToInt32(ResYBox.Text);
+
+            int[] CPvalues = TexttoArray(CPBox.Text);
+            input.CPx = CPvalues[0];
+            input.CPy = CPvalues[1];
+            input.CPz = CPvalues[2];
+
+            int[] COvalues = TexttoArray(COBox.Text);
+            input.COx = COvalues[0];
+            input.COy = COvalues[1];
+            input.COz = COvalues[2];
+
+            int[] CUvalues = TexttoArray(CUBox.Text);
+            input.CUx = CUvalues[0];
+            input.CUx = CUvalues[1];
+            input.CUx = CUvalues[2];
+
+            //Vector3 CameraPos = TexttoVector3(CPBox.Text);
+            //input.CameraPosition = CameraPos;
+            //Vector3 CameraOrientation = TexttoVector3(COBox.Text);
+            //input.CameraOrientation = CameraOrientation;
+            //Vector3 CameraUP = TexttoVector3(CPBox.Text);
+            //input.CameraUp = CameraUP;
+
+            input.OBJLocation = InputBox.Text;
+            input.CSVLocation = PNGCSVLocation.Text;
+            input.FiledOfView = Convert.ToInt32(FoVBox.Text);
+            input.GeneratePNG = GenPNG.Checked;
+
+           
+            string JSONfile = JsonNet.Serialize(input);
+            return JSONfile;
+        }
+
+        /// <summary>
+        /// Takes a String of 3 garenteed ints seperated by comma and returns a vector
+        /// of the tree given points 
+        /// </summary>
+        /// <param name="preVectString"></param>
+        /// <returns></returns>
+        private Vector3 TexttoVector3(String preVectString)
+        {
+            string[] nums = preVectString.Split(',');
+            int num1 = Convert.ToInt32(nums[0]);
+            int num2 = Convert.ToInt32(nums[1]);
+            int num3 = Convert.ToInt32(nums[2]);
+            Vector3 vec = new Vector3(num1, num2, num3);
+            return vec;
+
+        }
+
+        private int[] TexttoArray(String s)
+        {
+            String[] nums = s.Split(',');
+            int num1 = Convert.ToInt32(nums[0]);
+            int num2 = Convert.ToInt32(nums[1]);
+            int num3 = Convert.ToInt32(nums[2]);
+            int[] values = { num1, num2, num3 };
+            return values;
         }
     }
 }
