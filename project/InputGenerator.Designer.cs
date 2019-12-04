@@ -57,11 +57,14 @@
             this.CSVLocation = new System.Windows.Forms.Label();
             this.Search3 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.RealTimeRend = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.OutputFilename = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Generate
             // 
-            this.Generate.Location = new System.Drawing.Point(383, 396);
+            this.Generate.Location = new System.Drawing.Point(366, 447);
             this.Generate.Name = "Generate";
             this.Generate.Size = new System.Drawing.Size(85, 23);
             this.Generate.TabIndex = 0;
@@ -119,9 +122,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(382, 102);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 17);
+            this.label7.Size = new System.Drawing.Size(69, 17);
             this.label7.TabIndex = 7;
-            this.label7.Text = "Input File Place:";
+            this.label7.Text = "Input File:";
             // 
             // label9
             // 
@@ -204,12 +207,15 @@
             // 
             this.GenPNG.AutoSize = true;
             this.GenPNG.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.GenPNG.Checked = true;
+            this.GenPNG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.GenPNG.Location = new System.Drawing.Point(382, 253);
             this.GenPNG.Name = "GenPNG";
             this.GenPNG.Size = new System.Drawing.Size(124, 21);
             this.GenPNG.TabIndex = 21;
             this.GenPNG.Text = "Generate PNG";
             this.GenPNG.UseVisualStyleBackColor = true;
+            this.GenPNG.CheckStateChanged += new System.EventHandler(this.GenPNG_CheckStateChanged);
             // 
             // FoVBox
             // 
@@ -284,7 +290,7 @@
             // GenerateLabel
             // 
             this.GenerateLabel.AutoSize = true;
-            this.GenerateLabel.Location = new System.Drawing.Point(499, 399);
+            this.GenerateLabel.Location = new System.Drawing.Point(482, 450);
             this.GenerateLabel.Name = "GenerateLabel";
             this.GenerateLabel.Size = new System.Drawing.Size(102, 17);
             this.GenerateLabel.TabIndex = 23;
@@ -313,17 +319,53 @@
             // 
             this.Search3.Location = new System.Drawing.Point(751, 354);
             this.Search3.Name = "Search3";
-            this.Search3.Size = new System.Drawing.Size(74, 23);
+            this.Search3.Size = new System.Drawing.Size(74, 26);
             this.Search3.TabIndex = 26;
             this.Search3.Text = "Open";
             this.Search3.UseVisualStyleBackColor = true;
             this.Search3.Click += new System.EventHandler(this.Search3_Click);
             // 
+            // RealTimeRend
+            // 
+            this.RealTimeRend.AutoSize = true;
+            this.RealTimeRend.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RealTimeRend.Checked = true;
+            this.RealTimeRend.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RealTimeRend.Location = new System.Drawing.Point(584, 250);
+            this.RealTimeRend.Name = "RealTimeRend";
+            this.RealTimeRend.Size = new System.Drawing.Size(165, 21);
+            this.RealTimeRend.TabIndex = 27;
+            this.RealTimeRend.Text = "Real-Time Rendering";
+            this.RealTimeRend.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(382, 395);
+            this.label8.Margin = new System.Windows.Forms.Padding(0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(103, 17);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "PNG Filename:\r\n";
+            // 
+            // OutputFilename
+            // 
+            this.OutputFilename.Location = new System.Drawing.Point(512, 395);
+            this.OutputFilename.Name = "OutputFilename";
+            this.OutputFilename.Size = new System.Drawing.Size(313, 22);
+            this.OutputFilename.TabIndex = 28;
+            this.OutputFilename.Enter += new System.EventHandler(this.OutputFilename_Enter);
+            this.OutputFilename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OutputFilename_KeyDown);
+            this.OutputFilename.Leave += new System.EventHandler(this.OutputFilename_Leave);
+            // 
             // InputGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 450);
+            this.ClientSize = new System.Drawing.Size(860, 496);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.OutputFilename);
+            this.Controls.Add(this.RealTimeRend);
             this.Controls.Add(this.Search3);
             this.Controls.Add(this.CSVLocation);
             this.Controls.Add(this.PNGCSVLocation);
@@ -389,5 +431,8 @@
         private System.Windows.Forms.Label CSVLocation;
         private System.Windows.Forms.Button Search3;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.CheckBox RealTimeRend;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox OutputFilename;
     }
 }

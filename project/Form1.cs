@@ -50,11 +50,11 @@ namespace project.RayTracing
                         c1.setFov(43);
                         string filename = input.OBJLocation;
                         m1 = loader.Load(filename);
-                        filename = input.CSVLocation + "/Testfile1.png";
+                        filename = input.CSVLocation + "/" + input.OutputFilename +".png";
 
                         RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
 
-                        if (input.GeneratePNG == true)
+                        if (input.RealTimeRend == true)
                         {
                             RV.Text = "Render Visualizer";
                             RV.Show();

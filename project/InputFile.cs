@@ -27,7 +27,9 @@ namespace project
         public String OBJLocation { get; set; }
         public int FieldofView { get; set; }
         public bool GeneratePNG { get; set; }
+        public bool RealTimeRend { get; set; }
         public String CSVLocation { get; set; }
+        public String OutputFilename { get; set; }
 
     }
 }

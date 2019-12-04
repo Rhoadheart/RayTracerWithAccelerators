@@ -54,6 +54,9 @@ namespace project
             //COBox
             COBox.Text = "EX: x,y,z";
             COBox.ForeColor = Color.Gray;
+            //OutFilename
+            OutputFilename.Text = "Filename";
+            OutputFilename.ForeColor = Color.Gray;
 
             GenerateLabel.Hide();
 
@@ -229,6 +232,24 @@ namespace project
                 CUBox.ForeColor = Color.Gray;
             }
         }
+        
+        private void OutputFilename_Enter(object sender, EventArgs e)
+        {
+            if(OutputFilename.Text == "Filename" && OutputFilename.ForeColor == Color.Gray)
+            {
+                OutputFilename.Text = "";
+                OutputFilename.ForeColor = Color.Black;
+            }
+        }
+
+        private void OutputFilename_Leave(object sender, EventArgs e)
+        {
+            if(OutputFilename.Text == "")
+            {
+                OutputFilename.Text = "Filename";
+                OutputFilename.ForeColor = Color.Gray;
+            }
+        }
 
 
         private void Generate_Click(object sender, EventArgs e)
@@ -300,6 +321,12 @@ namespace project
             if (GenPNG.Checked)
             {
                 png = "true";
+                if (OutputFilename.Text == "" || OutputFilename.Text == "Filename")
+                {
+                    GenerateLabel.Text = "Not a valide PNG Filename";
+                    GenerateLabel.Show();
+                    return;
+                }
             }
             if(PNGCSVLocation.Text == "" || PNGCSVLocation.Text == "File path")
             {
@@ -463,6 +490,8 @@ namespace project
             input.CSVLocation = PNGCSVLocation.Text;
             input.FieldofView = Convert.ToInt32(FoVBox.Text);
             input.GeneratePNG = GenPNG.Checked;
+            input.RealTimeRend = RealTimeRend.Checked;
+            input.OutputFilename = OutputFilename.Text;
 
            
             string JSONfile = JsonNet.Serialize(input);
@@ -507,6 +536,27 @@ namespace project
             {
                 Console.Write(e);
                 return null;
+            }
+        }
+        
+
+        //Check for windows valid filenames
+        private void OutputFilename_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void GenPNG_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(GenPNG.Checked == false)
+            {
+                OutputFilename.Enabled = false;
+                OutputFilename.Text = "";
+            }
+            else
+            {
+                OutputFilename.Enabled = true;
+                OutputFilename.Text = "Filename";
             }
         }
     }
