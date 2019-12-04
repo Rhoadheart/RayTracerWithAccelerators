@@ -1,1 +1,0 @@
-{"AccelerationStruct":"Grid","ResolutionX":1920,"ResolutionY":1080,"CPx":5,"CPy":5,"CPz":5,"COx":0,"COy":0,"COz":0,"CUx":0,"CUy":1,"CUz":0,"OBJLocation":"C:\\PLU\\CS\\499\\project\\capstone-2019\\bunny_max_res.obj","FiledOfView":43,"GeneratePNG":true,"CSVLocation":"C:\\PLU\\CS\\499\\project\\capstone-2019\\Inputfiles"}

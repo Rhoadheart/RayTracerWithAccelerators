@@ -47,25 +47,27 @@ namespace project.RayTracing
                         CU = new Vector3(input.CUx, input.CUy, input.CUz);
                         
                         Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
-    
+                        c1.setFov(43);
                         string filename = input.OBJLocation;
                         m1 = loader.Load(filename);
                         filename = input.CSVLocation + "/Testfile1.png";
-                        //filename = (input.OBJLocation + ".png");
-                        //filename = "Testfile1.png";
-
 
                         RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
-                        RV.Text = "Render Visualizer";
-                        RV.Show();
-                        RV.Owner = this;
-                        //RV.Parent = this;
-                        this.Hide();
 
-                        output = new Image(c1, m1, filename, RV);
+                        if (input.GeneratePNG == true)
+                        {
+                            RV.Text = "Render Visualizer";
+                            RV.Show();
+                            RV.Owner = this;
+                            //RV.Parent = this;
+                            this.Hide();
+                        }
+
+                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct);
                         RV.Close();
+                        this.Show();
                         GoodGenLabel.Show();
-                        GoodGenLabel.Text = "Output Image created";
+                        GoodGenLabel.Text = "Output Image Created";
                     }
                 }
                 catch (SecurityException ex)
@@ -127,7 +129,7 @@ namespace project.RayTracing
             LoadOBJ loader = new LoadOBJ();
             
             
-            
+            /*
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../crate.obj";
             m1 = loader.Load(filename);
@@ -188,7 +190,7 @@ namespace project.RayTracing
             m1 = loader.Load(filename);
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
-            
+            */
     
             
             
