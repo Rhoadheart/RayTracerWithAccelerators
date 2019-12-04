@@ -1,0 +1,1 @@
+{"AccelerationStruct":"Grid","ResolutionX":1920,"ResolutionY":1080,"CPx":2,"CPy":2,"CPz":2,"COx":0,"COy":0,"COz":0,"CUx":0,"CUy":1,"CUz":0,"OBJLocation":"C:\\Users\\Spenser\\Desktop\\Capstone\\capstone-2019\\sphere.obj","FiledOfView":43,"GeneratePNG":false,"CSVLocation":"C:\\Users\\Spenser\\Desktop\\Capstone\\capstone-2019\\Inputfiles"}

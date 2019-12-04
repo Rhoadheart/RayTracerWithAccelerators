@@ -47,13 +47,11 @@ namespace project.RayTracing
                         CU = new Vector3(input.CUx, input.CUy, input.CUz);
                         
                         Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
-                        //c1.setFov(input.FiledOfView);
     
                         string filename = input.OBJLocation;
                         m1 = loader.Load(filename);
                         filename = input.CSVLocation + "/Testfile1.png";
-                        //filename = (input.OBJLocation + ".png");
-                        //filename = "Testfile1.png";
+                        //Image will take Accel struct after filename
                         output = new Image(c1, m1, filename);
                         GoodGenLabel.Show();
                         GoodGenLabel.Text = "Output Image created";
@@ -66,7 +64,12 @@ namespace project.RayTracing
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Takes a file path and returns a InputFile with JSON text
+        /// </summary>
+        /// <param name="filepath"></param>
+        /// <returns></returns>
         private InputFile JSONDeserialize(String filepath)
         {
             String JsonString;

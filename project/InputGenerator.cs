@@ -393,7 +393,7 @@ namespace project
 
         private void CPBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma)
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
@@ -403,7 +403,7 @@ namespace project
         private void COBox_KeyDown(object sender, KeyEventArgs e)
         {
             
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma)
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
@@ -412,7 +412,7 @@ namespace project
 
         private void CUBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma)
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
@@ -421,7 +421,8 @@ namespace project
 
         private void FoVBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue))
+            
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) )
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
@@ -493,11 +494,20 @@ namespace project
         private int[] TexttoArray(String s)
         {
             String[] nums = s.Split(',');
-            int num1 = Convert.ToInt32(nums[0]);
-            int num2 = Convert.ToInt32(nums[1]);
-            int num3 = Convert.ToInt32(nums[2]);
-            int[] values = { num1, num2, num3 };
-            return values;
+            try
+            {
+
+                int num1 = Convert.ToInt32(nums[0]);
+                int num2 = Convert.ToInt32(nums[1]);
+                int num3 = Convert.ToInt32(nums[2]);
+                int[] values = { num1, num2, num3 };
+                return values;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+                return null;
+            }
         }
     }
 }
