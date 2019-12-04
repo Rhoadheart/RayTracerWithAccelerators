@@ -130,13 +130,13 @@ namespace project.RayTracing
             up = new Vector3(0, 1, 0);
             LoadOBJ loader = new LoadOBJ();
             
-            
             /*
+            
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
-            output = new Image(c1, m1, filename);
+            output = new Image(c1, m1, filename, "Grid");
             
             
             
@@ -144,20 +144,16 @@ namespace project.RayTracing
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
             filename = "../../sphere005.png";
-            output = new Image(c1, m1, filename);
+            output = new Image(c1, m1, filename, "Grid");
 
             
 
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
             m1 = loader.Load(filename);
-            filename = "../../sphere220.png";
-            output = new Image(c1, m1, filename);
-
+            filename = "../../sphere222.png";
+            output = new Image(c1, m1, filename, "Grid");
             
-            
-            
-
             
             
 

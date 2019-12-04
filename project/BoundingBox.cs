@@ -182,7 +182,7 @@ namespace project.RayTracing
             // if maxT < 0: the BoundingBox is behind the Ray
             if (maxT < 0)
             {
-                outT = float.MaxValue;
+                outT = maxT;
                 return false;
             }
             
@@ -194,7 +194,7 @@ namespace project.RayTracing
             // if minT > maxT: the ray doesn't intersect with the BoundingBox
             if (minT > maxT)
             {
-                outT = float.MaxValue;
+                outT = maxT;
                 return false;
             }
 
