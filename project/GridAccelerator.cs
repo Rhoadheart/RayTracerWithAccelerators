@@ -46,7 +46,7 @@ namespace project.RayTracing
 
             //Add all triangles to bounds
             bounds = new BoundingBox(new Triangle(mesh, 0));
-            for(int i = 1; i <numTriangles; i++)
+            for(int i = 1; i <numTriangles; ++i)
             {
                 Triangle tri = new Triangle(mesh, i);
                 bounds.addTriangle(tri);
@@ -63,12 +63,12 @@ namespace project.RayTracing
             
             for(int axis = 0; axis < 3; ++axis)
             {
-                nVoxels[axis] = Clamp((int)Math.Round((decimal)delta[axis] * (decimal)voxelsPerUnitDist), 1, maxVoxels);
+                nVoxels[axis] = Clamp((int)Math.Round(delta[axis] * voxelsPerUnitDist), 1, maxVoxels);
             }
            
-            for(int axis = 0; axis<3; ++axis)
+            for(int axis = 0; axis < 3; ++axis)
             {
-                width[axis] = delta[axis] / nVoxels[axis];
+                width[axis] = (float)delta[axis] / (float)nVoxels[axis];
 
                 invWidth[axis] = width[axis] == 0f ? 0f : 1f / width[axis];
             }
@@ -76,7 +76,7 @@ namespace project.RayTracing
             int nv = (int)(nVoxels[0] * nVoxels[1] * nVoxels[2]);
 
             voxels = new List<Voxel>();
-            for(int i = 0; i < nv; i++)
+            for(int i = 0; i < nv; ++i)
             {
                 //Create empty voxels in the list.
                 voxels.Add(new Voxel());
@@ -84,7 +84,7 @@ namespace project.RayTracing
 
             //Add primitives to grid voxels
             
-            for(int i = 0; i < numTriangles; i++)
+            for(int i = 0; i < numTriangles; ++i)
             {
                 Triangle t = new Triangle(mesh, i);
                 //Find voxel extent of primitive
@@ -92,7 +92,7 @@ namespace project.RayTracing
 
                 int[] vmin = new int[3];
                 int[] vmax = new int[3];
-                for (int axis = 0; axis < 3; axis++)
+                for (int axis = 0; axis < 3; ++axis)
                 {
                     vmin[axis] = posToVoxel(pb.min, axis);
                     vmax[axis] = posToVoxel(pb.max, axis);
@@ -157,7 +157,7 @@ namespace project.RayTracing
             
             //foreach axis:
             //Compute current voxel for each axis
-            for(int axis = 0; axis < 3; axis++)
+            for(int axis = 0; axis < 3; ++axis)
             {
                 Pos[axis] = posToVoxel(gridIntersect, axis);
                 if (axis == 0)
