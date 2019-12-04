@@ -83,6 +83,12 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="RenderVisualizer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenderVisualizer.Designer.cs">
+      <DependentUpon>RenderVisualizer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Voxel.cs" />
     <Compile Include="GridAccelerator.cs" />
     <Compile Include="InputFile.cs" />
@@ -123,6 +129,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RenderVisualizer.resx">
+      <DependentUpon>RenderVisualizer.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

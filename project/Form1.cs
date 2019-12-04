@@ -54,7 +54,17 @@ namespace project.RayTracing
                         filename = input.CSVLocation + "/Testfile1.png";
                         //filename = (input.OBJLocation + ".png");
                         //filename = "Testfile1.png";
-                        output = new Image(c1, m1, filename);
+
+
+                        RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
+                        RV.Text = "Render Visualizer";
+                        RV.Show();
+                        RV.Owner = this;
+                        //RV.Parent = this;
+                        this.Hide();
+
+                        output = new Image(c1, m1, filename, RV);
+                        RV.Close();
                         GoodGenLabel.Show();
                         GoodGenLabel.Text = "Output Image created";
                     }
@@ -113,14 +123,14 @@ namespace project.RayTracing
             LoadOBJ loader = new LoadOBJ();
             
             
-            /*
+            
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
             output = new Image(c1, m1, filename);
             
-            */
+            
             
             c1 = new Camera(new Vector3(0, 0, 5), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
@@ -128,7 +138,7 @@ namespace project.RayTracing
             filename = "../../sphere005.png";
             output = new Image(c1, m1, filename);
 
-            /*
+            
 
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../sphere.obj";
@@ -136,29 +146,14 @@ namespace project.RayTracing
             filename = "../../sphere220.png";
             output = new Image(c1, m1, filename);
 
-            */
-
-            /*
-            for(int i = -2; i < 3; i += 4)
-            {
-                for(int j = -2; j < 3; j += 4)
-                {
-                    for(int k = -2; k < 3; k += 4)
-                    {
-                        c1 = new Camera(new Vector3(i, j, k), new Vector3(0, 0, 0), up, 1920, 1080);
-                        filename = "../../../sphere.obj";
-                        m1 = loader.Load(filename);
-                        filename = "../../sphere " + i + "," + j + "," + k + ".png";
-                        output = new Image(c1, m1, filename);
-                    }
-                }
-            }
-            */
+            
+            
+            
 
             
             
 
-            /*
+            
              
             c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../pokeball.obj";
@@ -189,7 +184,7 @@ namespace project.RayTracing
             m1 = loader.Load(filename);
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
-            */
+            
     
             
             

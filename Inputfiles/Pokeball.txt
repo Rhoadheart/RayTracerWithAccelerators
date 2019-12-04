@@ -1,0 +1,1 @@
+{"AccelerationStruct":"Grid","ResolutionX":1920,"ResolutionY":1080,"CPx":40,"CPy":40,"CPz":70,"COx":0,"COy":0,"COz":0,"CUx":0,"CUy":1,"CUz":0,"OBJLocation":"C:\\PLU\\CS\\499\\project\\capstone-2019\\pokeball.obj","FiledOfView":43,"GeneratePNG":true,"CSVLocation":"C:\\PLU\\CS\\499\\project\\capstone-2019\\Inputfiles"}
