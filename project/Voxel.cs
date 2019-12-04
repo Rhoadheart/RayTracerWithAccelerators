@@ -50,7 +50,7 @@ namespace project.RayTracing
         /// <param name="r"></param>
         /// <param name="minT"></param>
         /// <returns></returns>
-        public Triangle intersect (Ray r)
+        public Triangle intersect (Ray r, out float outT)
         {
             float tOut;
             float minT = float.MaxValue;
@@ -67,6 +67,7 @@ namespace project.RayTracing
                     }
                 }
             }
+            outT = minT;
             return closestTriangle;
         }
     }

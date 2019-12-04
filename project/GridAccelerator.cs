@@ -70,10 +70,10 @@ namespace project.RayTracing
             {
                 width[axis] = (float)delta[axis] / (float)nVoxels[axis];
 
-                invWidth[axis] = width[axis] == 0f ? 0f : 1f / width[axis];
+                invWidth[axis] = (width[axis] == 0f) ? 0f : 1f / width[axis];
             }
             
-            int nv = (int)(nVoxels[0] * nVoxels[1] * nVoxels[2]);
+            int nv = nVoxels[0] * nVoxels[1] * nVoxels[2];
 
             voxels = new List<Voxel>();
             for(int i = 0; i < nv; ++i)
@@ -88,23 +88,23 @@ namespace project.RayTracing
             {
                 Triangle t = new Triangle(mesh, i);
                 //Find voxel extent of primitive
-                BoundingBox pb = new BoundingBox(t);
+                BoundingBox triBox = new BoundingBox(t);
 
                 int[] vmin = new int[3];
                 int[] vmax = new int[3];
                 for (int axis = 0; axis < 3; ++axis)
                 {
-                    vmin[axis] = posToVoxel(pb.min, axis);
-                    vmax[axis] = posToVoxel(pb.max, axis);
+                    vmin[axis] = posToVoxel(triBox.min, axis);
+                    vmax[axis] = posToVoxel(triBox.max, axis);
                 }
                 
 
                 //Add primitive to all overlapping voxels
-                for(int z = (int)vmin[2]; z <= vmax[2]; ++z)
+                for(int z = vmin[2]; z <= vmax[2]; ++z)
                 {
-                    for(int y = (int)vmin[1]; y <= vmax[1]; ++y)
+                    for(int y = vmin[1]; y <= vmax[1]; ++y)
                     {
-                        for(int x = (int)vmin[0]; x <= vmax[0]; ++x)
+                        for(int x = vmin[0]; x <= vmax[0]; ++x)
                         {
                             int o = offset(x, y, z);
                             if (voxels[o].numTriangles == 0)
@@ -122,11 +122,7 @@ namespace project.RayTracing
                         }
                     }
                 }
-                
-
             }
-
-            
         }
 
 
@@ -156,9 +152,10 @@ namespace project.RayTracing
             //Set up 3D DDA for ray
             
             //foreach axis:
-            //Compute current voxel for each axis
+            
             for(int axis = 0; axis < 3; ++axis)
             {
+                //Compute current voxel for each axis
                 Pos[axis] = posToVoxel(gridIntersect, axis);
                 if (axis == 0)
                 {
@@ -186,39 +183,32 @@ namespace project.RayTracing
             
 
             //Walk ray through voxel grid
-            bool hitSomething = false;
-            
-            while (!hitSomething)
+            float minT = float.MaxValue;
+            float outT;
+            Triangle closestTriangle = null;
+            while (true)
             {
                 Voxel voxel = voxels[offset((int)Pos[0], (int)Pos[1], (int)Pos[2])];
 
                 if (voxel.numTriangles > 0)
                 {
-                    Triangle intersect = voxel.intersect(r);
+                    Triangle intersect = voxel.intersect(r, out outT);
                     if(intersect != null)
                     {
-                        return intersect;
-                        
+                        if(outT < minT)
+                        {
+                            minT = outT;
+                            closestTriangle = intersect;
+                        }
+
                     }
-                    
                 }
 
 
                 //Advance to next voxel
 
                 //Find stepAxis for stepping to next voxel
-
-
-                /*
-                int xy = NextCrossingT.X < NextCrossingT.Y ? 1 : 0;
-                int xz = NextCrossingT.X < NextCrossingT.Z ? 1 : 0;
-                int yz = NextCrossingT.Y < NextCrossingT.Z ? 1 : 0;
-                int bits = (xy << 2) + (xz << 1) + yz;
-                List<int> cmpToAxis = new List<int> { 2, 1, 2, 1, 2, 2, 0, 0 };
-                int stepAxis = cmpToAxis[bits];
-                */
-
-                //More straightforward code than ^^
+                
                 int stepAxis;
                 if (NextCrossingT[0] <= NextCrossingT[1] && NextCrossingT[0] <= NextCrossingT[2])
                     stepAxis = 0;
@@ -226,22 +216,18 @@ namespace project.RayTracing
                     stepAxis = 1;
                 else
                     stepAxis = 2;
-
-                //Our rays currently always have a MaxT of float.MaxValue;
-                if (r.getMaxT() < NextCrossingT[stepAxis])
-                    return null;
+                
 
                 //Move to next voxel
                 Pos[stepAxis] += Step[stepAxis];
 
                 //If we hit an edge, return no intersection.
                 if (Pos[stepAxis] == Out[stepAxis])
-                    return null;
+                    return closestTriangle;
 
                 NextCrossingT[stepAxis] += DeltaT[stepAxis];
 
             }
-            return null;
         }
 
         /// <summary>
@@ -324,6 +310,7 @@ namespace project.RayTracing
         private int posToVoxel(Vector3 p, int axis)
         {
             int v;
+
             if (axis == 0)
             {
                 v = (int)Math.Round((p.X - bounds.min.X) * invWidth[axis]);
@@ -336,6 +323,7 @@ namespace project.RayTracing
             {
                 v = (int)Math.Round((p.Z - bounds.min.Z) * invWidth[axis]);
             }
+
             return Clamp(v, 0, (int)nVoxels[axis] - 1);
         }
 

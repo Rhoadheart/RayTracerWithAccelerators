@@ -347,6 +347,7 @@ namespace project
 
         private void Search1_Click(object sender, EventArgs e)
         {
+            openFileDialog1.Filter = "Object File | *.obj";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -366,7 +367,7 @@ namespace project
         {
             SaveFileDialog save = new SaveFileDialog();
             save.FileName = "RayTracingInputFile";
-            save.Filter = "TextFile | *.txt";
+            save.Filter = "Text File | *.txt";
             if (save.ShowDialog() == DialogResult.OK)
             {
                 try

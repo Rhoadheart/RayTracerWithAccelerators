@@ -26,6 +26,8 @@ namespace project.RayTracing
             Mesh m1;
             Image output;
             LoadOBJ loader = new LoadOBJ();
+
+            openFileDialog1.Filter = "Text File | *.txt";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 

@@ -36,7 +36,7 @@ namespace UnitTest
             string filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
-            output = new Image(c1, m1, filename);
+            output = new Image(c1, m1, filename, "Brute Force");
             //filename = "../crate.png";
             Assert.IsTrue(File.Exists(filename));
             
