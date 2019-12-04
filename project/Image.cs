@@ -19,11 +19,10 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="b"></param>
         /// <param name="outputFilePath"></param>
-        public Image(Camera c, Mesh scene, string outputFilePath)
+        public Image(Camera c, Mesh scene, string outputFilePath, String accelStruct)
         {
-            this.b = generateImage(c, scene);
+            this.b = generateImage(c, scene, accelStruct);
             Graphics g = Graphics.FromImage(b);
-            //g.FillRectangle(Brushes.Red, 0, 0, c.getResX(), c.getResY());
             g.Dispose();
             b.Save(outputFilePath, ImageFormat.Png);
             b.Dispose();
@@ -34,12 +33,11 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="b"></param>
         /// <param name="outputFilePath"></param>
-        public Image(Camera c, Mesh scene, string outputFilePath, RenderVisualizer RV)
+        public Image(Camera c, Mesh scene, string outputFilePath, RenderVisualizer RV, String accelStruct)
         {
             this.RV = RV;
-            this.b = generateImage(c, scene);
+            this.b = generateImage(c, scene, accelStruct);
             Graphics g = Graphics.FromImage(b);
-            //g.FillRectangle(Brushes.Red, 0, 0, c.getResX(), c.getResY());
             g.Dispose();
             b.Save(outputFilePath, ImageFormat.Png);
             b.Dispose();
@@ -51,13 +49,17 @@ namespace project.RayTracing
         /// <param name="c"></param>
         /// <param name="scene"></param>
         /// <returns></returns>
-        public Bitmap generateImage(Camera c, Mesh scene)
+        public Bitmap generateImage(Camera c, Mesh scene, String accelStruct)
         {
             int ResX = c.getResX();
             int ResY = c.getResY();
             Bitmap b = new Bitmap(ResX, ResY);
             //Start Timer here.
-            GridAccelerator gridAccelerator = new GridAccelerator(scene);
+            GridAccelerator gridAccelerator = null;
+            if (accelStruct == "Grid")
+            {
+                gridAccelerator = new GridAccelerator(scene);
+            }
             for (int i = 0; i < ResX; i++)
             {
                 //Check how far the rendering is
@@ -65,8 +67,17 @@ namespace project.RayTracing
                 {
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
-                    //Triangle intersect = scene.intersect(r);
-                    Triangle intersect = gridAccelerator.intersect(r);
+
+                    Triangle intersect = null;
+                    if(accelStruct == "Grid")
+                    {
+                        intersect = gridAccelerator.intersect(r);
+                    }
+                    else  
+                    {
+                        //Brute Force
+                        intersect = scene.intersect(r);
+                    }
                     if (intersect != null)
                     {
                         Vector3 normal = intersect.normal(r);

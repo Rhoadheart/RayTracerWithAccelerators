@@ -25,7 +25,7 @@ namespace project
         //public Vector3 CameraOrientation { get; set; }
         //public Vector3 CameraUp { get; set; }
         public String OBJLocation { get; set; }
-        public int FiledOfView { get; set; }
+        public int FieldofView { get; set; }
         public bool GeneratePNG { get; set; }
         public String CSVLocation { get; set; }
 

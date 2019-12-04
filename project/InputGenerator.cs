@@ -461,7 +461,7 @@ namespace project
 
             input.OBJLocation = InputBox.Text;
             input.CSVLocation = PNGCSVLocation.Text;
-            input.FiledOfView = Convert.ToInt32(FoVBox.Text);
+            input.FieldofView = Convert.ToInt32(FoVBox.Text);
             input.GeneratePNG = GenPNG.Checked;
 
            
@@ -472,7 +472,7 @@ namespace project
         /// <summary>
         /// Takes a String of 3 garenteed ints seperated by comma and returns a vector
         /// of the tree given points 
-        /// </summary>
+        /// </summary> 
         /// <param name="preVectString"></param>
         /// <returns></returns>
         private Vector3 TexttoVector3(String preVectString)
