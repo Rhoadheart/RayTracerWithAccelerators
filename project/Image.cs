@@ -12,6 +12,7 @@ namespace project.RayTracing
     public class Image
     {
         Bitmap b;
+        RenderVisualizer RV;
 
         /// <summary>
         /// Creates an image based off a bitmap 
@@ -20,6 +21,22 @@ namespace project.RayTracing
         /// <param name="outputFilePath"></param>
         public Image(Camera c, Mesh scene, string outputFilePath)
         {
+            this.b = generateImage(c, scene);
+            Graphics g = Graphics.FromImage(b);
+            //g.FillRectangle(Brushes.Red, 0, 0, c.getResX(), c.getResY());
+            g.Dispose();
+            b.Save(outputFilePath, ImageFormat.Png);
+            b.Dispose();
+        }
+
+        /// <summary>
+        /// Creates an image based off a bitmap 
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="outputFilePath"></param>
+        public Image(Camera c, Mesh scene, string outputFilePath, RenderVisualizer RV)
+        {
+            this.RV = RV;
             this.b = generateImage(c, scene);
             Graphics g = Graphics.FromImage(b);
             //g.FillRectangle(Brushes.Red, 0, 0, c.getResX(), c.getResY());
@@ -65,6 +82,11 @@ namespace project.RayTracing
                     
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
+                if(RV != null)
+                {
+                    RV.updateBitmap(b);
+                }
+
             }
             //End Timer here
             return b;
