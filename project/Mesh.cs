@@ -62,7 +62,36 @@ namespace project.RayTracing
             }
             return closestTriangle;
         }
-        
+
+
+        /// <summary>
+        /// Loops through all triangles and returns the closest triangle that intersects with r.
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public Triangle intersect(Ray r, out float outT)
+        {
+            float tOut;
+            float minT = float.MaxValue;
+            Triangle closestTriangle = null;
+            //Foreach triangle
+            for (int i = 0; i < faces.Count / 3; i++)
+            {
+                Triangle thisTriangle = new Triangle(this, i);
+                if (thisTriangle.intersection(r, out tOut))
+                {
+                    if (tOut < minT)
+                    {
+                        closestTriangle = thisTriangle;
+                        minT = tOut;
+                    }
+                }
+
+            }
+            outT = minT;
+            return closestTriangle;
+        }
+
 
 
 

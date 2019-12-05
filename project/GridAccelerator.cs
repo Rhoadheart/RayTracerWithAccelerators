@@ -11,7 +11,6 @@ namespace project.RayTracing
 {
     class GridAccelerator
     {
-        //NOT WORKING
         Mesh mesh;
         int numTriangles;
         List<Voxel> voxels;
@@ -26,7 +25,8 @@ namespace project.RayTracing
         float[] NextCrossingT, DeltaT;
         int[] Step, Out, Pos;
         Vector3 gridIntersect;
-        float rayT;
+        float hit0;
+        float hit1;
 
         /// <summary>
         /// Constructor for a Grid Accelerator.
@@ -145,9 +145,9 @@ namespace project.RayTracing
             Out = new int[3];
             Pos = new int[3];
 
-            if (!bounds.Intersect(r, out rayT))
+            if (!bounds.Intersect(r, out hit0, out hit1))
                 return null;
-            gridIntersect = r.at(rayT);
+            gridIntersect = r.at(hit0);
 
 
             //Set up 3D DDA for ray
@@ -244,18 +244,18 @@ namespace project.RayTracing
 
             if (axis == 0)
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.X) / r.getDirection().X;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.X) / r.getDirection().X;
                 DeltaT[axis] = width[axis] / r.getDirection().X;
 
             }
             else if (axis == 1)
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.Y) / r.getDirection().Y;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.Y) / r.getDirection().Y;
                 DeltaT[axis] = width[axis] / r.getDirection().Y;
             }
             else
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.Z) / r.getDirection().Z;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis] + 1, axis) - gridIntersect.Z) / r.getDirection().Z;
                 DeltaT[axis] = width[axis] / r.getDirection().Z;
             }
             Step[axis] = 1;
@@ -274,17 +274,17 @@ namespace project.RayTracing
 
             if (axis == 0)
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis], axis) - gridIntersect.X) / r.getDirection().X;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis], axis) - gridIntersect.X) / r.getDirection().X;
                 DeltaT[axis] = -width[axis] / r.getDirection().X;
             }
             else if (axis == 1)
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis], axis) - gridIntersect.Y) / r.getDirection().Y;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis], axis) - gridIntersect.Y) / r.getDirection().Y;
                 DeltaT[axis] = -width[axis] / r.getDirection().Y;
             }
             else
             {
-                NextCrossingT[axis] = rayT + (voxelToPos((int)Pos[axis], axis) - gridIntersect.Z) / r.getDirection().Z;
+                NextCrossingT[axis] = hit0 + (voxelToPos((int)Pos[axis], axis) - gridIntersect.Z) / r.getDirection().Z;
                 DeltaT[axis] = -width[axis] / r.getDirection().Z;
 
             }
@@ -317,16 +317,16 @@ namespace project.RayTracing
 
             if (axis == 0)
             {
-                v = (int)((double)((p.X - bounds.min.X) * invWidth[axis]));
+                v = (int)Math.Floor((p.X - bounds.min.X) * invWidth[axis]);
 
             }
             else if (axis == 1)
             {
-                v = (int)((double)((p.Y - bounds.min.Y) * invWidth[axis]));
+                v = (int)Math.Floor((p.Y - bounds.min.Y) * invWidth[axis]);
             }
             else
             {
-                v = (int)((double)((p.Z - bounds.min.Z) * invWidth[axis]));
+                v = (int)Math.Floor((p.Z - bounds.min.Z) * invWidth[axis]);
             }
 
             return Clamp(v, 0, (int)nVoxels[axis] - 1);

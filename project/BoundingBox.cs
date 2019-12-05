@@ -75,142 +75,80 @@ namespace project.RayTracing
             this.addPoint(b.min);
         }
 
-        //This code handles intersection by creating a mesh to represent our BoundingBox, 
-        //and then calls our mesh.Intersect(Ray) method.
-        //This however, is about 2x slower than the other method below...
-        /*
-        public bool Intersect(Ray r, out float outT)
-        {
-            List<Vector3> vertices = new List<Vector3>(8);
-            //Create all the corners of the Box
-            vertices.Add(new Vector3(min.X, min.Y, min.Z));//000
-            vertices.Add(new Vector3(max.X, min.Y, min.Z));//100
-            vertices.Add(new Vector3(max.X, max.Y, min.Z));//110
-            vertices.Add(new Vector3(min.X, max.Y, min.Z));//010
-
-            vertices.Add(new Vector3(min.X, min.Y, max.Z));//001
-            vertices.Add(new Vector3(max.X, min.Y, max.Z));//101
-            vertices.Add(new Vector3(max.X, max.Y, max.Z));//111
-            vertices.Add(new Vector3(min.X, max.Y, max.Z));//011
-
-            List<int> faces = new List<int>(36);
-            faces.Add(0); faces.Add(1); faces.Add(2);
-            faces.Add(0); faces.Add(2); faces.Add(3);
-
-            faces.Add(1); faces.Add(5); faces.Add(6);
-            faces.Add(1); faces.Add(6); faces.Add(2);
-
-            faces.Add(5); faces.Add(4); faces.Add(7);
-            faces.Add(5); faces.Add(7); faces.Add(6);
-
-            faces.Add(4); faces.Add(0); faces.Add(3);
-            faces.Add(4); faces.Add(3); faces.Add(7);
-
-            faces.Add(4); faces.Add(5); faces.Add(1);
-            faces.Add(4); faces.Add(1); faces.Add(0);
-
-            faces.Add(6); faces.Add(7); faces.Add(3);
-            faces.Add(6); faces.Add(3); faces.Add(2);
-
-            List<Vector3> normals = new List<Vector3>(6);
-            normals.Add(new Vector3(0, 0, -1));
-            normals.Add(new Vector3(1, 0, 0));
-            normals.Add(new Vector3(0, 0, 1));
-            normals.Add(new Vector3(-1, 0, 0));
-            normals.Add(new Vector3(0, -1, 0));
-            normals.Add(new Vector3(0, 1, 0));
-
-            List<int> vertexNormals = new List<int>(36);
-
-            vertexNormals.Add(0); vertexNormals.Add(0); vertexNormals.Add(0);
-            vertexNormals.Add(0); vertexNormals.Add(0); vertexNormals.Add(0);
-
-            vertexNormals.Add(1); vertexNormals.Add(1); vertexNormals.Add(1);
-            vertexNormals.Add(1); vertexNormals.Add(1); vertexNormals.Add(1);
-
-            vertexNormals.Add(2); vertexNormals.Add(2); vertexNormals.Add(2);
-            vertexNormals.Add(2); vertexNormals.Add(2); vertexNormals.Add(2);
-
-            vertexNormals.Add(3); vertexNormals.Add(3); vertexNormals.Add(3);
-            vertexNormals.Add(3); vertexNormals.Add(3); vertexNormals.Add(3);
-
-            vertexNormals.Add(4); vertexNormals.Add(4); vertexNormals.Add(4);
-            vertexNormals.Add(4); vertexNormals.Add(4); vertexNormals.Add(4);
-
-            vertexNormals.Add(5); vertexNormals.Add(5); vertexNormals.Add(5);
-            vertexNormals.Add(5); vertexNormals.Add(5); vertexNormals.Add(5);
-
-
-            //Create a Mesh from these points
-            Mesh m1 = new Mesh(vertices, normals, faces, vertexNormals);
-
-            float minT;
-            Triangle intersect = m1.intersect(r,out minT);
-            outT = minT;
-            return m1.intersect(r) == null ? false : true;
-
-
-        }
-        */
-        
-        
-        
         /// <summary>
-        /// Efficient Intersection routine for BoundingBox and Ray intersection.
+        /// Transcription of the author's code for Ray/BoundingBox intersection
         /// </summary>
         /// <param name="r"></param>
+        /// <param name="hit0"></param>
+        /// <param name="hit1"></param>
         /// <returns></returns>
-        public bool Intersect(Ray r, out float outT)
+        public bool Intersect(Ray r, out float hit0, out float hit1)
         {
-            // r.dir is unit direction vector of ray
-            //This precalculates the inverse of the direction vector for 
-            Vector3 invDirection = new Vector3(1f / r.getDirection().X, 1f / r.getDirection().Y, 1f / r.getDirection().Z);
+            float t0 = r.getMinT();//I dont know why I have to cast these. Compiler says r.getMaxT returns float?. This doesn't make sense
+            float t1 = r.getMaxT();
 
-            //Look for intersection for each plane
-            float t1 = (this.min.X - r.getOrigin().X) * invDirection.X;
-            float t2 = (this.max.X - r.getOrigin().X) * invDirection.X;
-            float t3 = (this.min.Y - r.getOrigin().Y) * invDirection.Y;
-            float t4 = (this.max.Y - r.getOrigin().Y) * invDirection.Y;
-            float t5 = (this.min.Z - r.getOrigin().Z) * invDirection.Z;
-            float t6 = (this.max.Z - r.getOrigin().Z) * invDirection.Z;
-            
-            
-            //The t distance of the last slab in the BoundingBox hit.
-            float maxT = Math.Min(Math.Min(Math.Max(t1, t2), Math.Max(t3, t4)), Math.Max(t5, t6));
-
-
-            // if maxT < 0: the BoundingBox is behind the Ray
-            if (maxT < 0)
+            for(int i = 0; i<3; ++i)
             {
-                outT = maxT;
-                return false;
+                //Update interval for ith bounding box slab
+                float invRaydir;
+                float tNear;
+                float tFar;
+                if(i == 0)
+                {
+                    invRaydir = 1f / r.getDirection().X;
+                    tNear = (min.X - r.getOrigin().X) * invRaydir;
+                    tFar = (max.X - r.getOrigin().X) * invRaydir;
+                    //Update parametric interval from slab intersection ts
+                    if (tNear > tFar)
+                        Swap(ref tNear,ref tFar);
+                    t0 = tNear > t0 ? tNear : t0;
+                    t1 = tFar < t1 ? tFar : t1;
+                    if (t0 > t1)
+                    {
+                        hit0 = -1f;
+                        hit1 = -1f;
+                        return false;
+                    }
+                }else if (i == 1)
+                {
+                    invRaydir = 1f / r.getDirection().Y;
+                    tNear = (min.Y - r.getOrigin().Y) * invRaydir;
+                    tFar = (max.Y - r.getOrigin().Y) * invRaydir;
+                    //Update parametric interval from slab intersection ts
+                    if (tNear > tFar)
+                        Swap(ref tNear, ref tFar);
+                    t0 = tNear > t0 ? tNear : t0;
+                    t1 = tFar < t1 ? tFar : t1;
+                    if (t0 > t1)
+                    {
+                        hit0 = -1f;
+                        hit1 = -1f;
+                        return false;
+                    }
+                }
+                else
+                {
+                    invRaydir = 1f / r.getDirection().Z;
+                    tNear = (min.Z- r.getOrigin().Z) * invRaydir;
+                    tFar = (max.Z - r.getOrigin().Z) * invRaydir;
+                    //Update parametric interval from slab intersection ts
+                    if (tNear > tFar)
+                        Swap(ref tNear, ref tFar);
+                    t0 = tNear > t0 ? tNear : t0;
+                    t1 = tFar < t1 ? tFar : t1;
+                    if (t0 > t1)
+                    {
+                        hit0 = -1f;
+                        hit1 = -1f;
+                        return false;
+                    }
+                }
             }
-            
-
-            //The t distance of the first slab in the BoundingBox hit.
-            float minT = Math.Max(Math.Max(Math.Min(t1, t2), Math.Min(t3, t4)), Math.Min(t5, t6));
-            
-            
-            // if minT > maxT: the ray doesn't intersect with the BoundingBox
-            if (minT > maxT)
-            {
-                outT = maxT;
-                return false;
-            }
-
-            //Note: If minT is less than 0, this means the origin of the ray is within the Bounding Box. 
-            //      This ray will definitely intersect with the BoundingBox
-
-            if (minT < 0)
-            {
-                outT = maxT;
-            }
-            else
-            {
-                outT = minT;
-            }
+            hit0 = t0;
+            hit1 = t1;
             return true;
         }
+        
         
         public bool inside(Vector3 p)
         {
@@ -232,6 +170,12 @@ namespace project.RayTracing
 
         }
 
+        static void Swap(ref float a, ref float b)
+        {
+            float temp = a;
+            a = b;
+            b = temp;
+        }
 
     }
     

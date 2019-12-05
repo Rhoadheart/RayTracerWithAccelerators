@@ -25,6 +25,7 @@ namespace project.RayTracing
             this.origin = origin;
             this.direction = Vector3.Normalize(direction);
             this.maxT = float.MaxValue;
+            this.minT = 0;
         }
 
         /// <summary>
@@ -62,9 +63,27 @@ namespace project.RayTracing
         /// Returns this rays maxT value
         /// </summary>
         /// <returns></returns>
-        public float? getMaxT()
+        public float getMaxT()
         {
                 return this.maxT;
+        }
+
+        /// <summary>
+        /// Updates this rays maxT to the given int
+        /// </summary>
+        /// <param name="minT"></param>
+        public void updateminT(float minT)
+        {
+            this.minT = minT;
+        }
+
+        /// <summary>
+        /// Returns this rays minT value
+        /// </summary>
+        /// <returns></returns>
+        public float getMinT()
+        {
+            return this.minT;
         }
 
         /// <summary>

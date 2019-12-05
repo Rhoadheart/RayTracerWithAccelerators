@@ -68,6 +68,8 @@ namespace project.RayTracing
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
 
+                    
+
                     Triangle intersect = null;
                     if(accelStruct == "Grid")
                     {
@@ -93,7 +95,7 @@ namespace project.RayTracing
                     
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
-                if(RV != null)
+                if(RV != null && i % 5 == 0)
                 {
                     RV.updateBitmap(b);
                 }
