@@ -98,8 +98,7 @@ namespace project.RayTracing
                     vmin[axis] = posToVoxel(triBox.min, axis);
                     vmax[axis] = posToVoxel(triBox.max, axis);
                 }
-
-
+                
                 //Add primitive to all overlapping voxels
                 for (int z = (int)vmin[2]; z <= vmax[2]; ++z)
                 {
@@ -107,6 +106,7 @@ namespace project.RayTracing
                     {
                         for (int x = (int)vmin[0]; x <= vmax[0]; ++x)
                         {
+
                             int o = offset(x, y, z);
                             if (voxels[o].numTriangles == 0)
                             {
@@ -189,9 +189,10 @@ namespace project.RayTracing
             while (!hitSomething)
             {
                 Voxel voxel = voxels[offset((int)Pos[0], (int)Pos[1], (int)Pos[2])];
-
+                
                 if (voxel.numTriangles > 0)
                 {
+
                     Triangle intersect = voxel.intersect(r, out outT);
                     if (intersect != null)
                     {
@@ -199,6 +200,7 @@ namespace project.RayTracing
 
                     }
                 }
+                
 
 
                 //Advance to next voxel
@@ -315,16 +317,16 @@ namespace project.RayTracing
 
             if (axis == 0)
             {
-                v = (int)Math.Round((p.X - bounds.min.X) * invWidth[axis]);
+                v = (int)((double)((p.X - bounds.min.X) * invWidth[axis]));
 
             }
             else if (axis == 1)
             {
-                v = (int)Math.Round((p.Y - bounds.min.Y) * invWidth[axis]);
+                v = (int)((double)((p.Y - bounds.min.Y) * invWidth[axis]));
             }
             else
             {
-                v = (int)Math.Round((p.Z - bounds.min.Z) * invWidth[axis]);
+                v = (int)((double)((p.Z - bounds.min.Z) * invWidth[axis]));
             }
 
             return Clamp(v, 0, (int)nVoxels[axis] - 1);
