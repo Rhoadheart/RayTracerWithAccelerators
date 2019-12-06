@@ -104,30 +104,20 @@ namespace UnitTest
             BoundingBox b1 = new BoundingBox(t1);
             // p = <1, 1, 1>
             // q = <0, 0, 0>
-            float outT;
+            float hit0;
+            float hit1;
 
             Ray r1 = new Ray(new Vector3(-5, -5, -5), new Vector3(1, 1, 1));
-            Assert.IsTrue(b1.Intersect(r1, out outT));
+            Assert.IsTrue(b1.Intersect(r1, out hit0, out hit1));
 
 
             Ray r2 = new Ray(new Vector3(-5, -5, -5), new Vector3(-1, -1, -1));
-            Assert.IsFalse(b1.Intersect(r2, out outT));
+            Assert.IsFalse(b1.Intersect(r2, out hit0, out hit1));
 
             Ray r3 = new Ray(new Vector3(-1, -1, -1), new Vector3(1, 0, 0));
-            Assert.IsFalse(b1.Intersect(r3, out outT));
-            /*
-            bool failed = false;
+            Assert.IsFalse(b1.Intersect(r3, out hit0, out hit1));
             
-            for (int j = 0; j < 10; j++)
-            {
-                for (int i = 0; i < 2000000; i++)
-                {
-                    if (b1.Intersect(r3, out outT))
-                        failed = true;
-                }
-            }
-            Assert.IsFalse(failed);
-            */
+
         }
 
 

@@ -68,7 +68,10 @@ namespace project.RayTracing
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
 
-                    
+                    if (i == 825 && j == 678)
+                    {
+                        RV.updateBitmap(b);
+                    }
 
                     Triangle intersect = null;
                     if(accelStruct == "Grid")

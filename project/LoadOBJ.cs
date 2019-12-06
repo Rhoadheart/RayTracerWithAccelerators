@@ -41,9 +41,11 @@ namespace project.RayTracing
                 }
 
                 string[] resultLines = result.Split('\n');
-                
+                int linenum = 0;
+
                 foreach (string line in resultLines)
                 {
+                    linenum++;
                     string[] parameters = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     if (parameters.Length > 0)
                     {

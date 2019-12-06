@@ -1,7 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 using System.Numerics;
+using project;
 using project.RayTracing;
+using System.Windows.Forms;
 using System.IO;
 
 namespace UnitTest
@@ -31,14 +33,29 @@ namespace UnitTest
         public void ImageGenTest()
         {
             LoadOBJ loader = new LoadOBJ();
+            
 
-            c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
+            c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1400, 800);
             string filename = "../../../crate.obj";
             m1 = loader.Load(filename);
             filename = "../../crate.png";
-            output = new Image(c1, m1, filename, "Brute Force");
-            //filename = "../crate.png";
-            Assert.IsTrue(File.Exists(filename));
+
+            RenderVisualizer RV = new RenderVisualizer(1400,800);
+            
+            RV.Text = "Render Visualizer";
+            RV.Show();
+
+            try
+            {
+                output = new Image(c1, m1, filename, RV, "Brute Force");
+                RV.Close();
+            }catch(Exception e)
+            {
+                Assert.Fail();
+            }
+      
+            
+            Assert.Pass();
             
 
         }
