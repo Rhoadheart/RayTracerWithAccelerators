@@ -156,9 +156,6 @@ namespace project.RayTracing
             
             
             
-
-            
-             
             c1 = new Camera(new Vector3(-40, -40, -70), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../pokeball.obj";
             m1 = loader.Load(filename);
@@ -189,10 +186,6 @@ namespace project.RayTracing
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
             */
-    
-            
-            
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
