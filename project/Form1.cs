@@ -30,7 +30,7 @@ namespace project.RayTracing
             openFileDialog1.Filter = "Text File | *.txt";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                
+
                 try
                 {
                     var filePath = openFileDialog1.FileName;
