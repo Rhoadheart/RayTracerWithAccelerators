@@ -117,7 +117,7 @@ namespace project.RayTracing
             GoodGenLabel.Hide();
 
         }
-        
+        /*
         private void button3_Click(object sender, EventArgs e)
         {
             Camera c1;
@@ -130,7 +130,7 @@ namespace project.RayTracing
             up = new Vector3(0, 1, 0);
             LoadOBJ loader = new LoadOBJ();
             
-            /*
+            
             
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1920, 1080);
             filename = "../../../crate.obj";
@@ -185,8 +185,9 @@ namespace project.RayTracing
             m1 = loader.Load(filename);
             filename = "../../bunny.png";
             output = new Image(c1, m1, filename);
-            */
+            
         }
+    */
 
         private void button2_Click(object sender, EventArgs e)
         {
