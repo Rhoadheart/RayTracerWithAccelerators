@@ -117,6 +117,7 @@ namespace project.RayTracing
             GoodGenLabel.Hide();
 
         }
+
         /*
         private void button3_Click(object sender, EventArgs e)
         {

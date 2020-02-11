@@ -94,7 +94,7 @@ namespace project.RayTracing
                     
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
-                if(RV != null && i % 5 == 0)
+                if(RV != null && i % 100 == 0)
                 {
                     RV.updateBitmap(b);
                 }

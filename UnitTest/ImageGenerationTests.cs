@@ -38,7 +38,7 @@ namespace UnitTest
             c1 = new Camera(new Vector3(2, 2, 2), new Vector3(0, 0, 0), up, 1400, 800);
             string filename = "../../../crate.obj";
             m1 = loader.Load(filename);
-            filename = "../../crate.png";
+            filename = "../../../crate.png";
 
             RenderVisualizer RV = new RenderVisualizer(1400,800);
             
@@ -47,6 +47,8 @@ namespace UnitTest
 
             try
             {
+
+                output = new Image(c1, m1, filename, RV, "Grid");
                 output = new Image(c1, m1, filename, RV, "Brute Force");
                 RV.Close();
             }catch(Exception e)
