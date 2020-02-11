@@ -81,8 +81,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BvHAccelerator.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="KDTreeAccelerator.cs" />
+    <Compile Include="OctreeAccelerator.cs" />
     <Compile Include="RenderVisualizer.cs">
       <SubType>Form</SubType>
     </Compile>
