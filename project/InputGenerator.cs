@@ -403,7 +403,10 @@ namespace project
 
         private void ResXBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue))
+            //Ivestigate how to shorten all the keybinds on the NumPad in the if statement
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && e.KeyCode != Keys.NumPad0 && e.KeyCode != Keys.NumPad1
+                && e.KeyCode != Keys.NumPad2 && e.KeyCode != Keys.NumPad3 && e.KeyCode != Keys.NumPad4 && e.KeyCode != Keys.NumPad5
+                && e.KeyCode != Keys.NumPad6 && e.KeyCode != Keys.NumPad7 && e.KeyCode != Keys.NumPad8 && e.KeyCode != Keys.NumPad9)
             {
                 e.SuppressKeyPress = true;
                 e.Handled = true;
