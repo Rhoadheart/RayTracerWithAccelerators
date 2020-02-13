@@ -13,6 +13,7 @@ namespace project.RayTracing
         public Vector3 max;
         
 
+
         /// <summary>
         /// Default Constructor.
         /// Creates a bounding box from just one point. 
