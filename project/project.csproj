@@ -86,6 +86,7 @@
     <Compile Include="BoundingBox.cs" />
     <Compile Include="KDTreeAccelerator.cs" />
     <Compile Include="OctreeAccelerator.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="RenderVisualizer.cs">
       <SubType>Form</SubType>
     </Compile>
