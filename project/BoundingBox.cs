@@ -243,6 +243,39 @@ namespace project.RayTracing
 
         }
 
+
+        public bool intersect(Triangle t)
+        {
+            /*
+             Intersect(const Bounds3<T> &b1, const Bounds3<T> &b2) {
+                 return Bounds3<T>(Point3<T>(std::max(b1.pMin.x, b2.pMin.x),
+                                std::max(b1.pMin.y, b2.pMin.y),
+                                std::max(b1.pMin.z, b2.pMin.z)),
+                      Point3<T>(std::min(b1.pMax.x, b2.pMax.x),
+                                std::min(b1.pMax.y, b2.pMax.y),
+                                std::min(b1.pMax.z, b2.pMax.z)));
+            */
+            BoundingBox triBBox = new BoundingBox(t);
+
+            float minX = Math.Max(this.min.X, triBBox.min.X);
+            float minY = Math.Max(this.min.Y, triBBox.min.Y);
+            float minZ = Math.Max(this.min.Z, triBBox.min.Z);
+
+            float maxX = Math.Min(this.max.X, triBBox.max.X);
+            float maxY = Math.Min(this.max.Y, triBBox.max.Y);
+            float maxZ = Math.Min(this.max.Z, triBBox.max.Z);
+
+            //Vector3 min = new Vector3(minX, minY, minZ);
+            Vector3 max = new Vector3(maxX, maxY, maxZ);
+
+            if (minX > maxX || minY > maxY || minZ > maxZ)
+                return false;
+            else
+                return true;
+            
+        }
+        
+
     }
     
 }
