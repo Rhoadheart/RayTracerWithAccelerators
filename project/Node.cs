@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace project.RayTracing
 {
 
-    class Node
+    public class Node
     {
         /** The Master BoundingBox used to create the 8 children nodes*/
         private BoundingBox BBox;
@@ -19,12 +19,22 @@ namespace project.RayTracing
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="B"> The Master Bounding Box</param>
-        /// <param name="T"> List of All Triangles in the node</param>
-        public Node(BoundingBox B, List<Triangle> T)
+        /// <param name="B"> The first BoundingBox</param>
+        /// <param name="T"> A List of Triangles </param>
+        /// <param name="C"> A List of Children </param>
+        public Node(BoundingBox B, List<Triangle> T, List<Node> C)
         {
             BBox = B;
-            Triangles = T;
+            if(C == null)
+            {
+                Triangles = T;
+                Children = null;
+            }
+            else
+            {
+                Children = C;
+                Triangles = null;
+            }
         }
 
         /// <summary>
@@ -33,7 +43,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="r"> The Ray to check for triangles</param>
         /// <returns> The Triangle that was hit</returns>
-        public Triangle intersection(Ray r)
+        private Triangle intersection(Ray r)
         {
             float hit0;
             float hit1;
@@ -42,7 +52,7 @@ namespace project.RayTracing
 
             if(BBox.Intersect(r,out hit0, out hit1))
             {
-                for (int i= 0; i <= Children.Count; i++)
+                for (int i= 0; i < Children.Count; i++)
                 {
                     intersection(r);
                 }
