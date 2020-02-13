@@ -160,11 +160,11 @@ namespace UnitTest
         {
             BoundingBox BBox = new BoundingBox(new Vector3(0, 0, 0), new Vector3(2, 2, 2));
 
-            Assert.IsTrue(BBox.intersect(t1));
+            Assert.IsTrue(BBox.contains(t1));
             BBox = new BoundingBox(new Vector3(.5f,.5f,.5f), new Vector3(2,2,2));
-            Assert.IsTrue(BBox.intersect(t1));
+            Assert.IsTrue(BBox.contains(t1));
             BBox = new BoundingBox(new Vector3(2, 2, 2), new Vector3(3, 3, 3));
-            Assert.IsFalse(BBox.intersect(t1));
+            Assert.IsFalse(BBox.contains(t1));
         }
 
 

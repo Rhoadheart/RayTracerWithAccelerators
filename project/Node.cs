@@ -43,7 +43,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="r"> The Ray to check for triangles</param>
         /// <returns> The Triangle that was hit</returns>
-        private Triangle intersection(Ray r)
+        public Triangle intersection(Ray r)
         {
             float hit0;
             float hit1;
@@ -78,5 +78,8 @@ namespace project.RayTracing
 
             return null;
         }
+
+
+        
     }
 }
