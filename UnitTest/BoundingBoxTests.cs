@@ -149,6 +149,22 @@ namespace UnitTest
 
             Assert.IsTrue(BBoxes[7].max == new Vector3(2, 2, 2));
             Assert.IsTrue(BBoxes[7].min == new Vector3(1, 1, 1));
+
+            
+
+
+        }
+
+        [Test]
+        public void BoundingBoxTest8()
+        {
+            BoundingBox BBox = new BoundingBox(new Vector3(0, 0, 0), new Vector3(2, 2, 2));
+
+            Assert.IsTrue(BBox.intersect(t1));
+            BBox = new BoundingBox(new Vector3(.5f,.5f,.5f), new Vector3(2,2,2));
+            Assert.IsTrue(BBox.intersect(t1));
+            BBox = new BoundingBox(new Vector3(2, 2, 2), new Vector3(3, 3, 3));
+            Assert.IsFalse(BBox.intersect(t1));
         }
 
 
