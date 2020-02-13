@@ -243,6 +243,22 @@ namespace project.RayTracing
 
         }
 
+
+        public bool intersect()
+        {
+            /*
+             Intersect(const Bounds3<T> &b1, const Bounds3<T> &b2) {
+                 return Bounds3<T>(Point3<T>(std::max(b1.pMin.x, b2.pMin.x),
+                                std::max(b1.pMin.y, b2.pMin.y),
+                                std::max(b1.pMin.z, b2.pMin.z)),
+                      Point3<T>(std::min(b1.pMax.x, b2.pMax.x),
+                                std::min(b1.pMax.y, b2.pMax.y),
+                                std::min(b1.pMax.z, b2.pMax.z)));
+            */
+
+            return false;
+        }
+
     }
     
 }
