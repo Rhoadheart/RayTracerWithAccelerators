@@ -9,24 +9,40 @@ namespace project.RayTracing
     class OctreeAccelerator
     {
         //Todo: Spring Sprints  1/2
+        BoundingBox bounds;
+        Mesh mesh;
+        List<Triangle> triangles;
+        List<Node> children;
+        int numTriangles;
 
-        public OctreeAccelerator(BoundingBox BBox, List<Triangle> Triangles)
+        int heightLimit;
+        int trianglesLimit;
+
+
+
+        public OctreeAccelerator(Mesh mesh, int heightLimit, int trianglesLimit)
         {
+            numTriangles = mesh.faces.Count / 3;
 
+            //Add all triangles to bounds
+            bounds = new BoundingBox(new Triangle(mesh, 0));
+            for (int i = 1; i < numTriangles; i++)
+            {
+                Triangle tri = new Triangle(mesh, i);
+                bounds.addTriangle(tri);
+            }
+            
         }
 
 
-        private void Traversal()
+        public Triangle intersect(Ray r)
         {
-
-        }
-
-        private List<BoundingBox> Split(BoundingBox Outer)
-        {
-
-
-
             return null;
+        }
+        
+        private bool AddLevel()
+        {
+            return false;
         }
     }
 }
