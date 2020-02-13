@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="RenderVisualizer.cs">
       <SubType>Form</SubType>
     </Compile>
