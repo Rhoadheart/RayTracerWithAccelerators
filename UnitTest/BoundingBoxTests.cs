@@ -120,6 +120,37 @@ namespace UnitTest
 
         }
 
+        [Test]
+        public void BoundingBoxTest7()
+        {
+            BoundingBox BBox = new BoundingBox(new Vector3(0, 0, 0), new Vector3(2, 2, 2));
+
+            List<BoundingBox> BBoxes = BBox.Split();
+            Assert.IsTrue(BBoxes[0].max == new Vector3(1, 1, 1));
+            Assert.IsTrue(BBoxes[0].min == new Vector3(0, 0, 0));
+
+            Assert.IsTrue(BBoxes[1].max == new Vector3(2, 1, 1));
+            Assert.IsTrue(BBoxes[1].min == new Vector3(1, 0, 0));
+
+            Assert.IsTrue(BBoxes[2].max == new Vector3(1, 2, 1));
+            Assert.IsTrue(BBoxes[2].min == new Vector3(0, 1, 0));
+
+            Assert.IsTrue(BBoxes[3].max == new Vector3(2, 2, 1));
+            Assert.IsTrue(BBoxes[3].min == new Vector3(1, 1, 0));
+
+            Assert.IsTrue(BBoxes[4].max == new Vector3(1, 1, 2));
+            Assert.IsTrue(BBoxes[4].min == new Vector3(0, 0, 1));
+
+            Assert.IsTrue(BBoxes[5].max == new Vector3(2, 1, 2));
+            Assert.IsTrue(BBoxes[5].min == new Vector3(1, 0, 1));
+
+            Assert.IsTrue(BBoxes[6].max == new Vector3(1, 2, 2));
+            Assert.IsTrue(BBoxes[6].min == new Vector3(0, 1, 1));
+
+            Assert.IsTrue(BBoxes[7].max == new Vector3(2, 2, 2));
+            Assert.IsTrue(BBoxes[7].min == new Vector3(1, 1, 1));
+        }
+
 
 
 

@@ -9,8 +9,10 @@ namespace project.RayTracing
 {
     public class BoundingBox
     {
-        public Vector3 max;
         public Vector3 min;
+        public Vector3 max;
+        
+
 
         /// <summary>
         /// Default Constructor.
@@ -21,8 +23,21 @@ namespace project.RayTracing
         /// <param name="point"></param>
         public BoundingBox(Vector3 point)
         {
-            this.max = point;
             this.min = point;
+            this.max = point;
+        }
+
+        /// <summary>
+        /// Default Constructor.
+        /// Creates a bounding box from just one point. 
+        /// This box will have a volume of 0.
+        /// This constructor is also called by other constructors in this class
+        /// </summary>
+        /// <param name="point"></param>
+        public BoundingBox(Vector3 min, Vector3 max)
+        {
+            this.min = min;
+            this.max = max;
         }
 
         /// <summary>
@@ -54,8 +69,9 @@ namespace project.RayTracing
         /// <param name="point"></param>
         public void addPoint(Vector3 point)
         {
-            this.max = new Vector3(Math.Max(max.X, point.X), Math.Max(max.Y, point.Y), Math.Max(max.Z, point.Z));
             this.min = new Vector3(Math.Min(min.X, point.X), Math.Min(min.Y, point.Y), Math.Min(min.Z, point.Z));
+            this.max = new Vector3(Math.Max(max.X, point.X), Math.Max(max.Y, point.Y), Math.Max(max.Z, point.Z));
+            
         }
 
         /// <summary>
@@ -71,8 +87,8 @@ namespace project.RayTracing
 
         public void Union(BoundingBox b)
         {
-            this.addPoint(b.max);
             this.addPoint(b.min);
+            this.addPoint(b.max);
         }
 
         /// <summary>
@@ -175,6 +191,56 @@ namespace project.RayTracing
             float temp = a;
             a = b;
             b = temp;
+        }
+
+        /// <summary>
+        /// Splits a bounding box into 8 equal parts.
+        /// </summary>
+        /// <returns>Returns a list of 8 BoundingBoxes </returns>
+        public List<BoundingBox> Split()
+        {
+            Vector3 min = this.min;
+            Vector3 max = this.max;
+
+            float xdim = max.X - min.X;
+            float ydim = max.Y - min.Y;
+            float zdim = max.Z - min.Z;
+
+            float xOffset = xdim / 2;
+            float yOffset = ydim / 2;
+            float zOffset = zdim / 2;
+
+            Vector3 center = min + new Vector3(xOffset, yOffset, zOffset);
+
+            //Create a list of BoundingBoxes, and fill them in.
+            List<BoundingBox> BBoxes = new List<BoundingBox>(8);
+            Vector3 offset = new Vector3(0, 0, 0);
+
+            BBoxes.Add(new BoundingBox(min, center));
+
+            offset = new Vector3(xOffset, 0, 0);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(0, yOffset, 0);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(xOffset, yOffset, 0);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(0, 0, zOffset);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(xOffset, 0, zOffset);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(0, yOffset, zOffset);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            offset = new Vector3(xOffset, yOffset, zOffset);
+            BBoxes.Add(new BoundingBox(min + offset, center + offset));
+
+            return BBoxes;
+
         }
 
     }
