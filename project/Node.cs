@@ -15,26 +15,51 @@ namespace project.RayTracing
         private List<Node> Children;
         /** A List refering to all Triangles in the Bounding Box */
         private List<Triangle> Triangles;
+        
+        private int currentHeight;
+
+        private int heightLimit;
+
+        private int triangleLimit;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="B"> The first BoundingBox</param>
-        /// <param name="T"> A List of Triangles </param>
-        /// <param name="C"> A List of Children </param>
-        public Node(BoundingBox B, List<Triangle> T, List<Node> C)
+        /// <param name="B"></param>
+        /// <param name="T"></param>
+        /// <param name="currentHeight"></param>
+        /// <param name="heightLimit"></param>
+        /// <param name="triangleLimit"></param>
+        public Node(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit )
         {
+            //Set BBox
             BBox = B;
-            if(C == null)
-            {
-                Triangles = T;
-                Children = null;
+            
+            //Set Triangles
+            Triangles = T;
+
+            //Attempt to Create 8 Children
+            Children = new List<Node>();
+            
+            if (Triangles.Count > triangleLimit && currentHeight < heightLimit) {
+                List<BoundingBox> ChildrenBBoxes = BBox.Split();
+                foreach (BoundingBox ChildBBox in ChildrenBBoxes)
+                {
+                    List<Triangle> trianglesInside = new List<Triangle>();
+                    foreach (Triangle t in Triangles)
+                    {
+                        if (ChildBBox.contains(t))
+                        {
+                            trianglesInside.Add(t);
+                        }
+                    }
+
+                    Children.Add(new Node(ChildBBox, trianglesInside, currentHeight + 1, heightLimit, triangleLimit));
+                }
             }
-            else
-            {
-                Children = C;
-                Triangles = null;
-            }
+            
+
+            
         }
 
         /// <summary>
@@ -43,40 +68,66 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="r"> The Ray to check for triangles</param>
         /// <returns> The Triangle that was hit</returns>
-        private Triangle intersection(Ray r)
+        public Triangle intersection(Ray r, float minT, out float outT)
         {
             float hit0;
             float hit1;
-            float trianglehit;
-            float rayMin = float.MaxValue;
+            float thisT;
+            //float minT = float.MaxValue;
+            
+            Triangle closestTriangle = null;
 
-            if(BBox.Intersect(r,out hit0, out hit1))
+            if(BBox.Intersect(r,out hit0, out hit1) && hit0 < minT)
             {
-                for (int i= 0; i < Children.Count; i++)
+                if (Children.Count != 0)
                 {
-                    intersection(r);
-                }
-                if(Children.Count == 0)
-                {
-                    foreach(Triangle triangle in Triangles)
+                    //We have children, and need to check their values.
+                    for (int i = 0; i < Children.Count; i++)
                     {
-                        if(triangle.intersection(r, out trianglehit))
+                        Triangle thisTriangle = Children[i].intersection(r,minT, out thisT);
+                        if (thisTriangle != null)
                         {
-                            if(trianglehit < rayMin)
+                            if (thisT < minT)
                             {
-                                rayMin = trianglehit;
+                                closestTriangle = thisTriangle;
+                                minT = thisT;
                             }
-                            return triangle;
                         }
-                    } 
+                    }
+                    outT = minT;
+                    return closestTriangle;
                 }
+                else
+                {
+                    //We are at a leaf, and need to check each triangle.
+                    foreach (Triangle triangle in Triangles)
+                    {
+                        if (triangle.intersection(r, out thisT))
+                        {
+                            if(thisT < minT)
+                            {
+                                minT = thisT;
+                                closestTriangle = triangle;
+                            }
+                            
+                        }
+                    }
+                    outT = minT;
+                    return closestTriangle;
+
+                }
+                
             }
+            //If the ray doesn't hit our node
             else
             {
+                outT = minT;
                 return null;
             }
-
-            return null;
         }
+        
+
+
+        
     }
 }

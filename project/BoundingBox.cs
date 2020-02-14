@@ -244,7 +244,7 @@ namespace project.RayTracing
         }
 
 
-        public bool intersect(Triangle t)
+        public bool contains(Triangle t)
         {
             /*
              Intersect(const Bounds3<T> &b1, const Bounds3<T> &b2) {
