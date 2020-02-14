@@ -56,29 +56,52 @@ namespace project.RayTracing
             Bitmap b = new Bitmap(ResX, ResY);
             //Start Timer here.
             GridAccelerator gridAccelerator = null;
-            if (accelStruct == "Grid")
+            OctreeAccelerator octreeAccelerator = null;
+
+            switch (accelStruct)
             {
-                gridAccelerator = new GridAccelerator(scene);
+                case ("Grid"):
+                    gridAccelerator = new GridAccelerator(scene);
+                    break;
+                case ("Octree"):
+                    //TODO: Dynamically change limits from UI?
+                    octreeAccelerator = new OctreeAccelerator(scene, 20, 10);
+                    break;
+                default:
+                    break;
             }
+            
             for (int i = 0; i < ResX; i++)
             {
                 //Check how far the rendering is
                 for (int j = 0; j < ResY; j++)
                 {
+                    if(j == 450)
+                    {
+                        Console.WriteLine();
+                    }
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
-                    
+
 
                     Triangle intersect = null;
-                    if(accelStruct == "Grid")
+
+                    switch (accelStruct)
                     {
-                        intersect = gridAccelerator.intersect(r);
+                        case ("Grid"):
+                            intersect = gridAccelerator.intersect(r);
+                            break;
+                        case ("Octree"):
+                            intersect = octreeAccelerator.intersect(r);
+                            break;
+                        default:
+                            intersect = scene.intersect(r);
+                            break;
                     }
-                    else  
-                    {
-                        //Brute Force
-                        intersect = scene.intersect(r);
-                    }
+                    
+
+
+                    
                     if (intersect != null)
                     {
                         Vector3 normal = intersect.normal(r);
@@ -94,7 +117,7 @@ namespace project.RayTracing
                     
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
-                if(RV != null && i % 100 == 0)
+                if(RV != null && i % 5 == 0)
                 {
                     RV.updateBitmap(b);
                 }

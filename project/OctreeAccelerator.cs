@@ -9,40 +9,36 @@ namespace project.RayTracing
     class OctreeAccelerator
     {
         //Todo: Spring Sprints  1/2
-        BoundingBox bounds;
-        Mesh mesh;
-        List<Triangle> triangles;
-        List<Node> children;
-        int numTriangles;
+        Node root;
 
-        int heightLimit;
-        int trianglesLimit;
-
-
-
-        public OctreeAccelerator(Mesh mesh, int heightLimit, int trianglesLimit)
+        
+        public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
         {
-            numTriangles = mesh.faces.Count / 3;
+            int numTriangles = mesh.faces.Count / 3;
+            List<Triangle> triangles = new List<Triangle>();
 
-            //Add all triangles to bounds
-            bounds = new BoundingBox(new Triangle(mesh, 0));
+            //Add all triangles to bounds and triangle list
+            BoundingBox bounds = new BoundingBox(new Triangle(mesh, 0));
+            triangles.Add(new Triangle(mesh, 0));
             for (int i = 1; i < numTriangles; i++)
             {
                 Triangle tri = new Triangle(mesh, i);
                 bounds.addTriangle(tri);
+                triangles.Add(tri);
             }
+
+            //Create overrarching node. The constructor will recursively create a tree
+            root = new Node(bounds, triangles, 0, heightLimit, triangleLimit);
+
             
         }
 
 
         public Triangle intersect(Ray r)
         {
-            return null;
+            float t;
+            return root.intersection(r, float.MaxValue, out t);
         }
         
-        private bool AddLevel()
-        {
-            return false;
-        }
     }
 }
