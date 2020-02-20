@@ -11,10 +11,12 @@ namespace project.RayTracing
         //Todo: Spring Sprints  1/2
         Node root;
         public int NodeCount;
+        public List<Node> Leaves;
 
 
         public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
         {
+            Leaves = new List<Node>();
             NodeCount = 0;
             int numTriangles = mesh.faces.Count / 3;
             List<Triangle> triangles = new List<Triangle>();

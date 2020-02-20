@@ -56,6 +56,7 @@ namespace project.RayTracing
             else
             {
                 Triangles = T;
+                Octree.Leaves.Add(this);
             }
             
 
