@@ -36,6 +36,7 @@ namespace project.RayTracing
         /// <param name="mesh"></param>
         public GridAccelerator(Mesh mesh)
         {
+
             nVoxels = new int[3];
             delta = new float[3];
             width = new float[3];

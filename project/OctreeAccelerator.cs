@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace project.RayTracing
 {
-    class OctreeAccelerator
+    public class OctreeAccelerator
     {
         //Todo: Spring Sprints  1/2
         Node root;
+        public int NodeCount;
 
-        
+
         public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
         {
+            NodeCount = 0;
             int numTriangles = mesh.faces.Count / 3;
             List<Triangle> triangles = new List<Triangle>();
 
@@ -28,7 +30,7 @@ namespace project.RayTracing
             }
 
             //Create overrarching node. The constructor will recursively create a tree
-            root = new Node(bounds, triangles, 0, heightLimit, triangleLimit);
+            root = new Node(bounds, triangles, 0, heightLimit, triangleLimit, this);
 
             
         }

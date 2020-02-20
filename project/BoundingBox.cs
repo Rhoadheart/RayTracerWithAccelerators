@@ -199,8 +199,6 @@ namespace project.RayTracing
         /// <returns>Returns a list of 8 BoundingBoxes </returns>
         public List<BoundingBox> Split()
         {
-            Vector3 min = this.min;
-            Vector3 max = this.max;
 
             float xdim = max.X - min.X;
             float ydim = max.Y - min.Y;
@@ -243,7 +241,16 @@ namespace project.RayTracing
 
         }
 
+        //Todo: Rewrite based on overlaps in PBRT
 
+        /*
+        bool Overlaps(const Bounds3<T> &b1, const Bounds3<T> &b2) {
+            bool x = (b1.pMax.x >= b2.pMin.x) && (b1.pMin.x <= b2.pMax.x);
+            bool y = (b1.pMax.y >= b2.pMin.y) && (b1.pMin.y <= b2.pMax.y);
+            bool z = (b1.pMax.z >= b2.pMin.z) && (b1.pMin.z <= b2.pMax.z);
+            return (x && y && z);
+        }
+        */
         public bool contains(Triangle t)
         {
             /*
@@ -255,7 +262,7 @@ namespace project.RayTracing
                                 std::min(b1.pMax.y, b2.pMax.y),
                                 std::min(b1.pMax.z, b2.pMax.z)));
             */
-            BoundingBox triBBox = new BoundingBox(t);
+        BoundingBox triBBox = new BoundingBox(t);
 
             float minX = Math.Max(this.min.X, triBBox.min.X);
             float minY = Math.Max(this.min.Y, triBBox.min.Y);
@@ -266,7 +273,7 @@ namespace project.RayTracing
             float maxZ = Math.Min(this.max.Z, triBBox.max.Z);
 
             //Vector3 min = new Vector3(minX, minY, minZ);
-            Vector3 max = new Vector3(maxX, maxY, maxZ);
+            //Vector3 max = new Vector3(maxX, maxY, maxZ);
 
             if (minX > maxX || minY > maxY || minZ > maxZ)
                 return false;

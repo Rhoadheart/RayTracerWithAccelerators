@@ -15,12 +15,7 @@ namespace project.RayTracing
         private List<Node> Children;
         /** A List refering to all Triangles in the Bounding Box */
         private List<Triangle> Triangles;
-        
-        private int currentHeight;
 
-        private int heightLimit;
-
-        private int triangleLimit;
 
         /// <summary>
         /// 
@@ -30,32 +25,37 @@ namespace project.RayTracing
         /// <param name="currentHeight"></param>
         /// <param name="heightLimit"></param>
         /// <param name="triangleLimit"></param>
-        public Node(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit )
+        public Node(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit, OctreeAccelerator Octree)
         {
             //Set BBox
             BBox = B;
-            
-            //Set Triangles
-            Triangles = T;
 
             //Attempt to Create 8 Children
             Children = new List<Node>();
-            
-            if (Triangles.Count > triangleLimit && currentHeight < heightLimit) {
+
+            if (T.Count > triangleLimit && currentHeight < heightLimit) {
+                
                 List<BoundingBox> ChildrenBBoxes = BBox.Split();
                 foreach (BoundingBox ChildBBox in ChildrenBBoxes)
                 {
                     List<Triangle> trianglesInside = new List<Triangle>();
-                    foreach (Triangle t in Triangles)
+                    
+                    //Todo: Pull out Bounding Box Generation from contains method. Only do this once
+                    foreach (Triangle t in T)
                     {
                         if (ChildBBox.contains(t))
                         {
                             trianglesInside.Add(t);
                         }
                     }
-
-                    Children.Add(new Node(ChildBBox, trianglesInside, currentHeight + 1, heightLimit, triangleLimit));
+                    //Todo: Don't create child node if count == 0
+                    Octree.NodeCount++;
+                    Children.Add(new Node(ChildBBox, trianglesInside, currentHeight + 1, heightLimit, triangleLimit, Octree));
                 }
+            }
+            else
+            {
+                Triangles = T;
             }
             
 

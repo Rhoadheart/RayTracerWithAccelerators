@@ -46,6 +46,10 @@ namespace project.RayTracing
                 foreach (string line in resultLines)
                 {
                     linenum++;
+                    if(linenum == 59224)
+                    {
+                        Console.WriteLine();
+                    }
                     string[] parameters = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     if (parameters.Length > 0)
                     {

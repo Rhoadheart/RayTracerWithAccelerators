@@ -65,7 +65,7 @@ namespace project.RayTracing
                     break;
                 case ("Octree"):
                     //TODO: Dynamically change limits from UI?
-                    octreeAccelerator = new OctreeAccelerator(scene, 20, 10);
+                    octreeAccelerator = new OctreeAccelerator(scene, 10, 50);
                     break;
                 default:
                     break;
@@ -76,10 +76,7 @@ namespace project.RayTracing
                 //Check how far the rendering is
                 for (int j = 0; j < ResY; j++)
                 {
-                    if(j == 450)
-                    {
-                        Console.WriteLine();
-                    }
+                    
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
 
@@ -117,7 +114,7 @@ namespace project.RayTracing
                     
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
-                if(RV != null && i % 5 == 0)
+                if(RV != null && i % 100 == 0)
                 {
                     RV.updateBitmap(b);
                 }
