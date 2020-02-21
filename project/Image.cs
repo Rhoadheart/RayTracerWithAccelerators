@@ -51,21 +51,23 @@ namespace project.RayTracing
         /// <returns></returns>
         public Bitmap generateImage(Camera c, Mesh scene, String accelStruct)
         {
+            //Todo: Dynamically pass in colorizer, RaysPerPixel, and RayDistanceLimit from InputGenerator
+            string colorizer = "AmbientOcclusion";
             int ResX = c.getResX();
             int ResY = c.getResY();
             Bitmap b = new Bitmap(ResX, ResY);
             //Start Timer here.
-            GridAccelerator gridAccelerator = null;
-            OctreeAccelerator octreeAccelerator = null;
+            Accelerator accelerator = null;
 
             switch (accelStruct)
             {
+                
                 case ("Grid"):
-                    gridAccelerator = new GridAccelerator(scene);
+                    accelerator = new GridAccelerator(scene);
                     break;
                 case ("Octree"):
                     //TODO: Dynamically change limits from UI?
-                    octreeAccelerator = new OctreeAccelerator(scene, 10, 50);
+                    accelerator = new OctreeAccelerator(scene, 10, 50);
                     break;
                 default:
                     break;
@@ -82,36 +84,31 @@ namespace project.RayTracing
 
 
                     Triangle intersect = null;
-
-                    switch (accelStruct)
-                    {
-                        case ("Grid"):
-                            intersect = gridAccelerator.intersect(r);
-                            break;
-                        case ("Octree"):
-                            intersect = octreeAccelerator.intersect(r);
-                            break;
-                        default:
-                            intersect = scene.intersect(r);
-                            break;
-                    }
+                    float outT;
                     
-
-
-                    
-                    if (intersect != null)
+                    if(accelStruct != "Brute Force")
                     {
-                        Vector3 normal = intersect.normal(r);
-                        float red = ((normal.X + 1) / 2) * 255;
-                        float green = ((normal.Y + 1) / 2) * 255;
-                        float blue = ((normal.Z + 1) / 2) * 255;
-                        newColor = Color.FromArgb((int)red, (int)green, (int)blue);
+                        intersect = accelerator.intersect(r, out outT);
                     }
                     else
                     {
-                        newColor = Color.FromArgb(0, 0, 0);
+                        intersect = scene.intersect(r, out outT);
+                    }
+
+                    
+                    Shader shader = new Shader(intersect, r);
+                    if(colorizer == "AmbientOcclusion")
+                    {
+                        
+                        newColor = shader.AmbientOcclusionShade(2f, 100, r.at(outT), accelerator, scene);
+                    }
+                    else
+                    {
+                        newColor = shader.TestColoringShade();
                     }
                     
+
+
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
                 if(RV != null && i % 100 == 0)

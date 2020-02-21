@@ -9,7 +9,7 @@ using Json.Net;
 
 namespace project.RayTracing
 {
-    class GridAccelerator
+    class GridAccelerator : Accelerator
     {
         Mesh mesh;
         int numTriangles;
@@ -139,7 +139,7 @@ namespace project.RayTracing
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        public Triangle intersect(Ray r)
+        public override Triangle intersect(Ray r, out float outT)
         {
             
             NextCrossingT = new float[3];
@@ -153,7 +153,10 @@ namespace project.RayTracing
             if (bounds.inside(r.at(r.getMinT())))
                 hit0 = r.getMinT();
             else if (!bounds.Intersect(r, out hit0, out hit1))
+            {
+                outT = -1f;
                 return null;
+            }
 
             gridIntersect = r.at(hit0);
 
@@ -193,7 +196,6 @@ namespace project.RayTracing
 
             //Walk ray through voxel grid
             bool hitSomething = false;
-            float outT;
             while (!hitSomething)
             {
                 Voxel voxel = voxels[offset((int)Pos[0], (int)Pos[1], (int)Pos[2])];
@@ -225,7 +227,11 @@ namespace project.RayTracing
 
                 //Our rays currently always have a MaxT of float.MaxValue;
                 if (r.getMaxT() < NextCrossingT[stepAxis])
+                {
+                    outT = -1f;
                     return null;
+                }
+                    
 
 
                 //Move to next voxel
@@ -233,11 +239,16 @@ namespace project.RayTracing
 
                 //If we hit an edge, return no intersection.
                 if (Pos[stepAxis] == Out[stepAxis])
+                {
+                    outT = -1f;
                     return null;
+                }
+                    
 
                 NextCrossingT[stepAxis] += DeltaT[stepAxis];
 
             }
+            outT = -1f;
             return null;
         }
 

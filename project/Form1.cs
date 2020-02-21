@@ -65,6 +65,7 @@ namespace project.RayTracing
                             this.Hide();
                         }
 
+                        //Todo: Dynamically pass in Colorizer and RaysPerPixel and RayDistanceLimit from JSON
                         output = new Image(c1, m1, filename, RV, input.AccelerationStruct);
                         RV.Close();
                         this.Show();

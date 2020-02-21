@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accelerator.cs" />
     <Compile Include="BvHAccelerator.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="RenderVisualizer.Designer.cs">
       <DependentUpon>RenderVisualizer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Shader.cs" />
     <Compile Include="Voxel.cs" />
     <Compile Include="GridAccelerator.cs" />
     <Compile Include="InputFile.cs" />

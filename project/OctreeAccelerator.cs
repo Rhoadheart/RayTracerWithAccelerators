@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace project.RayTracing
 {
-    public class OctreeAccelerator
+    public class OctreeAccelerator : Accelerator
     {
         //Todo: Spring Sprints  1/2
         Node root;
@@ -38,10 +38,11 @@ namespace project.RayTracing
         }
 
 
-        public Triangle intersect(Ray r)
+        public override Triangle intersect(Ray r, out float t)
         {
-            float t;
-            return root.intersection(r, float.MaxValue, out t);
+            Triangle temp = root.intersection(r, float.MaxValue, out t);
+
+            return temp;
         }
         
     }
