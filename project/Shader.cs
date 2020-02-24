@@ -31,7 +31,7 @@ namespace project.RayTracing
         /// <param name="accelerator">Designated Accelerator by user that will be used for Ambient Occlusion traversal.</param>
         /// <param name="scene">Scene to Render</param>
         /// <returns></returns>
-        public Color AmbientOcclusionShade(float RayDistanceLimit, int RaysPerPixel, Vector3 p, Accelerator accelerator, Mesh scene)
+        public Color AmbientOcclusionShade(float RayDistanceLimit, int RaysPerPixel, Vector3 p, Accelerator accelerator, Mesh scene, Random rand)
         {
             Color newColor = Color.FromArgb(0, 0, 0);
 
@@ -51,10 +51,18 @@ namespace project.RayTracing
 
                 p = p + nOffset;
 
-                if (Vector3.Normalize(n).Y < 0.95f)
-                    u = Vector3.Cross(n, new Vector3(0, 1, 0));
+
+                float divisor;
+                if (Math.Abs(n.X) > Math.Abs(n.Y))
+                {
+                    divisor = (float)Math.Sqrt(n.X * n.X + n.Z * n.Z);
+                    u = new Vector3(-n.Z/divisor, 0, n.X/divisor);
+                }
                 else
-                    u = Vector3.Cross(n, new Vector3(1, 0, 0));
+                {
+                    divisor = (float)Math.Sqrt(n.Y * n.Y + n.Z * n.Z);
+                    u = new Vector3(0, n.Z / divisor, -n.Y / divisor); 
+                }
 
                 v = Vector3.Cross(n, u);
 
@@ -62,7 +70,6 @@ namespace project.RayTracing
                 float gray = 0f;
 
                 //Generate random rays sampling the hemisphere 
-                Random rand = new Random();
                 for (int i = 0; i < RaysPerPixel; i++)
                 {
                     Vector3 randomLocal = UniformSampleHemisphere((float)rand.NextDouble(), (float)rand.NextDouble());

@@ -72,7 +72,8 @@ namespace project.RayTracing
                 default:
                     break;
             }
-            
+
+            Random rand = new Random();
             for (int i = 0; i < ResX; i++)
             {
                 //Check how far the rendering is
@@ -99,8 +100,7 @@ namespace project.RayTracing
                     Shader shader = new Shader(intersect, r);
                     if(colorizer == "AmbientOcclusion")
                     {
-                        
-                        newColor = shader.AmbientOcclusionShade(2f, 100, r.at(outT), accelerator, scene);
+                        newColor = shader.AmbientOcclusionShade(2f, 100, r.at(outT), accelerator, scene, rand);
                     }
                     else
                     {
