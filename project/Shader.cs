@@ -47,7 +47,7 @@ namespace project.RayTracing
                 // This is neccessary because when we send rays from p, 
                 // sometimes p is actually slightly behind the intersecting triangle,
                 // and thus all sampling rays will hit the original triangle, causing dark holes.
-                Vector3 nOffset = new Vector3(n.X * .00001f, n.Y * .00001f, n.Z * .00001f);
+                Vector3 nOffset = new Vector3(n.X * .0001f, n.Y * .0001f, n.Z * .0001f);
 
                 p = p + nOffset;
 
@@ -91,8 +91,12 @@ namespace project.RayTracing
                         {
                             if (outT < RayDistanceLimit)
                             {
-                                gray +=  outT / RayDistanceLimit;
+                                gray += outT / RayDistanceLimit;
 
+                            }
+                            else
+                            {
+                                gray += 1;// - (outT / RayDistanceLimit);
                             }
                         }
                         else
@@ -105,12 +109,16 @@ namespace project.RayTracing
                     else
                     {
                         float outT;
-                        if (accelerator.intersect(q, out outT) != null)
+                        if (scene.intersect(q, out outT) != null)
                         {
                             if (outT < RayDistanceLimit)
                             {
-                                gray += outT / RayDistanceLimit;
+                                gray += 0;// outT / RayDistanceLimit;
 
+                            }
+                            else
+                            {
+                                gray += 1 - (outT / RayDistanceLimit);
                             }
                         }
                         else

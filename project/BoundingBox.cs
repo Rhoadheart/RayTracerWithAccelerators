@@ -194,7 +194,7 @@ namespace project.RayTracing
         }
 
         /// <summary>
-        /// Splits a bounding box into 8 equal parts.
+        /// Splits a bounding box into 8 equal parts. 
         /// </summary>
         /// <returns>Returns a list of 8 BoundingBoxes </returns>
         public List<BoundingBox> Split()
