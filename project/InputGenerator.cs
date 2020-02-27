@@ -58,7 +58,7 @@ namespace project
             OutputFilename.Text = "Filename";
             OutputFilename.ForeColor = Color.Gray;
             //RaysPerPixel
-            RaysPerPixBox.Text = "Default: 100";
+            RaysPerPixBox.Text = "Default: 10";
             RaysPerPixBox.ForeColor = Color.Gray;
             //TriangleNodeLimit
             RayDistanceLimitBox.Text = "Default: 2";
@@ -444,28 +444,28 @@ namespace project
                 return;
             }
             if (RayDistanceLimitBox.Enabled) {
-                if (RayDistanceLimitBox.Text == "Default: 2")
+                if (RayDistanceLimitBox.Text == "Default: 2" || RayDistanceLimitBox.Text == "")
                 {
                     RayDistanceLimitBox.Text = "2";
                 }
             }
             if (RaysPerPixBox.Enabled)
             {
-                if (RaysPerPixBox.Text == "Default: 100")
+                if (RaysPerPixBox.Text == "Default: 10" || RaysPerPixBox.Text == "")
                 {
-                    RaysPerPixBox.Text = "100";
+                    RaysPerPixBox.Text = "10";
                 }
             }
             if (HeightLimitBox.Enabled)
             {
-                if (HeightLimitBox.Text == "Default: 8")
+                if (HeightLimitBox.Text == "Default: 8" || HeightLimitBox.Text == "")
                 {
                     HeightLimitBox.Text = "8";
                 }
             }
             if (TriangleNodeLimitBox.Enabled)
             {
-                if (TriangleNodeLimitBox.Text == "Default: 50")
+                if (TriangleNodeLimitBox.Text == "Default: 50" || TriangleNodeLimit.Text == "")
                 {
                     TriangleNodeLimitBox.Text = "50";
                 }
@@ -684,7 +684,7 @@ namespace project
 
         private void RaysPerPixBox_Enter(object sender, EventArgs e)
         {
-            if(RaysPerPixBox.Text == "Default: 100" && RaysPerPixBox.ForeColor == Color.Gray)
+            if(RaysPerPixBox.Text == "Default: 10" && RaysPerPixBox.ForeColor == Color.Gray)
             {
                 RaysPerPixBox.Text = "";
                 RaysPerPixBox.ForeColor = Color.Black;
@@ -695,7 +695,7 @@ namespace project
         {
             if(RaysPerPixBox.Text == "")
             {
-                RaysPerPixBox.Text = "Default: 100";
+                RaysPerPixBox.Text = "Default: 10";
                 RaysPerPixBox.ForeColor = Color.Gray;
             }
         }
