@@ -64,9 +64,12 @@ namespace project.RayTracing
                             //RV.Parent = this;
                             this.Hide();
                         }
-
-                        //Todo: Dynamically pass in Colorizer and RaysPerPixel and RayDistanceLimit from JSON
-                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct);
+                        float rayDisLim = input.RayDistanceLimit;
+                        int rayPerPix = input.RaysPerPixel, heiLimi = input.HeightLimit, triPerNod = input.TrianglesPerNod;
+                        bool AO = input.AmbientOclusion;
+                        
+                        //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
+                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct,rayPerPix,rayDisLim,heiLimi,triPerNod,AO);
                         RV.Close();
                         this.Show();
                         GoodGenLabel.Show();

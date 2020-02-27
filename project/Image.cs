@@ -28,6 +28,24 @@ namespace project.RayTracing
             b.Dispose();
         }
 
+        
+
+        /// <summary>
+        /// Creates an image based off a bitmap 
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="outputFilePath"></param>
+        public Image(Camera c, Mesh scene, string outputFilePath, RenderVisualizer RV, String accelStruct, int raysPerPix, float rayDistLimit, int heightLimit, int TriPerNode, bool AmbientOcclusion)
+        {
+            
+            this.RV = RV;
+            this.b = generateImage(c, scene, accelStruct, raysPerPix, rayDistLimit, heightLimit, TriPerNode, AmbientOcclusion);
+            Graphics g = Graphics.FromImage(b);
+            g.Dispose();
+            b.Save(outputFilePath, ImageFormat.Png);
+            b.Dispose();
+        }
+
         /// <summary>
         /// Creates an image based off a bitmap 
         /// </summary>
@@ -49,10 +67,14 @@ namespace project.RayTracing
         /// <param name="c"></param>
         /// <param name="scene"></param>
         /// <returns></returns>
-        public Bitmap generateImage(Camera c, Mesh scene, String accelStruct)
+        public Bitmap generateImage(Camera c, Mesh scene, String accelStruct, int raysPerPix = -100, float rayDistLimit = -1f, int heightLimit = -1, int TriPerNode = -1, bool AmbientOcclu = true)
         {
             //Todo: Dynamically pass in colorizer, RaysPerPixel, and RayDistanceLimit from InputGenerator
-            string colorizer = "AmbientOcclusion";
+            string colorizer = "";
+            if (AmbientOcclu == true)
+            {
+                colorizer = "Ambient Occlusion";
+            }
             int ResX = c.getResX();
             int ResY = c.getResY();
             Bitmap b = new Bitmap(ResX, ResY);
@@ -67,7 +89,7 @@ namespace project.RayTracing
                     break;
                 case ("Octree"):
                     //TODO: Dynamically change limits from UI?
-                    accelerator = new OctreeAccelerator(scene, 10, 50);
+                    accelerator = new OctreeAccelerator(scene, heightLimit, TriPerNode);
                     break;
                 default:
                     break;
@@ -98,9 +120,9 @@ namespace project.RayTracing
 
                     
                     Shader shader = new Shader(intersect, r);
-                    if(colorizer == "AmbientOcclusion")
+                    if(colorizer == "Ambient Occlusion")
                     {
-                        newColor = shader.AmbientOcclusionShade(2f, 100, r.at(outT), accelerator, scene, rand);
+                        newColor = shader.AmbientOcclusionShade(rayDistLimit, raysPerPix, r.at(outT), accelerator, scene, rand);
                     }
                     else
                     {

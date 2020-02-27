@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 using System.Runtime;
-using Json.Net;
 
 namespace project.RayTracing
 {

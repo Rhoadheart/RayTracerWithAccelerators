@@ -57,6 +57,20 @@ namespace project
             //OutFilename
             OutputFilename.Text = "Filename";
             OutputFilename.ForeColor = Color.Gray;
+            //RaysPerPixel
+            RaysPerPixBox.Text = "Default: 100";
+            RaysPerPixBox.ForeColor = Color.Gray;
+            //TriangleNodeLimit
+            RayDistanceLimitBox.Text = "Default: 2";
+            RayDistanceLimitBox.ForeColor = Color.Gray;
+            //HeightLimit
+            HeightLimitBox.Text = "Default: 8";
+            HeightLimitBox.ForeColor = Color.Gray;
+            //TriangleNodeLimit
+            TriangleNodeLimitBox.Text = "Default: 50";
+            TriangleNodeLimitBox.ForeColor = Color.Gray;
+
+            comboBox1.Text = "All";
 
             GenerateLabel.Hide();
 
@@ -67,6 +81,7 @@ namespace project
             this.Owner.Show();
         }
 
+        #region FoVBox
         private void FoVBox_Enter(object sender, EventArgs e)
         {
             if (FoVBox.Text == "Default: 43" && FoVBox.ForeColor == Color.Gray)
@@ -85,6 +100,19 @@ namespace project
             }
         }
 
+        private void FoVBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue))
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region OutputBox
         private void OutputBox_Enter(object sender, EventArgs e)
         {
             if (OutputBox.Text == "File path" && OutputBox.ForeColor == Color.Gray)
@@ -106,7 +134,9 @@ namespace project
                 OutputBox.ForeColor = Color.Black;
             }
         }
+        #endregion
 
+        #region InputBox
         private void InputBox_Enter(object sender, EventArgs e)
         {
             if (InputBox.Text == "File path" && InputBox.ForeColor == Color.Gray)
@@ -124,7 +154,9 @@ namespace project
                 InputBox.ForeColor = Color.Gray;
             }
         }
+        #endregion
 
+        #region PNGCSVLocation
         private void PNGCSVLocation_Enter(object sender, EventArgs e)
         {
             if(PNGCSVLocation.Text == "File path")
@@ -142,7 +174,9 @@ namespace project
                 PNGCSVLocation.ForeColor = Color.Gray;
             }
         }
+        #endregion
 
+        #region CPBox
         private void CPBox_Enter(object sender, EventArgs e)
         {
             if (CPBox.Text == "EX: x,y,z" && CPBox.ForeColor == Color.Gray)
@@ -161,6 +195,18 @@ namespace project
             }
         }
 
+        private void CPBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region COBox
         private void COBox_Enter(object sender, EventArgs e)
         {
             if (COBox.Text == "EX: x,y,z" && COBox.ForeColor == Color.Gray)
@@ -179,6 +225,19 @@ namespace project
             }
         }
 
+        private void COBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region ResXBox
         private void ResXBox_Enter(object sender, EventArgs e)
         {
             if (ResXBox.Text == "Width" && ResXBox.ForeColor == Color.Gray)
@@ -197,6 +256,21 @@ namespace project
             }
         }
 
+        private void ResXBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Ivestigate how to shorten all the keybinds on the NumPad in the if statement
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && e.KeyCode != Keys.NumPad0 && e.KeyCode != Keys.NumPad1
+                && e.KeyCode != Keys.NumPad2 && e.KeyCode != Keys.NumPad3 && e.KeyCode != Keys.NumPad4 && e.KeyCode != Keys.NumPad5
+                && e.KeyCode != Keys.NumPad6 && e.KeyCode != Keys.NumPad7 && e.KeyCode != Keys.NumPad8 && e.KeyCode != Keys.NumPad9)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region ResYBox
         private void ResYBox_Enter(object sender, EventArgs e)
         {
             if (ResYBox.Text == "Height" && ResYBox.ForeColor == Color.Gray)
@@ -215,6 +289,20 @@ namespace project
             }
         }
 
+        private void ResYBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && e.KeyCode != Keys.NumPad0 && e.KeyCode != Keys.NumPad1
+                && e.KeyCode != Keys.NumPad2 && e.KeyCode != Keys.NumPad3 && e.KeyCode != Keys.NumPad4 && e.KeyCode != Keys.NumPad5
+                && e.KeyCode != Keys.NumPad6 && e.KeyCode != Keys.NumPad7 && e.KeyCode != Keys.NumPad8 && e.KeyCode != Keys.NumPad9)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region CUBox
         private void CUBox_Enter(object sender, EventArgs e)
         {
             if (CUBox.Text == "Default: 0,1,0" && CUBox.ForeColor == Color.Gray)
@@ -232,7 +320,19 @@ namespace project
                 CUBox.ForeColor = Color.Gray;
             }
         }
-        
+
+        private void CUBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
+            {
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
+        #region OutputFileName
         private void OutputFilename_Enter(object sender, EventArgs e)
         {
             if(OutputFilename.Text == "Filename" && OutputFilename.ForeColor == Color.Gray)
@@ -250,7 +350,9 @@ namespace project
                 OutputFilename.ForeColor = Color.Gray;
             }
         }
+        #endregion
 
+        #region GenerateButton
 
         private void Generate_Click(object sender, EventArgs e)
         {
@@ -266,6 +368,13 @@ namespace project
             String fov = FoVBox.Text;
             bool PNG = GenPNG.Checked;
             String png = PNG.ToString();
+            //Column 3
+            String rayPerPix = RaysPerPixBox.Text;
+            String rayDisLimit = RayDistanceLimitBox.Text;
+            String heightLimit = HeightLimitBox.Text;
+            String triPerNode = TriangleNodeLimitBox.Text;
+
+
 
             if (combo == "")
             {
@@ -334,6 +443,34 @@ namespace project
                 GenerateLabel.Show();
                 return;
             }
+            if (RayDistanceLimitBox.Enabled) {
+                if (RayDistanceLimitBox.Text == "Default: 2")
+                {
+                    RayDistanceLimitBox.Text = "2";
+                }
+            }
+            if (RaysPerPixBox.Enabled)
+            {
+                if (RaysPerPixBox.Text == "Default: 100")
+                {
+                    RaysPerPixBox.Text = "100";
+                }
+            }
+            if (HeightLimitBox.Enabled)
+            {
+                if (HeightLimitBox.Text == "Default: 8")
+                {
+                    HeightLimitBox.Text = "8";
+                }
+            }
+            if (TriangleNodeLimitBox.Enabled)
+            {
+                if (TriangleNodeLimitBox.Text == "Default: 50")
+                {
+                    TriangleNodeLimitBox.Text = "50";
+                }
+            }
+
             String Jsonstring = JSONSerilaize();
             File.WriteAllText(output, Jsonstring);
             
@@ -344,7 +481,9 @@ namespace project
             Close();
             
         }
+        #endregion
 
+        #region OBJLocationButton
         private void Search1_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Object File | *.obj";
@@ -362,7 +501,9 @@ namespace project
                 }
             }
         }
+        #endregion
 
+        #region InputFileButton
         private void Search2_Click(object sender, EventArgs e)
         {
             SaveFileDialog save = new SaveFileDialog();
@@ -382,8 +523,10 @@ namespace project
                 }
             }
         }
+        #endregion
 
-        private void Search3_Click(object sender, EventArgs e)
+        #region OutputButton
+        private void OutputOpen_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -399,67 +542,9 @@ namespace project
                 }
             }
         }
+        #endregion
 
-
-        private void ResXBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            //Ivestigate how to shorten all the keybinds on the NumPad in the if statement
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && e.KeyCode != Keys.NumPad0 && e.KeyCode != Keys.NumPad1
-                && e.KeyCode != Keys.NumPad2 && e.KeyCode != Keys.NumPad3 && e.KeyCode != Keys.NumPad4 && e.KeyCode != Keys.NumPad5
-                && e.KeyCode != Keys.NumPad6 && e.KeyCode != Keys.NumPad7 && e.KeyCode != Keys.NumPad8 && e.KeyCode != Keys.NumPad9)
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
-        private void ResYBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue))
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
-        private void CPBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
-        private void COBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
-        private void CUBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) && (e.KeyCode) != Keys.Oemcomma && (e.KeyCode) != Keys.OemMinus)
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
-        private void FoVBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            
-            if (!char.IsDigit((char)e.KeyValue) && !char.IsControl((char)e.KeyValue) )
-            {
-                e.SuppressKeyPress = true;
-                e.Handled = true;
-            }
-        }
-
+        #region JSON
 
         private string JSONSerilaize()
         {
@@ -496,11 +581,26 @@ namespace project
             input.GeneratePNG = GenPNG.Checked;
             input.RealTimeRend = RealTimeRend.Checked;
             input.OutputFilename = OutputFilename.Text;
+            input.AmbientOclusion = AmbientOcclusionCheckBox.Checked;
+            input.RayDistanceLimit = float.Parse(RayDistanceLimitBox.Text);
+            input.RaysPerPixel = Convert.ToInt32(RaysPerPixBox.Text);
+            if (HeightLimitBox.Enabled)
+            {
+
+                input.HeightLimit = Convert.ToInt32(HeightLimitBox.Text);
+            }
+            if (TriangleNodeLimitBox.Enabled)
+            {
+
+                input.TrianglesPerNod = Convert.ToInt32(TriangleNodeLimitBox.Text);
+            }
 
            
             string JSONfile = JsonNet.Serialize(input);
             return JSONfile;
         }
+
+        #endregion
 
         /// <summary>
         /// Takes a String of 3 garenteed ints seperated by comma and returns a vector
@@ -561,6 +661,132 @@ namespace project
             {
                 OutputFilename.Enabled = true;
                 OutputFilename.Text = "Filename";
+            }
+        }
+
+        private void AmbientOcclusionCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if(AmbientOcclusionCheckBox.Checked == false)
+            {
+                RaysPerPixBox.Enabled = false;
+                RaysPerPixBox.Text = "";
+                RayDistanceLimitBox.Enabled = false;
+                RayDistanceLimitBox.Text = "";
+            }
+            else
+            {
+                RaysPerPixBox.Enabled = true;
+                RaysPerPixBox.Text = "Default: 100";
+                RayDistanceLimitBox.Enabled = true;
+                RayDistanceLimitBox.Text = "Default: 2";
+            }
+        }
+
+        private void RaysPerPixBox_Enter(object sender, EventArgs e)
+        {
+            if(RaysPerPixBox.Text == "Default: 100" && RaysPerPixBox.ForeColor == Color.Gray)
+            {
+                RaysPerPixBox.Text = "";
+                RaysPerPixBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void RaysPerPixBox_Leave(object sender, EventArgs e)
+        {
+            if(RaysPerPixBox.Text == "")
+            {
+                RaysPerPixBox.Text = "Default: 100";
+                RaysPerPixBox.ForeColor = Color.Gray;
+            }
+        }
+        
+
+        private void RayDistanceLimitBox_Enter(object sender, EventArgs e)
+        {
+            if (RayDistanceLimitBox.Text == "Default: 2")
+            {
+                RayDistanceLimitBox.Text = "";
+                RayDistanceLimitBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void RayDistanceLimitBox_Leave(object sender, EventArgs e)
+        {
+            if(RayDistanceLimitBox.Text == "")
+            {
+                RayDistanceLimitBox.Text = "Default: 2";
+                RayDistanceLimitBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void HeightLimitBox_Enter(object sender, EventArgs e)
+        {
+            if(HeightLimitBox.Text == "Default: 8")
+            {
+                HeightLimitBox.Text = "";
+                HeightLimitBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void HeightLimitBox_Leave(object sender, EventArgs e)
+        {
+            if(HeightLimitBox.Text == "")
+            {
+                HeightLimitBox.Text = "Default: 8";
+                HeightLimitBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void TriangleNodeLimitBox_Enter(object sender, EventArgs e)
+        {
+            if (TriangleNodeLimitBox.Text == "Default: 50")
+            {
+                TriangleNodeLimitBox.Text = "";
+                TriangleNodeLimitBox.ForeColor = Color.Black;
+            }
+        }
+
+        private void TriangleNodeLimitBox_Leave(object sender, EventArgs e)
+        {
+            if(TriangleNodeLimit.Text == "")
+            {
+                TriangleNodeLimitBox.Text = "Default: 50";
+                TriangleNodeLimitBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void comboBox1_Enter(object sender, EventArgs e)
+        {
+            if(comboBox1.Text == "Octree")
+            {
+
+            }
+
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.Text == "Octree")
+            {
+                HeightLimitBox.Enabled = true;
+                TriangleNodeLimitBox.Enabled = true;
+                //HeightLimit
+                HeightLimitBox.Text = "Default: 8";
+                HeightLimitBox.ForeColor = Color.Gray;
+                //TriangleNodeLimit
+                TriangleNodeLimitBox.Text = "Default: 50";
+                TriangleNodeLimitBox.ForeColor = Color.Gray;
+            }
+            else
+            {
+                HeightLimitBox.Enabled = false;
+                TriangleNodeLimitBox.Enabled = false;
+                //HeightLimit
+                HeightLimitBox.Text = "";
+                HeightLimitBox.ForeColor = Color.Gray;
+                //TriangleNodeLimit
+                TriangleNodeLimitBox.Text = "";
+                TriangleNodeLimitBox.ForeColor = Color.Gray;
             }
         }
     }

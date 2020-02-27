@@ -55,19 +55,28 @@
             this.GenerateLabel = new System.Windows.Forms.Label();
             this.PNGCSVLocation = new System.Windows.Forms.TextBox();
             this.CSVLocation = new System.Windows.Forms.Label();
-            this.Search3 = new System.Windows.Forms.Button();
+            this.Open = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.RealTimeRend = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.OutputFilename = new System.Windows.Forms.TextBox();
+            this.RaysPerPixBox = new System.Windows.Forms.TextBox();
+            this.RayDistanceLimitBox = new System.Windows.Forms.TextBox();
+            this.AmbientOcclusionCheckBox = new System.Windows.Forms.CheckBox();
+            this.RayDistanceLimit = new System.Windows.Forms.Label();
+            this.RaysPerPixel = new System.Windows.Forms.Label();
+            this.TriangleNodeLimit = new System.Windows.Forms.Label();
+            this.HeightLimit = new System.Windows.Forms.Label();
+            this.TriangleNodeLimitBox = new System.Windows.Forms.TextBox();
+            this.HeightLimitBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Generate
             // 
-            this.Generate.Location = new System.Drawing.Point(366, 447);
+            this.Generate.Location = new System.Drawing.Point(512, 463);
             this.Generate.Name = "Generate";
             this.Generate.Size = new System.Drawing.Size(85, 23);
-            this.Generate.TabIndex = 0;
+            this.Generate.TabIndex = 29;
             this.Generate.Text = "Generate";
             this.Generate.UseVisualStyleBackColor = true;
             this.Generate.Click += new System.EventHandler(this.Generate_Click);
@@ -252,16 +261,18 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Octree",
-            "K-D Trees",
-            "Grid",
+            "All",
             "Bounding Volume Hierarchy",
             "Brute Force",
-            "All"});
+            "Grid",
+            "K-D Trees",
+            "Octree"});
             this.comboBox1.Location = new System.Drawing.Point(166, 26);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(184, 24);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
+            this.comboBox1.Enter += new System.EventHandler(this.comboBox1_Enter);
             // 
             // Search2
             // 
@@ -290,7 +301,7 @@
             // GenerateLabel
             // 
             this.GenerateLabel.AutoSize = true;
-            this.GenerateLabel.Location = new System.Drawing.Point(482, 450);
+            this.GenerateLabel.Location = new System.Drawing.Point(628, 466);
             this.GenerateLabel.Name = "GenerateLabel";
             this.GenerateLabel.Size = new System.Drawing.Size(102, 17);
             this.GenerateLabel.TabIndex = 23;
@@ -301,7 +312,7 @@
             this.PNGCSVLocation.Location = new System.Drawing.Point(512, 326);
             this.PNGCSVLocation.Name = "PNGCSVLocation";
             this.PNGCSVLocation.Size = new System.Drawing.Size(313, 22);
-            this.PNGCSVLocation.TabIndex = 24;
+            this.PNGCSVLocation.TabIndex = 23;
             this.PNGCSVLocation.Enter += new System.EventHandler(this.PNGCSVLocation_Enter);
             this.PNGCSVLocation.Leave += new System.EventHandler(this.PNGCSVLocation_Leave);
             // 
@@ -311,19 +322,20 @@
             this.CSVLocation.Location = new System.Drawing.Point(382, 326);
             this.CSVLocation.Margin = new System.Windows.Forms.Padding(0);
             this.CSVLocation.Name = "CSVLocation";
+            this.CSVLocation.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.CSVLocation.Size = new System.Drawing.Size(113, 17);
             this.CSVLocation.TabIndex = 25;
             this.CSVLocation.Text = "Output Location:\r\n";
             // 
-            // Search3
+            // Open
             // 
-            this.Search3.Location = new System.Drawing.Point(751, 354);
-            this.Search3.Name = "Search3";
-            this.Search3.Size = new System.Drawing.Size(74, 26);
-            this.Search3.TabIndex = 26;
-            this.Search3.Text = "Open";
-            this.Search3.UseVisualStyleBackColor = true;
-            this.Search3.Click += new System.EventHandler(this.Search3_Click);
+            this.Open.Location = new System.Drawing.Point(751, 354);
+            this.Open.Name = "Open";
+            this.Open.Size = new System.Drawing.Size(74, 26);
+            this.Open.TabIndex = 24;
+            this.Open.Text = "Open";
+            this.Open.UseVisualStyleBackColor = true;
+            this.Open.Click += new System.EventHandler(this.OutputOpen_Click);
             // 
             // RealTimeRend
             // 
@@ -334,7 +346,7 @@
             this.RealTimeRend.Location = new System.Drawing.Point(584, 250);
             this.RealTimeRend.Name = "RealTimeRend";
             this.RealTimeRend.Size = new System.Drawing.Size(165, 21);
-            this.RealTimeRend.TabIndex = 27;
+            this.RealTimeRend.TabIndex = 22;
             this.RealTimeRend.Text = "Real-Time Rendering";
             this.RealTimeRend.UseVisualStyleBackColor = true;
             // 
@@ -353,20 +365,116 @@
             this.OutputFilename.Location = new System.Drawing.Point(512, 395);
             this.OutputFilename.Name = "OutputFilename";
             this.OutputFilename.Size = new System.Drawing.Size(313, 22);
-            this.OutputFilename.TabIndex = 28;
+            this.OutputFilename.TabIndex = 25;
             this.OutputFilename.Enter += new System.EventHandler(this.OutputFilename_Enter);
             this.OutputFilename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OutputFilename_KeyDown);
             this.OutputFilename.Leave += new System.EventHandler(this.OutputFilename_Leave);
+            // 
+            // RaysPerPixBox
+            // 
+            this.RaysPerPixBox.Location = new System.Drawing.Point(1020, 99);
+            this.RaysPerPixBox.Name = "RaysPerPixBox";
+            this.RaysPerPixBox.Size = new System.Drawing.Size(114, 22);
+            this.RaysPerPixBox.TabIndex = 27;
+            this.RaysPerPixBox.Enter += new System.EventHandler(this.RaysPerPixBox_Enter);
+            this.RaysPerPixBox.Leave += new System.EventHandler(this.RaysPerPixBox_Leave);
+            // 
+            // RayDistanceLimitBox
+            // 
+            this.RayDistanceLimitBox.Location = new System.Drawing.Point(1020, 168);
+            this.RayDistanceLimitBox.Name = "RayDistanceLimitBox";
+            this.RayDistanceLimitBox.Size = new System.Drawing.Size(114, 22);
+            this.RayDistanceLimitBox.TabIndex = 28;
+            this.RayDistanceLimitBox.Enter += new System.EventHandler(this.RayDistanceLimitBox_Enter);
+            this.RayDistanceLimitBox.Leave += new System.EventHandler(this.RayDistanceLimitBox_Leave);
+            // 
+            // AmbientOcclusionCheckBox
+            // 
+            this.AmbientOcclusionCheckBox.AutoSize = true;
+            this.AmbientOcclusionCheckBox.Checked = true;
+            this.AmbientOcclusionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AmbientOcclusionCheckBox.Location = new System.Drawing.Point(991, 29);
+            this.AmbientOcclusionCheckBox.Name = "AmbientOcclusionCheckBox";
+            this.AmbientOcclusionCheckBox.Size = new System.Drawing.Size(143, 21);
+            this.AmbientOcclusionCheckBox.TabIndex = 26;
+            this.AmbientOcclusionCheckBox.Text = "AmbientOcclusion";
+            this.AmbientOcclusionCheckBox.UseVisualStyleBackColor = true;
+            this.AmbientOcclusionCheckBox.CheckStateChanged += new System.EventHandler(this.AmbientOcclusionCheckBox_CheckStateChanged);
+            // 
+            // RayDistanceLimit
+            // 
+            this.RayDistanceLimit.AutoSize = true;
+            this.RayDistanceLimit.Location = new System.Drawing.Point(870, 177);
+            this.RayDistanceLimit.Name = "RayDistanceLimit";
+            this.RayDistanceLimit.Size = new System.Drawing.Size(121, 17);
+            this.RayDistanceLimit.TabIndex = 34;
+            this.RayDistanceLimit.Text = "RayDistanceLimit:";
+            // 
+            // RaysPerPixel
+            // 
+            this.RaysPerPixel.AutoSize = true;
+            this.RaysPerPixel.Location = new System.Drawing.Point(870, 102);
+            this.RaysPerPixel.Name = "RaysPerPixel";
+            this.RaysPerPixel.Size = new System.Drawing.Size(95, 17);
+            this.RaysPerPixel.TabIndex = 33;
+            this.RaysPerPixel.Text = "RaysPerPixel:";
+            // 
+            // TriangleNodeLimit
+            // 
+            this.TriangleNodeLimit.AutoSize = true;
+            this.TriangleNodeLimit.Location = new System.Drawing.Point(870, 329);
+            this.TriangleNodeLimit.Name = "TriangleNodeLimit";
+            this.TriangleNodeLimit.Size = new System.Drawing.Size(127, 17);
+            this.TriangleNodeLimit.TabIndex = 38;
+            this.TriangleNodeLimit.Text = "TriangleNodeLimit:";
+            // 
+            // HeightLimit
+            // 
+            this.HeightLimit.AutoSize = true;
+            this.HeightLimit.Location = new System.Drawing.Point(870, 254);
+            this.HeightLimit.Name = "HeightLimit";
+            this.HeightLimit.Size = new System.Drawing.Size(82, 17);
+            this.HeightLimit.TabIndex = 37;
+            this.HeightLimit.Text = "HeightLimit:";
+            // 
+            // TriangleNodeLimitBox
+            // 
+            this.TriangleNodeLimitBox.Enabled = false;
+            this.TriangleNodeLimitBox.Location = new System.Drawing.Point(1020, 320);
+            this.TriangleNodeLimitBox.Name = "TriangleNodeLimitBox";
+            this.TriangleNodeLimitBox.Size = new System.Drawing.Size(114, 22);
+            this.TriangleNodeLimitBox.TabIndex = 36;
+            this.TriangleNodeLimitBox.Enter += new System.EventHandler(this.TriangleNodeLimitBox_Enter);
+            this.TriangleNodeLimitBox.Leave += new System.EventHandler(this.TriangleNodeLimitBox_Leave);
+            // 
+            // HeightLimitBox
+            // 
+            this.HeightLimitBox.Enabled = false;
+            this.HeightLimitBox.Location = new System.Drawing.Point(1020, 251);
+            this.HeightLimitBox.Name = "HeightLimitBox";
+            this.HeightLimitBox.Size = new System.Drawing.Size(114, 22);
+            this.HeightLimitBox.TabIndex = 35;
+            this.HeightLimitBox.Enter += new System.EventHandler(this.HeightLimitBox_Enter);
+            this.HeightLimitBox.Leave += new System.EventHandler(this.HeightLimitBox_Leave);
             // 
             // InputGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 496);
+            this.ClientSize = new System.Drawing.Size(1314, 528);
+            this.Controls.Add(this.TriangleNodeLimit);
+            this.Controls.Add(this.HeightLimit);
+            this.Controls.Add(this.TriangleNodeLimitBox);
+            this.Controls.Add(this.HeightLimitBox);
+            this.Controls.Add(this.RayDistanceLimit);
+            this.Controls.Add(this.RaysPerPixel);
+            this.Controls.Add(this.AmbientOcclusionCheckBox);
+            this.Controls.Add(this.RayDistanceLimitBox);
+            this.Controls.Add(this.RaysPerPixBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.OutputFilename);
             this.Controls.Add(this.RealTimeRend);
-            this.Controls.Add(this.Search3);
+            this.Controls.Add(this.Open);
             this.Controls.Add(this.CSVLocation);
             this.Controls.Add(this.PNGCSVLocation);
             this.Controls.Add(this.GenerateLabel);
@@ -429,10 +537,19 @@
         private System.Windows.Forms.Label GenerateLabel;
         private System.Windows.Forms.TextBox PNGCSVLocation;
         private System.Windows.Forms.Label CSVLocation;
-        private System.Windows.Forms.Button Search3;
+        private System.Windows.Forms.Button Open;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.CheckBox RealTimeRend;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox OutputFilename;
+        private System.Windows.Forms.TextBox RaysPerPixBox;
+        private System.Windows.Forms.TextBox RayDistanceLimitBox;
+        private System.Windows.Forms.CheckBox AmbientOcclusionCheckBox;
+        private System.Windows.Forms.Label RayDistanceLimit;
+        private System.Windows.Forms.Label RaysPerPixel;
+        private System.Windows.Forms.Label TriangleNodeLimit;
+        private System.Windows.Forms.Label HeightLimit;
+        private System.Windows.Forms.TextBox TriangleNodeLimitBox;
+        private System.Windows.Forms.TextBox HeightLimitBox;
     }
 }
