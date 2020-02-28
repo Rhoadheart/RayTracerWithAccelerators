@@ -29,6 +29,13 @@ namespace project.RayTracing
             get { return mesh.vertices[mesh.faces[index * 3 + 2]]; }
         }
         
+        public Vector3 centroid
+        {
+            get
+            {
+                return new Vector3((p1.X + p2.X + p3.X) / 3, (p1.Y + p2.Y + p3.Y) / 3, (p1.Z + p2.Z + p3.Z) / 3);
+            }
+        }
 
         //We can use these to generate p1,p2,p3,n1,n2,n3
 
@@ -189,6 +196,35 @@ namespace project.RayTracing
             
             return interpolatedNormal;
         }
-        
+
+        public int CompareTo(Object ob, int axis)
+        {
+            if (axis == 0)
+            {
+                if (ob == null) return 1;
+                Triangle otherTriangle = ob as Triangle;
+                if (otherTriangle != null)
+                    return this.centroid.X.CompareTo(otherTriangle.centroid.X);
+                else
+                    throw new ArgumentException("Object is not a Triangle");
+            }else if(axis == 1)
+            {
+                if (ob == null) return 1;
+                Triangle otherTriangle = ob as Triangle;
+                if (otherTriangle != null)
+                    return this.centroid.Y.CompareTo(otherTriangle.centroid.Y);
+                else
+                    throw new ArgumentException("Object is not a Triangle");
+            }else
+            {
+                if (ob == null) return 1;
+                Triangle otherTriangle = ob as Triangle;
+                if (otherTriangle != null)
+                    return this.centroid.Z.CompareTo(otherTriangle.centroid.Z);
+                else
+                    throw new ArgumentException("Object is not a Triangle");
+            }
+        }
+
     }
 }
