@@ -58,6 +58,7 @@ namespace project
             OutputFilename.Text = "Filename";
             OutputFilename.ForeColor = Color.Gray;
             //RaysPerPixel
+            //TODO: Rays per Triangle rename
             RaysPerPixBox.Text = "Default: 10";
             RaysPerPixBox.ForeColor = Color.Gray;
             //TriangleNodeLimit
@@ -663,6 +664,7 @@ namespace project
                 OutputFilename.Text = "Filename";
             }
         }
+        #region AmbientOcclusion
 
         private void AmbientOcclusionCheckBox_CheckStateChanged(object sender, EventArgs e)
         {
@@ -681,7 +683,9 @@ namespace project
                 RayDistanceLimitBox.Text = "Default: 2";
             }
         }
+        #endregion
 
+        #region RaysPerPixel
         private void RaysPerPixBox_Enter(object sender, EventArgs e)
         {
             if(RaysPerPixBox.Text == "Default: 10" && RaysPerPixBox.ForeColor == Color.Gray)
@@ -699,8 +703,10 @@ namespace project
                 RaysPerPixBox.ForeColor = Color.Gray;
             }
         }
-        
 
+        #endregion
+
+        #region RayDistanceLimit
         private void RayDistanceLimitBox_Enter(object sender, EventArgs e)
         {
             if (RayDistanceLimitBox.Text == "Default: 2")
@@ -718,7 +724,9 @@ namespace project
                 RayDistanceLimitBox.ForeColor = Color.Gray;
             }
         }
+        #endregion
 
+        #region HeightLimit
         private void HeightLimitBox_Enter(object sender, EventArgs e)
         {
             if(HeightLimitBox.Text == "Default: 8")
@@ -737,6 +745,9 @@ namespace project
             }
         }
 
+        #endregion
+
+        #region TriangleNodeLimit
         private void TriangleNodeLimitBox_Enter(object sender, EventArgs e)
         {
             if (TriangleNodeLimitBox.Text == "Default: 50")
@@ -754,6 +765,9 @@ namespace project
                 TriangleNodeLimitBox.ForeColor = Color.Gray;
             }
         }
+        #endregion
+
+        #region AccelrationStructureDropdown
 
         private void comboBox1_Enter(object sender, EventArgs e)
         {
@@ -789,6 +803,7 @@ namespace project
                 TriangleNodeLimitBox.ForeColor = Color.Gray;
             }
         }
+        #endregion  
     }
 }
 
