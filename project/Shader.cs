@@ -48,6 +48,7 @@ namespace project.RayTracing
                 // sometimes p is actually slightly behind the intersecting triangle,
                 // and thus all sampling rays will hit the original triangle, causing dark holes.
                 Vector3 nOffset = new Vector3(n.X * .0001f, n.Y * .0001f, n.Z * .0001f);
+                //Todo: Consider changing offset dynamically based on total bounds size
 
                 p = p + nOffset;
 

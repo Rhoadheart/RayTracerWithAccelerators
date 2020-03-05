@@ -83,11 +83,13 @@
   <ItemGroup>
     <Compile Include="Accelerator.cs" />
     <Compile Include="BvHAccelerator.cs" />
+    <Compile Include="BvHNode.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="BoundingBox.cs" />
     <Compile Include="KDTreeAccelerator.cs" />
     <Compile Include="OctreeAccelerator.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="QuickSort.cs" />
     <Compile Include="RenderVisualizer.cs">
       <SubType>Form</SubType>
     </Compile>
