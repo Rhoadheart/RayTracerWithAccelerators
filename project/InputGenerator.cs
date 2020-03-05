@@ -449,12 +449,20 @@ namespace project
                     RayDistanceLimitBox.Text = "2";
                 }
             }
+            else
+            {
+                RayDistanceLimitBox.Text = "0";
+            }
             if (RaysPerPixBox.Enabled)
             {
                 if (RaysPerPixBox.Text == "Default: 10" || RaysPerPixBox.Text == "")
                 {
                     RaysPerPixBox.Text = "10";
                 }
+            }
+            else
+            {
+                RaysPerPixBox.Text = "0";
             }
             if (HeightLimitBox.Enabled)
             {
