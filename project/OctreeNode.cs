@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace project.RayTracing
 {
 
-    public class Node
+    public class OctreeNode
     {
         /** The Master BoundingBox used to create the 8 children nodes*/
         private BoundingBox BBox;
         /** A list referring to each subbox of the Master boundingBox*/
-        private List<Node> Children;
+        private List<OctreeNode> Children;
         /** A List refering to all Triangles in the Bounding Box */
         private List<Triangle> Triangles;
 
@@ -25,13 +25,13 @@ namespace project.RayTracing
         /// <param name="currentHeight"></param>
         /// <param name="heightLimit"></param>
         /// <param name="triangleLimit"></param>
-        public Node(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit, OctreeAccelerator Octree)
+        public OctreeNode(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit, OctreeAccelerator Octree)
         {
             //Set BBox
             BBox = B;
 
             //Attempt to Create 8 Children
-            Children = new List<Node>();
+            Children = new List<OctreeNode>();
 
             if (T.Count > triangleLimit && currentHeight < heightLimit) {
                 
@@ -50,7 +50,7 @@ namespace project.RayTracing
                     }
                     //Todo: Don't create child node if count == 0
                     Octree.NodeCount++;
-                    Children.Add(new Node(ChildBBox, trianglesInside, currentHeight + 1, heightLimit, triangleLimit, Octree));
+                    Children.Add(new OctreeNode(ChildBBox, trianglesInside, currentHeight + 1, heightLimit, triangleLimit, Octree));
                 }
             }
             else

@@ -91,6 +91,9 @@ namespace project.RayTracing
                     //TODO: Dynamically change limits from UI?
                     accelerator = new OctreeAccelerator(scene, heightLimit, TriPerNode);
                     break;
+                case ("Bounding Volume Hierarchy"):
+                    accelerator = new BvHAccelerator(scene, heightLimit, TriPerNode);
+                    break;
                 default:
                     break;
             }

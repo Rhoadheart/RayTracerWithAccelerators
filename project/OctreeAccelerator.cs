@@ -9,14 +9,14 @@ namespace project.RayTracing
     public class OctreeAccelerator : Accelerator
     {
         //Todo: Spring Sprints  1/2
-        Node root;
+        OctreeNode root;
         public int NodeCount;
-        public List<Node> Leaves;
+        public List<OctreeNode> Leaves;
 
 
         public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
         {
-            Leaves = new List<Node>();
+            Leaves = new List<OctreeNode>();
             NodeCount = 0;
             int numTriangles = mesh.faces.Count / 3;
             List<Triangle> triangles = new List<Triangle>();
@@ -32,7 +32,7 @@ namespace project.RayTracing
             }
 
             //Create overrarching node. The constructor will recursively create a tree
-            root = new Node(bounds, triangles, 0, heightLimit, triangleLimit, this);
+            root = new OctreeNode(bounds, triangles, 0, heightLimit, triangleLimit, this);
 
             
         }

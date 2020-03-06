@@ -12,12 +12,12 @@ namespace UnitTest
     class NodeTests
     {
 
-        public Node masterNode;
+        public OctreeNode masterNode;
         public Triangle t1;
         public Triangle t2;
         public Ray r1;
         public List<Triangle> triangleList1;
-        public List<Node> nodeList1;
+        public List<OctreeNode> nodeList1;
         public BoundingBox bBox;
 
 

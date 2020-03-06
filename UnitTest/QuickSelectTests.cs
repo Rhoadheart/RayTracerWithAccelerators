@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace UnitTest
 {
 
-    class QuickSortTests
+    class QuickSelectTests
     {
         public List<Triangle> triangles;
 
@@ -63,6 +63,28 @@ namespace UnitTest
             vertexNormals.Add(1);
             vertexNormals.Add(1);
 
+            vertices.Add(new Vector3(12, 0, 0));
+            vertices.Add(new Vector3(13, 2, 0));
+            vertices.Add(new Vector3(14, 0, 2));
+            normals.Add(new Vector3(-1, -1, -1));
+            faces.Add(12);
+            faces.Add(13);
+            faces.Add(14);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+
+            vertices.Add(new Vector3(20, 0, 0));
+            vertices.Add(new Vector3(-2, 2, 0));
+            vertices.Add(new Vector3(1, 0, 2));
+            normals.Add(new Vector3(-1, -1, -1));
+            faces.Add(15);
+            faces.Add(16);
+            faces.Add(17);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+            vertexNormals.Add(1);
+
             Mesh m1 = new Mesh(vertices, normals, faces, vertexNormals);
 
             triangles = new List<Triangle>();
@@ -82,7 +104,7 @@ namespace UnitTest
         [Test]
         public void IntersectionTest1()
         {
-            QuickSort.nth_element(ref triangles, 0, triangles.Count - 1, triangles.Count / 2, 0);
+            QuickSelect.nth_element(ref triangles, 0, triangles.Count - 1, triangles.Count / 2, 0);
             
             
         }

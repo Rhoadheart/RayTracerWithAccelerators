@@ -767,7 +767,7 @@ namespace project
 
         private void TriangleNodeLimitBox_Leave(object sender, EventArgs e)
         {
-            if(TriangleNodeLimit.Text == "")
+            if(TriangleNodeLimitBox.Text == "")
             {
                 TriangleNodeLimitBox.Text = "Default: 50";
                 TriangleNodeLimitBox.ForeColor = Color.Gray;
@@ -788,7 +788,7 @@ namespace project
 
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
-            if(comboBox1.Text == "Octree")
+            if(comboBox1.Text == "Octree" || comboBox1.Text == "Bounding Volume Hierarchy")
             {
                 HeightLimitBox.Enabled = true;
                 TriangleNodeLimitBox.Enabled = true;
