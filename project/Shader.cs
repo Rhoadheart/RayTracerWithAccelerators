@@ -163,10 +163,6 @@ namespace project.RayTracing
                 float blue = ((normal.Z + 1) / 2) * 255;
                 newColor = Color.FromArgb((int)red, (int)green, (int)blue);
             }
-            if(intersect != null && intersect.index == 9)
-            {
-                newColor = Color.FromArgb(255, 255, 255);
-            }
             
             return newColor;
         }
