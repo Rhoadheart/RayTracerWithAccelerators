@@ -117,8 +117,7 @@ namespace project.RayTracing
 
 
                     //Base Case. We need to loop through our list of triangles.
-                    //outT = accelerator.minT;
-                    outT = float.MaxValue;
+                    outT = accelerator.minT;
                     int index = -1;
 
                     for(int i = start; i <= end; i++)
