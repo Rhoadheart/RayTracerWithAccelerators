@@ -11,7 +11,15 @@ namespace project.RayTracing
     {
         public Vector3 min;
         public Vector3 max;
-        
+
+        public Vector3 centroid
+        {
+            get
+            {
+                return (this.max + this.min) / 2;
+            }
+        }
+
 
 
         /// <summary>
@@ -172,8 +180,9 @@ namespace project.RayTracing
                     p.Y >= min.Y && p.Y <= max.Y &&
                     p.Z >= min.Z && p.Z <= max.Z);
         }
-        
 
+        
+        
         public int MaximumExtent()
         {
             Vector3 diag = max - min;

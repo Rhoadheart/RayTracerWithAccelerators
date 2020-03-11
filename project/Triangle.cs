@@ -33,7 +33,9 @@ namespace project.RayTracing
         {
             get
             {
-                return new Vector3((p1.X + p2.X + p3.X) / 3, (p1.Y + p2.Y + p3.Y) / 3, (p1.Z + p2.Z + p3.Z) / 3);
+                BoundingBox BBox = new BoundingBox(this);
+
+                return BBox.centroid;
             }
         }
 
