@@ -32,7 +32,7 @@ namespace project.RayTracing
 
             //Setup BoundingBox
             BBox = new BoundingBox(accelerator.triangles[start]);
-            for (int i = start + 1; i < count; i++)
+            for (int i = start + 1; i <= end; i++)
             {
                 BBox.addTriangle(accelerator.triangles[i]);
             }
@@ -41,6 +41,7 @@ namespace project.RayTracing
             {
                 left = null;
                 right = null;
+                accelerator.triCount += count;
             }
             else
             {
@@ -51,11 +52,7 @@ namespace project.RayTracing
 
                 //Sort Triangles List
                 QuickSelect.nth_element(ref accelerator.triangles, start, end, middle, axis);
-
-                if(start == 10 || start == 12)
-                {
-                    Console.WriteLine();
-                }
+                
                 //Create two new Node
                 left = new BvHNode(accelerator, start, middle, height + 1);
                 right = new BvHNode(accelerator, middle + 1, end, height + 1);
@@ -65,21 +62,25 @@ namespace project.RayTracing
         }
 
 
-        public Triangle intersection(Ray r, float minT, out float outT)
+        public Triangle intersection(Ray r, out float outT)
         {
             float hit0;
             float hit1;
             float leftT;
             float rightT;
 
-            if (BBox.Intersect(r, out hit0, out hit1) && hit0 < minT)
+            if (BBox.Intersect(r, out hit0, out hit1) && hit0 < accelerator.minT)
             {
                 if (left != null && right != null)
                 {
                     //We have children, and need to check their values.
-                    Triangle leftTriangle = left.intersection(r, minT, out leftT);
+                    Triangle leftTriangle = left.intersection(r, out leftT);
+                    if (leftT < accelerator.minT) accelerator.minT = leftT;
 
-                    Triangle rightTriangle = right.intersection(r, minT, out rightT);
+                    Triangle rightTriangle = right.intersection(r, out rightT);
+                    if (rightT < accelerator.minT) accelerator.minT = rightT;
+
+
 
                     if (rightTriangle != null && leftTriangle != null)
                     {
@@ -107,13 +108,16 @@ namespace project.RayTracing
                     }
                     else
                     {
-                        outT = minT;
+                        outT = float.MaxValue;
                         return null;
                     }
                 }
                 else
                 {
+
+
                     //Base Case. We need to loop through our list of triangles.
+                    //outT = accelerator.minT;
                     outT = float.MaxValue;
                     int index = -1;
 
@@ -130,10 +134,16 @@ namespace project.RayTracing
                         }
 
                     }
-                    if(index == -1)
+                    if (index == -1)
+                    {
                         return null;
+                    }
                     else
+                    {
+                        if(outT < accelerator.minT) accelerator.minT = outT;
                         return accelerator.triangles[index];
+                    }
+                        
 
                 }
                     
@@ -141,7 +151,7 @@ namespace project.RayTracing
             //If the ray doesn't hit our node
             else
             {
-                outT = minT;
+                outT = float.MaxValue;
                 return null;
             }
         }

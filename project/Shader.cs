@@ -151,6 +151,7 @@ namespace project.RayTracing
         /// <returns></returns>
         public Color TestColoringShade()
         {
+            
             Color newColor = Color.FromArgb(0, 0, 0);
 
             //Default Normal Coloring
@@ -161,6 +162,10 @@ namespace project.RayTracing
                 float green = ((normal.Y + 1) / 2) * 255;
                 float blue = ((normal.Z + 1) / 2) * 255;
                 newColor = Color.FromArgb((int)red, (int)green, (int)blue);
+            }
+            if(intersect != null && intersect.index == 9)
+            {
+                newColor = Color.FromArgb(255, 255, 255);
             }
             
             return newColor;

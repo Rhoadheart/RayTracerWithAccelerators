@@ -98,7 +98,6 @@ namespace UnitTest
                 triangles.Add(tri);
             }
             
-
         }
 
         [Test]

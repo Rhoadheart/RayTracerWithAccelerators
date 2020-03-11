@@ -12,7 +12,9 @@ namespace project.RayTracing
         public List<Triangle> triangles;
         public int heightLimit;
         public int triangleLimit;
+        public int triCount = 0;
         public Mesh mesh;
+        public float minT;
         private BvHNode root;
 
         public BvHAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
@@ -42,7 +44,8 @@ namespace project.RayTracing
 
         public override Triangle intersect(Ray r, out float t)
         {
-            Triangle temp = root.intersection(r, float.MaxValue, out t);
+            minT = float.MaxValue;
+            Triangle temp = root.intersection(r, out t);
 
             return temp;
         }

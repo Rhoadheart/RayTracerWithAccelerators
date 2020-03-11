@@ -104,6 +104,10 @@ namespace project.RayTracing
                 //Check how far the rendering is
                 for (int j = 0; j < ResY; j++)
                 {
+                    if(i == 650 && j == 375)
+                    {
+                        Console.WriteLine("Test");
+                    }
                     
                     Color newColor;
                     Ray r = c.getRay(new Vector2(i,j));
@@ -131,15 +135,17 @@ namespace project.RayTracing
                     {
                         newColor = shader.TestColoringShade();
                     }
-                    
 
+                    //RV.updateBitmap(b);
 
                     b.SetPixel(i, ResY - j - 1 , newColor);
                 }
-                if(RV != null && i % 100 == 0)
+                if (RV != null && i % 25 == 0)
                 {
                     RV.updateBitmap(b);
                 }
+
+
 
             }
             //End Timer here

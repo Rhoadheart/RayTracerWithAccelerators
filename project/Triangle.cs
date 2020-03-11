@@ -12,7 +12,7 @@ namespace project.RayTracing
     public class Triangle
     {
         Mesh mesh;
-        int index;
+        public int index;
 
         public Vector3 p1
         {
