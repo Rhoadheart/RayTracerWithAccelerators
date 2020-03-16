@@ -13,6 +13,23 @@ namespace project.RayTracing
         public int NodeCount;
         public List<OctreeNode> Leaves;
 
+        //For Data Collection
+        public int pNumIntersects = 0;
+        public int pNumNodes = 0;
+        public int pMaxTriPerLeaf = 0;
+        public int pMaxHeight = 0;
+        public int pTotalLeafHeight = 0;
+        public int pTotalTriPerLeaf = 0;
+        public int pNumLeaves = 0;
+
+        public override int numIntersects { get { return pNumIntersects; } }
+        public override int numNodes { get { return pNumNodes; } }
+        public override int avgTriPerLeaf { get { return pTotalTriPerLeaf / numLeaves; } }
+        public override int maxTriPerLeaf { get { return pMaxTriPerLeaf; } }
+        public override int maxHeight { get { return pMaxHeight; } }
+        public override int avgHeight { get { return pTotalLeafHeight / numLeaves; } }
+        public override int numLeaves { get { return pNumLeaves; } }
+
 
         public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
         {
@@ -30,6 +47,9 @@ namespace project.RayTracing
                 bounds.addTriangle(tri);
                 triangles.Add(tri);
             }
+
+            //For Data Collection
+            pNumNodes += 1;
 
             //Create overrarching node. The constructor will recursively create a tree
             root = new OctreeNode(bounds, triangles, 0, heightLimit, triangleLimit, this);

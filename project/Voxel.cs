@@ -11,14 +11,16 @@ namespace project.RayTracing
     {
         public List<Triangle> triangles;
         public int numTriangles;
+        public GridAccelerator accelerator;
 
         /// <summary>
         /// Creates an empty Voxel. 
         /// This is only used to create a list of empty Voxels in GridAccelerator so indexed voxels can be accessed.
         /// </summary>
         /// <param name="numTriangles"></param>
-        public Voxel()
+        public Voxel(GridAccelerator accelerator)
         {
+           this.accelerator = accelerator;
            this.triangles = null;
            this.numTriangles = 0;
         }
@@ -27,8 +29,9 @@ namespace project.RayTracing
         /// Creates a Voxel that contains just one triangle.
         /// </summary>
         /// <param name="t"></param>
-        public Voxel(Triangle t)
+        public Voxel(GridAccelerator accelerator, Triangle t)
         {
+            this.accelerator = accelerator;
             this.triangles = new List<Triangle>();
             this.triangles.Add(t);
             this.numTriangles = 1;
@@ -58,6 +61,7 @@ namespace project.RayTracing
 
             foreach (Triangle t in triangles)
             {
+                accelerator.pNumIntersects++;
                 if (t.intersection(r, out tOut))
                 {
                     if (tOut < minT)

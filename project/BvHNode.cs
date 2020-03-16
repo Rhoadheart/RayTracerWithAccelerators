@@ -30,6 +30,11 @@ namespace project.RayTracing
             int count = (end - start) + 1;
             int middle = start + (count / 2) - 1;
 
+            //For Data Collection
+            accelerator.pNumNodes += 1;
+            if (height > accelerator.maxHeight)
+                accelerator.pMaxHeight = height;
+
             //Setup BoundingBox
             BBox = new BoundingBox(accelerator.triangles[start]);
             for (int i = start + 1; i <= end; i++)
@@ -41,7 +46,14 @@ namespace project.RayTracing
             {
                 left = null;
                 right = null;
+
+                //For Data Collection
                 accelerator.triCount += count;
+                accelerator.pTotalTriPerLeaf += count;
+                accelerator.pNumLeaves += 1;
+                accelerator.pTotalLeafHeight += height;
+                if (count > accelerator.maxTriPerLeaf)
+                    accelerator.pMaxTriPerLeaf = count;
             }
             else
             {
@@ -123,6 +135,10 @@ namespace project.RayTracing
                     for(int i = start; i <= end; i++)
                     {
                         float currentTriangleT;
+
+                        //For Data Collection
+                        accelerator.pNumIntersects += 1;
+
                         if(accelerator.triangles[i].intersection(r, out currentTriangleT))
                         {
                             if(currentTriangleT < outT)

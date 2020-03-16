@@ -17,7 +17,9 @@ namespace project.RayTracing
         Vector3 u;
         Vector3 v;
         Vector3 n;
-        Vector3 p;
+        public Vector3 p;
+        public Vector3 LookAt;
+        public Vector3 Up;
         
          /// <summary>
          /// Default constructor for camera taking vectors (u,v,n), Position p, resolution width, resolution height
@@ -29,10 +31,13 @@ namespace project.RayTracing
          /// <param name="resY"></param>
         public Camera(Vector3 p, Vector3 LookAt, Vector3 Up, int resX, int resY)
         {
+            this.p = p;
+            this.LookAt = LookAt;
+            this.Up = Up;
             this.n = Vector3.Normalize(p - LookAt);
             this.u = Vector3.Normalize(Vector3.Cross(Up, this.n));
             this.v = Vector3.Normalize(Vector3.Cross(n,u));
-            this.p = p;
+            
             this.fov = (float)(Math.PI / 180) * 43; 
             this.resX = resX;
             this.resY = resY;

@@ -15,6 +15,11 @@ namespace project.RayTracing
         public List<Vector3> normals;
         public List<int> faces;
         public List<int> vertexNormals;
+        public int numTriangles
+        {
+            get{ return faces.Count / 3; }
+        }
+        public int numIntersects = 0;
 
 
 
@@ -50,6 +55,7 @@ namespace project.RayTracing
             for(int i = 0; i < faces.Count/3; i++)
             {
                 Triangle thisTriangle = new Triangle(this, i);
+                numIntersects++;
                 if (thisTriangle.intersection(r, out tOut))
                 {
                     if (tOut < minT)
@@ -78,6 +84,7 @@ namespace project.RayTracing
             for (int i = 0; i < faces.Count / 3; i++)
             {
                 Triangle thisTriangle = new Triangle(this, i);
+                numIntersects++;
                 if (thisTriangle.intersection(r, out tOut))
                 {
                     if (tOut < minT)

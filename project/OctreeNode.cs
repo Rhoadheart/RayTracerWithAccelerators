@@ -16,6 +16,8 @@ namespace project.RayTracing
         /** A List refering to all Triangles in the Bounding Box */
         private List<Triangle> Triangles;
 
+        private OctreeAccelerator Octree;
+
 
         /// <summary>
         /// 
@@ -27,6 +29,13 @@ namespace project.RayTracing
         /// <param name="triangleLimit"></param>
         public OctreeNode(BoundingBox B, List<Triangle> T, int currentHeight, int heightLimit, int triangleLimit, OctreeAccelerator Octree)
         {
+            this.Octree = Octree;
+
+            //For Data Collection
+            Octree.pNumNodes += 1;
+            if (currentHeight > Octree.maxHeight)
+                Octree.pMaxHeight = currentHeight;
+
             //Set BBox
             BBox = B;
 
@@ -55,8 +64,16 @@ namespace project.RayTracing
             }
             else
             {
+                
                 Triangles = T;
                 Octree.Leaves.Add(this);
+
+                //For Data Collection
+                Octree.pTotalTriPerLeaf += Triangles.Count;
+                Octree.pNumLeaves += 1;
+                Octree.pTotalLeafHeight += currentHeight;
+                if (Triangles.Count > Octree.maxTriPerLeaf)
+                    Octree.pMaxTriPerLeaf = Triangles.Count;
             }
             
 
@@ -103,6 +120,9 @@ namespace project.RayTracing
                     //We are at a leaf, and need to check each triangle.
                     foreach (Triangle triangle in Triangles)
                     {
+                        //For Data Collection
+                        Octree.pNumIntersects += 1;
+
                         if (triangle.intersection(r, out thisT))
                         {
                             if(thisT < minT)

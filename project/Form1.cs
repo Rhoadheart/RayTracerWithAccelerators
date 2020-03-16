@@ -51,8 +51,10 @@ namespace project.RayTracing
                         Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
                         c1.setFov(43);
                         string filename = input.OBJLocation;
+                        string sceneName = Path.GetFileName(filename).Split('.')[0];
                         m1 = loader.Load(filename);
                         filename = input.CSVLocation + "/" + input.OutputFilename +".png";
+                        string csvFileName = input.CSVLocation + "/data.csv";
 
                         RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
 
@@ -69,7 +71,7 @@ namespace project.RayTracing
                         bool AO = input.AmbientOclusion;
                         
                         //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
-                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct,rayPerPix,rayDisLim,heiLimi,triPerNod,AO);
+                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct,rayPerPix,rayDisLim,heiLimi,triPerNod,AO,sceneName,csvFileName);
                         RV.Close();
                         this.Show();
                         GoodGenLabel.Show();

@@ -27,6 +27,11 @@ namespace project.RayTracing
         float hit0;
         float hit1;
 
+        public int pNumIntersects = 0;
+
+        public override int numIntersects { get { return pNumIntersects; } }
+
+
         /// <summary>
         /// Constructor for a Grid Accelerator.
         /// Only call this once per image to generate. 
@@ -83,7 +88,7 @@ namespace project.RayTracing
             for (int i = 0; i < nv; i++)
             {
                 //Create empty voxels in the list.
-                voxels.Add(new Voxel());
+                voxels.Add(new Voxel(this));
             }
 
             //Add primitives to grid voxels
@@ -114,7 +119,7 @@ namespace project.RayTracing
                             if (voxels[o].numTriangles == 0)
                             {
                                 //Allocate a new Voxel and store the primitive in it.
-                                Voxel newVoxel = new Voxel(t);
+                                Voxel newVoxel = new Voxel(this,t);
                                 voxels[o] = newVoxel;
                             }
                             else
