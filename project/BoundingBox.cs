@@ -110,6 +110,8 @@ namespace project.RayTracing
         {
             float t0 = r.getMinT();//I dont know why I have to cast these. Compiler says r.getMaxT returns float?. This doesn't make sense
             float t1 = r.getMaxT();
+            Vector3 origin = r.getOrigin();
+            Vector3 direction = r.getDirection();
 
             for(int i = 0; i<3; ++i)
             {
@@ -119,9 +121,9 @@ namespace project.RayTracing
                 float tFar;
                 if(i == 0)
                 {
-                    invRaydir = 1f / r.getDirection().X;
-                    tNear = (min.X - r.getOrigin().X) * invRaydir;
-                    tFar = (max.X - r.getOrigin().X) * invRaydir;
+                    invRaydir = 1f / direction.X;
+                    tNear = (min.X - origin.X) * invRaydir;
+                    tFar = (max.X - origin.X) * invRaydir;
                     //Update parametric interval from slab intersection ts
                     if (tNear > tFar)
                         Swap(ref tNear,ref tFar);
@@ -135,9 +137,9 @@ namespace project.RayTracing
                     }
                 }else if (i == 1)
                 {
-                    invRaydir = 1f / r.getDirection().Y;
-                    tNear = (min.Y - r.getOrigin().Y) * invRaydir;
-                    tFar = (max.Y - r.getOrigin().Y) * invRaydir;
+                    invRaydir = 1f / direction.Y;
+                    tNear = (min.Y - origin.Y) * invRaydir;
+                    tFar = (max.Y - origin.Y) * invRaydir;
                     //Update parametric interval from slab intersection ts
                     if (tNear > tFar)
                         Swap(ref tNear, ref tFar);
@@ -152,9 +154,9 @@ namespace project.RayTracing
                 }
                 else
                 {
-                    invRaydir = 1f / r.getDirection().Z;
-                    tNear = (min.Z- r.getOrigin().Z) * invRaydir;
-                    tFar = (max.Z - r.getOrigin().Z) * invRaydir;
+                    invRaydir = 1f / direction.Z;
+                    tNear = (min.Z- origin.Z) * invRaydir;
+                    tFar = (max.Z - origin.Z) * invRaydir;
                     //Update parametric interval from slab intersection ts
                     if (tNear > tFar)
                         Swap(ref tNear, ref tFar);
