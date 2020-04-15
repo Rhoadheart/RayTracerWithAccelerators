@@ -15,6 +15,11 @@ namespace project.RayTracing
             return null;
         }
 
+        public virtual float scale
+        {
+            get { return 1; }
+        }
+
         public virtual int numIntersects
         {
             get { return -1;}

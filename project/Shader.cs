@@ -47,7 +47,8 @@ namespace project.RayTracing
                 // This is neccessary because when we send rays from p, 
                 // sometimes p is actually slightly behind the intersecting triangle,
                 // and thus all sampling rays will hit the original triangle, causing dark holes.
-                Vector3 nOffset = new Vector3(n.X * .0001f, n.Y * .0001f, n.Z * .0001f);
+                float scale = accelerator.scale;
+                Vector3 nOffset = new Vector3(n.X * (.0000015f * scale), n.Y * (.0000015f * scale), n.Z * (.0000015f * scale));
                 //Todo: Consider changing offset dynamically based on total bounds size
 
                 p = p + nOffset;

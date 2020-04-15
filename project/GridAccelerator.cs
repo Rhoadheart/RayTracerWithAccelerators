@@ -28,8 +28,10 @@ namespace project.RayTracing
         float hit1;
 
         public int pNumIntersects = 0;
+        public float pScale = 1;
 
         public override int numIntersects { get { return pNumIntersects; } }
+        public override float scale { get { return pScale; } }
 
 
         /// <summary>
@@ -52,11 +54,13 @@ namespace project.RayTracing
 
             //Add all triangles to bounds
             bounds = new BoundingBox(new Triangle(mesh, 0));
+            
             for (int i = 1; i < numTriangles; i++)
             {
                 Triangle tri = new Triangle(mesh, i);
                 bounds.addTriangle(tri);
             }
+            pScale = bounds.scale();
 
             Vector3 deltaVector = bounds.max - bounds.min;
 

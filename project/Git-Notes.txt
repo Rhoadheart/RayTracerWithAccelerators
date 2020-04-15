@@ -1,0 +1,8 @@
+﻿Repository settings:
+
+On Campus:
+https://gitlab.cs.plu.edu/Rhoadheart/capstone-2019.git
+
+
+Off Campus:
+ssh://git@localhost:10022/Rhoadheart/capstone-2019.git

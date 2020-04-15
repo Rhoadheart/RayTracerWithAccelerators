@@ -10,10 +10,10 @@ namespace project.RayTracing
 {
     public class Ray
     {
-        Vector3 origin;
-        Vector3 direction;
-        float maxT;
-        float minT;
+        public Vector3 origin;
+        public Vector3 direction;
+        public float maxT;
+        public float minT;
 
         /// <summary>
         /// Default constructor for creating a ray

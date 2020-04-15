@@ -108,68 +108,78 @@ namespace project.RayTracing
         /// <returns></returns>
         public bool Intersect(Ray r, out float hit0, out float hit1)
         {
-            float t0 = r.getMinT();//I dont know why I have to cast these. Compiler says r.getMaxT returns float?. This doesn't make sense
-            float t1 = r.getMaxT();
-            Vector3 origin = r.getOrigin();
-            Vector3 direction = r.getDirection();
+            float t0 = r.minT;//I dont know why I have to cast these. Compiler says r.getMaxT returns float?. This doesn't make sense
+            float t1 = r.maxT;
+            Vector3 origin = r.origin;
+            Vector3 direction = r.direction;
+            //Todo: Remove Loop and in-line code
 
-            for(int i = 0; i<3; ++i)
+            //Update interval for ith bounding box slab
+            float invRaydir;
+            float tNear;
+            float tFar;
+            float temp;
+
+
+            invRaydir = 1f / direction.X;
+            tNear = (min.X - origin.X) * invRaydir;
+            tFar = (max.X - origin.X) * invRaydir;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
             {
-                //Update interval for ith bounding box slab
-                float invRaydir;
-                float tNear;
-                float tFar;
-                if(i == 0)
-                {
-                    invRaydir = 1f / direction.X;
-                    tNear = (min.X - origin.X) * invRaydir;
-                    tFar = (max.X - origin.X) * invRaydir;
-                    //Update parametric interval from slab intersection ts
-                    if (tNear > tFar)
-                        Swap(ref tNear,ref tFar);
-                    t0 = tNear > t0 ? tNear : t0;
-                    t1 = tFar < t1 ? tFar : t1;
-                    if (t0 > t1)
-                    {
-                        hit0 = -1f;
-                        hit1 = -1f;
-                        return false;
-                    }
-                }else if (i == 1)
-                {
-                    invRaydir = 1f / direction.Y;
-                    tNear = (min.Y - origin.Y) * invRaydir;
-                    tFar = (max.Y - origin.Y) * invRaydir;
-                    //Update parametric interval from slab intersection ts
-                    if (tNear > tFar)
-                        Swap(ref tNear, ref tFar);
-                    t0 = tNear > t0 ? tNear : t0;
-                    t1 = tFar < t1 ? tFar : t1;
-                    if (t0 > t1)
-                    {
-                        hit0 = -1f;
-                        hit1 = -1f;
-                        return false;
-                    }
-                }
-                else
-                {
-                    invRaydir = 1f / direction.Z;
-                    tNear = (min.Z- origin.Z) * invRaydir;
-                    tFar = (max.Z - origin.Z) * invRaydir;
-                    //Update parametric interval from slab intersection ts
-                    if (tNear > tFar)
-                        Swap(ref tNear, ref tFar);
-                    t0 = tNear > t0 ? tNear : t0;
-                    t1 = tFar < t1 ? tFar : t1;
-                    if (t0 > t1)
-                    {
-                        hit0 = -1f;
-                        hit1 = -1f;
-                        return false;
-                    }
-                }
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
             }
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                hit0 = -1f;
+                hit1 = -1f;
+                return false;
+            }
+
+            invRaydir = 1f / direction.Y;
+            tNear = (min.Y - origin.Y) * invRaydir;
+            tFar = (max.Y - origin.Y) * invRaydir;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
+            {
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                hit0 = -1f;
+                hit1 = -1f;
+                return false;
+            }
+            
+            invRaydir = 1f / direction.Z;
+            tNear = (min.Z- origin.Z) * invRaydir;
+            tFar = (max.Z - origin.Z) * invRaydir;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
+            {
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                hit0 = -1f;
+                hit1 = -1f;
+                return false;
+            }
+            
+            
             hit0 = t0;
             hit1 = t1;
             return true;
@@ -273,7 +283,7 @@ namespace project.RayTracing
                                 std::min(b1.pMax.y, b2.pMax.y),
                                 std::min(b1.pMax.z, b2.pMax.z)));
             */
-        BoundingBox triBBox = new BoundingBox(t);
+            BoundingBox triBBox = new BoundingBox(t);
 
             float minX = Math.Max(this.min.X, triBBox.min.X);
             float minY = Math.Max(this.min.Y, triBBox.min.Y);
@@ -291,6 +301,13 @@ namespace project.RayTracing
             else
                 return true;
             
+        }
+
+
+        public float scale()
+        {
+            Vector3 diag = max - min;
+            return diag.Length();
         }
         
 

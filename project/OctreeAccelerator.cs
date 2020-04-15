@@ -21,6 +21,7 @@ namespace project.RayTracing
         public int pTotalLeafHeight = 0;
         public int pTotalTriPerLeaf = 0;
         public int pNumLeaves = 0;
+        public float pScale = 1;
 
         public override int numIntersects { get { return pNumIntersects; } }
         public override int numNodes { get { return pNumNodes; } }
@@ -29,6 +30,7 @@ namespace project.RayTracing
         public override int maxHeight { get { return pMaxHeight; } }
         public override int avgHeight { get { return pTotalLeafHeight / numLeaves; } }
         public override int numLeaves { get { return pNumLeaves; } }
+        public override float scale { get { return pScale; } }
 
 
         public OctreeAccelerator(Mesh mesh, int heightLimit, int triangleLimit)
@@ -47,6 +49,7 @@ namespace project.RayTracing
                 bounds.addTriangle(tri);
                 triangles.Add(tri);
             }
+            pScale = bounds.scale();
 
             //For Data Collection
             pNumNodes += 1;
