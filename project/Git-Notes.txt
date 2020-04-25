@@ -5,4 +5,20 @@ https://gitlab.cs.plu.edu/Rhoadheart/capstone-2019.git
 
 
 Off Campus:
-ssh://git@localhost:10022/Rhoadheart/capstone-2019.git
+https://localhost:8000/Rhoadheart/capstone-2019.git
+
+
+
+How to push/pull off campus:
+
+Run: 
+
+ssh -N -L 10022:gitlab.cs.plu.edu:22 -L 8000:gitlab.cs.plu.edu:443 rhoadead@haven.cs.plu.edu
+
+in git bash:
+
+cd c:/plu/cs/499/project/capstone-2019
+
+git -c http.sslVerify=false pull
+git -c http.sslVerify=false push
+

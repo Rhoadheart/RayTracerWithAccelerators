@@ -76,46 +76,59 @@ namespace project.RayTracing
 
         public Triangle intersection(Ray r, out float outT)
         {
+            Triangle leftTriangle = null;
+            Triangle rightTriangle = null;
             float hit0;
             float hit1;
-            float leftT;
-            float rightT;
+            float leftT = float.MaxValue;
+            float rightT = float.MaxValue;
 
-            if (BBox.Intersect(r, out hit0, out hit1) && hit0 < accelerator.minT)
+            if (BBox.Intersect(r, out hit0, out hit1))
             {
                 if (left != null && right != null)
                 {
                     //We have children, and need to check their values.
-                    Triangle leftTriangle = left.intersection(r, out leftT);
-                    if (leftT < accelerator.minT) accelerator.minT = leftT;
+                    if (hit0 < r.maxT)
+                    {
+                        leftTriangle = left.intersection(r, out leftT);
+                        if (rightT < r.maxT) r.maxT = rightT;
+                    }
+                    //we check this again because calling left.intersection() could cause r.maxT to update.
+                    if (hit0 < r.maxT)
+                    {
+                        rightTriangle = right.intersection(r, out rightT);
+                        if (leftT < r.maxT) r.maxT = leftT;
 
-                    Triangle rightTriangle = right.intersection(r, out rightT);
-                    if (rightT < accelerator.minT) accelerator.minT = rightT;
+                    }
 
-
+                    
 
                     if (rightTriangle != null && leftTriangle != null)
                     {
                         if (leftT < rightT)
                         {
                             outT = leftT;
+                            if (outT < r.maxT) r.maxT = outT;
                             return leftTriangle;
                         }
                         else
                         {
                             outT = rightT;
+                            if (outT < r.maxT) r.maxT = outT;
                             return rightTriangle;
                         }
                     }
                     else if (rightTriangle != null)
                     {
                         outT = rightT;
+                        if (outT < r.maxT) r.maxT = outT;
                         return rightTriangle;
 
                     }
                     else if (leftTriangle != null)
                     {
                         outT = leftT;
+                        if (outT < r.maxT) r.maxT = outT;
                         return leftTriangle;
                     }
                     else
@@ -129,7 +142,7 @@ namespace project.RayTracing
 
 
                     //Base Case. We need to loop through our list of triangles.
-                    outT = accelerator.minT;
+                    outT = r.maxT;
                     int index = -1;
 
                     for(int i = start; i <= end; i++)
@@ -155,7 +168,7 @@ namespace project.RayTracing
                     }
                     else
                     {
-                        if(outT < accelerator.minT) accelerator.minT = outT;
+                        if(outT < r.maxT) r.maxT = outT;
                         return accelerator.triangles[index];
                     }
                         

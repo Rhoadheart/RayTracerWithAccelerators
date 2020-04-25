@@ -14,7 +14,6 @@ namespace project.RayTracing
         public int triangleLimit;
         public int triCount = 0;
         public Mesh mesh;
-        public float minT;
         private BvHNode root;
 
         //For Data Collection
@@ -67,7 +66,6 @@ namespace project.RayTracing
 
         public override Triangle intersect(Ray r, out float t)
         {
-            minT = float.MaxValue;
             Triangle temp = root.intersection(r, out t);
 
             return temp;

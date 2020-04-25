@@ -108,22 +108,21 @@ namespace project.RayTracing
         /// <returns></returns>
         public bool Intersect(Ray r, out float hit0, out float hit1)
         {
-            float t0 = r.minT;//I dont know why I have to cast these. Compiler says r.getMaxT returns float?. This doesn't make sense
+            float t0 = r.minT;
             float t1 = r.maxT;
             Vector3 origin = r.origin;
             Vector3 direction = r.direction;
+            Vector3 invDirection = r.invDirection;
             //Todo: Remove Loop and in-line code
 
             //Update interval for ith bounding box slab
-            float invRaydir;
             float tNear;
             float tFar;
             float temp;
 
-
-            invRaydir = 1f / direction.X;
-            tNear = (min.X - origin.X) * invRaydir;
-            tFar = (max.X - origin.X) * invRaydir;
+            
+            tNear = (min.X - origin.X) * invDirection.X;
+            tFar = (max.X - origin.X) * invDirection.X;
             //Update parametric interval from slab intersection ts
             if (tNear > tFar)
             {
@@ -139,10 +138,9 @@ namespace project.RayTracing
                 hit1 = -1f;
                 return false;
             }
-
-            invRaydir = 1f / direction.Y;
-            tNear = (min.Y - origin.Y) * invRaydir;
-            tFar = (max.Y - origin.Y) * invRaydir;
+            
+            tNear = (min.Y - origin.Y) * invDirection.Y;
+            tFar = (max.Y - origin.Y) * invDirection.Y;
             //Update parametric interval from slab intersection ts
             if (tNear > tFar)
             {
@@ -160,9 +158,8 @@ namespace project.RayTracing
                 return false;
             }
             
-            invRaydir = 1f / direction.Z;
-            tNear = (min.Z- origin.Z) * invRaydir;
-            tFar = (max.Z - origin.Z) * invRaydir;
+            tNear = (min.Z- origin.Z) * invDirection.Z;
+            tFar = (max.Z - origin.Z) * invDirection.Z;
             //Update parametric interval from slab intersection ts
             if (tNear > tFar)
             {
@@ -184,8 +181,24 @@ namespace project.RayTracing
             hit1 = t1;
             return true;
         }
-        
-        
+
+        public bool Intersect(Ray r, out float hit0)
+        {
+            Vector3 t0s = (this.min - r.origin) * r.invDirection;
+            Vector3 t1s = (this.max - r.origin) * r.invDirection;
+
+            Vector3 tsmaller = Min(t0s, t1s);
+            Vector3 tbigger = Max(t0s, t1s);
+                
+            hit0 = Max(r.minT,Max(tsmaller.X, Max(tsmaller.Y, tsmaller.Z)));
+            float hit1 = Min(r.maxT,Min(tbigger.X, Min(tbigger.Y, tbigger.Z)));
+
+            return (hit0 < hit1);
+            
+        }
+
+
+
         public bool inside(Vector3 p)
         {
             return (p.X >= min.X && p.X <= max.X &&
@@ -212,6 +225,34 @@ namespace project.RayTracing
             float temp = a;
             a = b;
             b = temp;
+        }
+
+        static Vector3 Min(Vector3 a, Vector3 b)
+        {
+            return new Vector3(a.X < b.X ? a.X : b.X,
+                              a.Y < b.Y ? a.Y : b.Y,
+                              a.Z < b.Z ? a.Z : b.Z);
+        }
+
+        static Vector3 Max(Vector3 a, Vector3 b)
+        {
+            return new Vector3(a.X > b.X ? a.X : b.X,
+                              a.Y > b.Y ? a.Y : b.Y,
+                              a.Z > b.Z ? a.Z : b.Z);
+        }
+
+        static float Min(float a, float b)
+        {
+            if (a < b)
+                return a;
+            return b;
+        }
+
+        static float Max(float a, float b)
+        {
+            if (a > b)
+                return a;
+            return b;
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ namespace project.RayTracing
         public Vector3 direction;
         public float maxT;
         public float minT;
+        public Vector3 invDirection;
 
         /// <summary>
         /// Default constructor for creating a ray
@@ -26,6 +27,7 @@ namespace project.RayTracing
             this.direction = Vector3.Normalize(direction);
             this.maxT = float.MaxValue;
             this.minT = 0;
+            invDirection = new Vector3(1 / direction.X, 1 / direction.Y, 1 / direction.Z);
         }
 
         /// <summary>

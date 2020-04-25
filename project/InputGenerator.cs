@@ -686,7 +686,7 @@ namespace project
             else
             {
                 RaysPerPixBox.Enabled = true;
-                RaysPerPixBox.Text = "Default: 100";
+                RaysPerPixBox.Text = "Default: 10";
                 RayDistanceLimitBox.Enabled = true;
                 RayDistanceLimitBox.Text = "Default: 2";
             }
