@@ -74,114 +74,37 @@ namespace project.RayTracing
         }
 
 
-        public Triangle intersection(Ray r, out float outT)
+        public Triangle intersection(Ray r)
         {
-            Triangle leftTriangle = null;
-            Triangle rightTriangle = null;
-            float hit0;
-            float hit1;
-            float leftT = float.MaxValue;
-            float rightT = float.MaxValue;
-
-            if (BBox.Intersect(r, out hit0, out hit1))
+            Triangle result = null;
+            if (BBox.Intersect(r))
             {
                 if (left != null && right != null)
-                {
-                    //We have children, and need to check their values.
-                    if (hit0 < r.maxT)
-                    {
-                        leftTriangle = left.intersection(r, out leftT);
-                        if (rightT < r.maxT) r.maxT = rightT;
-                    }
-                    //we check this again because calling left.intersection() could cause r.maxT to update.
-                    if (hit0 < r.maxT)
-                    {
-                        rightTriangle = right.intersection(r, out rightT);
-                        if (leftT < r.maxT) r.maxT = leftT;
-
-                    }
-
-                    
-
-                    if (rightTriangle != null && leftTriangle != null)
-                    {
-                        if (leftT < rightT)
-                        {
-                            outT = leftT;
-                            if (outT < r.maxT) r.maxT = outT;
-                            return leftTriangle;
-                        }
-                        else
-                        {
-                            outT = rightT;
-                            if (outT < r.maxT) r.maxT = outT;
-                            return rightTriangle;
-                        }
-                    }
-                    else if (rightTriangle != null)
-                    {
-                        outT = rightT;
-                        if (outT < r.maxT) r.maxT = outT;
-                        return rightTriangle;
-
-                    }
-                    else if (leftTriangle != null)
-                    {
-                        outT = leftT;
-                        if (outT < r.maxT) r.maxT = outT;
-                        return leftTriangle;
-                    }
-                    else
-                    {
-                        outT = float.MaxValue;
-                        return null;
-                    }
+                {  // Internal node, recurse
+                    result = left.intersection(r);
+                    Triangle rightTri = right.intersection(r);
+                    if (rightTri != null) result = rightTri;
                 }
                 else
-                {
-
-
-                    //Base Case. We need to loop through our list of triangles.
-                    outT = r.maxT;
+                {  // Leaf node, intersect with list of triangles
                     int index = -1;
-
-                    for(int i = start; i <= end; i++)
+                    for (int i = start; i <= end; i++)
                     {
-                        float currentTriangleT;
+                        float t;
 
                         //For Data Collection
                         accelerator.pNumIntersects += 1;
 
-                        if(accelerator.triangles[i].intersection(r, out currentTriangleT))
+                        if (accelerator.triangles[i].intersection(r, out t))
                         {
-                            if(currentTriangleT < outT)
-                            {
-                                index = i;
-                                outT = currentTriangleT;
-                            }
+                            index = i;
+                            r.maxT = t;
                         }
-
                     }
-                    if (index == -1)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        if(outT < r.maxT) r.maxT = outT;
-                        return accelerator.triangles[index];
-                    }
-                        
-
+                    if (index != -1) result = accelerator.triangles[index];
                 }
-                    
             }
-            //If the ray doesn't hit our node
-            else
-            {
-                outT = float.MaxValue;
-                return null;
-            }
+            return result;
         }
 
 

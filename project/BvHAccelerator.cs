@@ -66,7 +66,8 @@ namespace project.RayTracing
 
         public override Triangle intersect(Ray r, out float t)
         {
-            Triangle temp = root.intersection(r, out t);
+            Triangle temp = root.intersection(r);
+            t = r.maxT;
 
             return temp;
         }

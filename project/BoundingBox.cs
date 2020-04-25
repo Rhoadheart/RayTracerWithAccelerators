@@ -182,19 +182,78 @@ namespace project.RayTracing
             return true;
         }
 
-        public bool Intersect(Ray r, out float hit0)
+
+        /// <summary>
+        /// Transcription of the author's code for Ray/BoundingBox intersection. This version does not calculate hit0 or hit1
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        public bool Intersect(Ray r)
         {
-            Vector3 t0s = (this.min - r.origin) * r.invDirection;
-            Vector3 t1s = (this.max - r.origin) * r.invDirection;
+            float t0 = r.minT;
+            float t1 = r.maxT;
+            Vector3 origin = r.origin;
+            Vector3 direction = r.direction;
+            Vector3 invDirection = r.invDirection;
+            //Todo: Remove Loop and in-line code
 
-            Vector3 tsmaller = Min(t0s, t1s);
-            Vector3 tbigger = Max(t0s, t1s);
-                
-            hit0 = Max(r.minT,Max(tsmaller.X, Max(tsmaller.Y, tsmaller.Z)));
-            float hit1 = Min(r.maxT,Min(tbigger.X, Min(tbigger.Y, tbigger.Z)));
+            //Update interval for ith bounding box slab
+            float tNear;
+            float tFar;
+            float temp;
 
-            return (hit0 < hit1);
+
+            tNear = (min.X - origin.X) * invDirection.X;
+            tFar = (max.X - origin.X) * invDirection.X;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
+            {
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                return false;
+            }
+
+            tNear = (min.Y - origin.Y) * invDirection.Y;
+            tFar = (max.Y - origin.Y) * invDirection.Y;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
+            {
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                return false;
+            }
+
+            tNear = (min.Z - origin.Z) * invDirection.Z;
+            tFar = (max.Z - origin.Z) * invDirection.Z;
+            //Update parametric interval from slab intersection ts
+            if (tNear > tFar)
+            {
+                temp = tNear;
+                tNear = tFar;
+                tFar = temp;
+            }
+            t0 = tNear > t0 ? tNear : t0;
+            t1 = tFar < t1 ? tFar : t1;
+            if (t0 > t1)
+            {
+                return false;
+            }
+
             
+            return true;
         }
 
 
@@ -226,35 +285,7 @@ namespace project.RayTracing
             a = b;
             b = temp;
         }
-
-        static Vector3 Min(Vector3 a, Vector3 b)
-        {
-            return new Vector3(a.X < b.X ? a.X : b.X,
-                              a.Y < b.Y ? a.Y : b.Y,
-                              a.Z < b.Z ? a.Z : b.Z);
-        }
-
-        static Vector3 Max(Vector3 a, Vector3 b)
-        {
-            return new Vector3(a.X > b.X ? a.X : b.X,
-                              a.Y > b.Y ? a.Y : b.Y,
-                              a.Z > b.Z ? a.Z : b.Z);
-        }
-
-        static float Min(float a, float b)
-        {
-            if (a < b)
-                return a;
-            return b;
-        }
-
-        static float Max(float a, float b)
-        {
-            if (a > b)
-                return a;
-            return b;
-        }
-
+        
         /// <summary>
         /// Splits a bounding box into 8 equal parts. 
         /// </summary>
