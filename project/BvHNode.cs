@@ -10,14 +10,15 @@ namespace project.RayTracing
     class BvHNode
     {
         
-        private BoundingBox BBox;
-        private BvHNode left;
-        private BvHNode right;
+        public BoundingBox BBox;
+        public BvHNode left;
+        public BvHNode right;
 
         private BvHAccelerator accelerator;
-        private int start;
-        private int end;
+        public int start;
+        public int end;
         private int height;
+        public int numNodes;
 
 
         public BvHNode(BvHAccelerator accelerator, int start, int end, int height)
@@ -28,6 +29,7 @@ namespace project.RayTracing
             this.height = height;
 
             int count = (end - start) + 1;
+            numNodes = count;
             int middle = start + (count / 2) - 1;
 
             //For Data Collection
@@ -63,7 +65,7 @@ namespace project.RayTracing
                 
 
                 //Sort Triangles List
-                QuickSelect.nth_element(ref accelerator.triangles, start, end, middle, axis);
+                QuickSelect.nth_element(ref accelerator.triangles, start, end, axis);
                 
                 //Create two new Node
                 left = new BvHNode(accelerator, start, middle, height + 1);

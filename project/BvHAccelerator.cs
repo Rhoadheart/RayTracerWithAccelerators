@@ -64,15 +64,67 @@ namespace project.RayTracing
 
         }
 
+
+        public override Triangle intersect(Ray r, out float t)
+        {
+            BvHNode thisNode;
+            Triangle result = null;
+            float outT;
+            Stack<BvHNode> NodesToVisit = new Stack<BvHNode>();
+            NodesToVisit.Push(root);
+            t = float.MaxValue;
+            while (true)
+            {
+                if (NodesToVisit.Count > 0)
+                {
+                    thisNode = NodesToVisit.Pop();
+                    if (thisNode.BBox.Intersect(r))
+                    {
+                        if (thisNode.left != null && thisNode.right != null)
+                        { // Internal node, push children
+                            NodesToVisit.Push(thisNode.left);
+                            NodesToVisit.Push(thisNode.right);
+                        }
+                        else
+                        {
+                            int index = -1;
+                            for (int i = thisNode.start; i <= thisNode.end; i++)
+                            {
+                                //For Data Collection
+                                pNumIntersects += 1;
+
+                                if (triangles[i].intersection(r, out outT))
+                                {
+                                    index = i;
+                                    r.maxT = outT;
+                                    t = outT;
+                                }
+                            }
+                            if (index != -1) result = triangles[index];
+                        }
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return result;
+            
+        }
+
+
+        /*
         public override Triangle intersect(Ray r, out float t)
         {
             Triangle temp = root.intersection(r);
             t = r.maxT;
 
             return temp;
-        }
+        }*/
 
-        
+
 
 
 

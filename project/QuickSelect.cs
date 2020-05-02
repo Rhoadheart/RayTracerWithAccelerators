@@ -9,10 +9,11 @@ namespace project.RayTracing
     public class QuickSelect
     {
 
-        public static void nth_element(ref List<Triangle> array, int startIndex, int nthToSeek, int endIndex, int axis)
+        public static void nth_element(ref List<Triangle> array, int startIndex, int endIndex, int axis)
         {
             int from = startIndex;
             int to = endIndex;
+            int nthToSeek = (from + to) / 2;
 
             // if from == to we reached the kth element
             while (from < to)

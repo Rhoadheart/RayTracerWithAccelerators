@@ -42,37 +42,42 @@ namespace project.RayTracing
                         //For each variable
                         
 
-                        Vector3 CP, CO, CU; 
-                        InputFile input = JSONDeserialize(filePath);
-                        CP = new Vector3(input.CPx, input.CPy, input.CPz);
-                        CO = new Vector3(input.COx, input.COy, input.COz);
-                        CU = new Vector3(input.CUx, input.CUy, input.CUz);
-                        
-                        Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
-                        c1.setFov(43);
-                        string filename = input.OBJLocation;
-                        string sceneName = Path.GetFileName(filename).Split('.')[0];
-                        m1 = loader.Load(filename);
-                        filename = input.CSVLocation + "/" + input.OutputFilename +".png";
-                        string csvFileName = input.CSVLocation + "/data.csv";
-
-                        RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
-
-                        if (input.RealTimeRend == true)
+                        Vector3 CP, CO, CU;
+                        List<InputFile> InputFiles = JSONDeserialize(filePath);
+                        foreach(InputFile input in InputFiles)
                         {
-                            RV.Text = "Render Visualizer";
-                            RV.Show();
-                            RV.Owner = this;
-                            //RV.Parent = this;
-                            this.Hide();
+
+                            CP = new Vector3(input.CPx, input.CPy, input.CPz);
+                            CO = new Vector3(input.COx, input.COy, input.COz);
+                            CU = new Vector3(input.CUx, input.CUy, input.CUz);
+
+                            Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
+                            c1.setFov(43);
+                            string filename = input.OBJLocation;
+                            string sceneName = Path.GetFileName(filename).Split('.')[0];
+                            m1 = loader.Load(filename);
+                            filename = input.CSVLocation + "/" + input.OutputFilename + ".png";
+                            string csvFileName = input.CSVLocation + "/data.csv";
+
+                            RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
+
+                            if (input.RealTimeRend == true)
+                            {
+                                RV.Text = "Render Visualizer";
+                                RV.Show();
+                                RV.Owner = this;
+                                //RV.Parent = this;
+                                this.Hide();
+                            }
+                            float rayDisLim = input.RayDistanceLimit;
+                            int rayPerPix = input.RaysPerPixel, heiLimi = input.HeightLimit, triPerNod = input.TrianglesPerNod;
+                            bool AO = input.AmbientOclusion;
+
+                            //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
+                            output = new Image(c1, m1, filename, RV, input.AccelerationStruct, rayPerPix, rayDisLim, heiLimi, triPerNod, AO, sceneName, csvFileName);
+                            RV.Close();
                         }
-                        float rayDisLim = input.RayDistanceLimit;
-                        int rayPerPix = input.RaysPerPixel, heiLimi = input.HeightLimit, triPerNod = input.TrianglesPerNod;
-                        bool AO = input.AmbientOclusion;
                         
-                        //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
-                        output = new Image(c1, m1, filename, RV, input.AccelerationStruct,rayPerPix,rayDisLim,heiLimi,triPerNod,AO,sceneName,csvFileName);
-                        RV.Close();
                         this.Show();
                         GoodGenLabel.Show();
                         GoodGenLabel.Text = "Output Image Created";
@@ -85,7 +90,9 @@ namespace project.RayTracing
                 }
             }
         }
-        
+
+        /*
+
         /// <summary>
         /// Takes a file path and returns a InputFile with JSON text
         /// </summary>
@@ -103,9 +110,49 @@ namespace project.RayTracing
                     // Read the stream to a string, and write the string to the console.
                     JsonString = sr.ReadToEnd();
                 }
-                
+
                 InputFile input = JsonConvert.DeserializeObject<InputFile>(JsonString);
                 return input;
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+            return null;
+
+        }
+        */
+
+        /// <summary>
+        /// Takes a file path and returns a InputFile with JSON text
+        /// </summary>
+        /// <param name="filepath"></param>
+        /// <returns></returns>
+        private List<InputFile> JSONDeserialize(String filepath)
+        {
+            String JsonString;
+            String[] JsonStrings;
+            FileStream inputfile = File.OpenRead(filepath);
+            List<InputFile> InputFiles = new List<InputFile>();
+
+            try
+            {   // Open the text file using a stream reader.
+                using (StreamReader sr = new StreamReader(inputfile))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    JsonString = sr.ReadToEnd();
+                }
+                JsonStrings = JsonString.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+                for (int i = 0; i < JsonStrings.Length; i++)
+                {
+
+                    InputFile input = JsonConvert.DeserializeObject<InputFile>(JsonStrings[i]);
+                    InputFiles.Add(input);
+                }
+
+                return InputFiles;
                 
             }
             catch (IOException e)
