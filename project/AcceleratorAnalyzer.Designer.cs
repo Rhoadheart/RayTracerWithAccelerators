@@ -1,6 +1,6 @@
 ﻿namespace project.RayTracing
 {
-    partial class Form1
+    partial class AcceleratorAnalyzer
     {
         /// <summary>
         /// Required designer variable.
@@ -86,7 +86,7 @@
             this.GoodGenLabel.TabIndex = 7;
             this.GoodGenLabel.Text = "Generation Succesful";
             // 
-            // Form1
+            // AcceleratorAnalyzer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,8 +96,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "AcceleratorAnalyzer";
+            this.Text = "Accelerator Analyzer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

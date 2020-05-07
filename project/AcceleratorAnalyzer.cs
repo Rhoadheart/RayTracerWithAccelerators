@@ -13,9 +13,9 @@ using Newtonsoft.Json;
 
 namespace project.RayTracing
 {
-    public partial class Form1 : Form
+    public partial class AcceleratorAnalyzer : Form
     {
-        public Form1()
+        public AcceleratorAnalyzer()
         {
             InitializeComponent();
         }
