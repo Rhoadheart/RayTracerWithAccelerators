@@ -17,7 +17,7 @@ ssh -N -L 10022:gitlab.cs.plu.edu:22 -L 8000:gitlab.cs.plu.edu:443 rhoadead@have
 
 in git bash:
 
-cd c:/plu/cs/499/project/capstone-2019
+
 
 git -c http.sslVerify=false pull
 git -c http.sslVerify=false push

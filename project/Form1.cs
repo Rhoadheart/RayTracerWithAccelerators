@@ -26,6 +26,7 @@ namespace project.RayTracing
             Mesh m1;
             Image output;
             LoadOBJ loader = new LoadOBJ();
+            RenderVisualizer RV;
 
             openFileDialog1.Filter = "Text File | *.txt";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -46,36 +47,45 @@ namespace project.RayTracing
                         List<InputFile> InputFiles = JSONDeserialize(filePath);
                         foreach(InputFile input in InputFiles)
                         {
+                            RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
 
-                            CP = new Vector3(input.CPx, input.CPy, input.CPz);
-                            CO = new Vector3(input.COx, input.COy, input.COz);
-                            CU = new Vector3(input.CUx, input.CUy, input.CUz);
-
-                            Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
-                            c1.setFov(43);
-                            string filename = input.OBJLocation;
-                            string sceneName = Path.GetFileName(filename).Split('.')[0];
-                            m1 = loader.Load(filename);
-                            filename = input.CSVLocation + "/" + input.OutputFilename + ".png";
-                            string csvFileName = input.CSVLocation + "/data.csv";
-
-                            RenderVisualizer RV = new RenderVisualizer(input.ResolutionX, input.ResolutionY);
-
-                            if (input.RealTimeRend == true)
+                            try
                             {
-                                RV.Text = "Render Visualizer";
-                                RV.Show();
-                                RV.Owner = this;
-                                //RV.Parent = this;
-                                this.Hide();
-                            }
-                            float rayDisLim = input.RayDistanceLimit;
-                            int rayPerPix = input.RaysPerPixel, heiLimi = input.HeightLimit, triPerNod = input.TrianglesPerNod;
-                            bool AO = input.AmbientOclusion;
 
-                            //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
-                            output = new Image(c1, m1, filename, RV, input.AccelerationStruct, rayPerPix, rayDisLim, heiLimi, triPerNod, AO, sceneName, csvFileName);
-                            RV.Close();
+                                CP = new Vector3(input.CPx, input.CPy, input.CPz);
+                                CO = new Vector3(input.COx, input.COy, input.COz);
+                                CU = new Vector3(input.CUx, input.CUy, input.CUz);
+
+                                Camera c1 = new Camera(CP, CO, CU, input.ResolutionX, input.ResolutionY);
+                                c1.setFov(43);
+                                string filename = input.OBJLocation;
+                                string sceneName = Path.GetFileName(filename).Split('.')[0];
+                                m1 = loader.Load(filename);
+                                filename = input.CSVLocation + "/" + input.OutputFilename + ".png";
+                                string csvFileName = input.CSVLocation + "/data.csv";
+
+                                
+
+                                if (input.RealTimeRend == true)
+                                {
+                                    RV.Text = "Render Visualizer";
+                                    RV.Show();
+                                    RV.Owner = this;
+                                    //RV.Parent = this;
+                                    this.Hide();
+                                }
+                                float rayDisLim = input.RayDistanceLimit;
+                                int rayPerPix = input.RaysPerPixel, heiLimi = input.HeightLimit, triPerNod = input.TrianglesPerNod;
+                                bool AO = input.AmbientOclusion;
+
+                                //Todo: Dynamically pass in RaysPerPixel and RayDistanceLimit, HeightLimit, TrianglesPerNode and Colorizer  from JSON
+                                output = new Image(c1, m1, filename, RV, input.AccelerationStruct, rayPerPix, rayDisLim, heiLimi, triPerNod, AO, sceneName, csvFileName);
+                                RV.Close();
+                            }
+                            catch(Exception ex)
+                            {
+                                RV.Close();
+                            }
                         }
                         
                         this.Show();

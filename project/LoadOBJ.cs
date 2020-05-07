@@ -46,7 +46,7 @@ namespace project.RayTracing
                 foreach (string line in resultLines)
                 {
                     linenum++;
-                    if(linenum == 59224)
+                    if (linenum == 59224)
                     {
                         Console.WriteLine();
                     }
@@ -64,16 +64,16 @@ namespace project.RayTracing
                             case "f":
 
                                 //Triangle thisTriangle;
-                                
+
                                 //Assuming we have triangles (3 vertices per face)
                                 string[] values = line.Split(new Char[] { ' ', '/' });
                                 //Vector3 p1, p2, p3, n1, n2, n3;
-                                
+
                                 if (int.Parse(values[1]) > 0)
                                 {
 
                                     int numVertices = values.Count() / 3;
-                                    for(int i = 0; i< numVertices-2; i++)
+                                    for (int i = 0; i < numVertices - 2; i++)
                                     {
                                         //p1 = vertices[int.Parse(values[1]) - 1];
                                         faces.Add(int.Parse(values[1]) - 1);
@@ -96,13 +96,13 @@ namespace project.RayTracing
                                         //thisTriangle = new Triangle(p1, p2, p3, n1, n2, n3);
                                         //triangles.Add(thisTriangle);
                                     }
-                                    
+
                                 }
                                 else
                                 {
                                     verticesSize = vertices.Count;
                                     normalsSize = normals.Count;
-                                    
+
                                     int numVertices = values.Count() / 3;
 
                                     for (int i = 0; i < numVertices - 2; i++)
@@ -130,13 +130,14 @@ namespace project.RayTracing
 
                                     }
                                 }
-                                
+
                                 break;
                             default:
                                 break;
                         }
 
                     }
+
                 }
                 //return new Mesh(triangles);
                 return new Mesh(vertices, normals, faces, vertexNormals);
